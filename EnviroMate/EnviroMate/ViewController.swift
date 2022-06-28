@@ -16,19 +16,35 @@ class ViewController: UIViewController {
         /* Concept code for access API with stored key*/
         let geocodingUrl = "https://api.geoapify.com/v1/geocode/search?text="
         
-        let geocodingUrlParams = "jackson, mississippi"
+        let geocodingUrlParams = "woodbridge, virginia"
         
         let geocodingUrlParamsEncoded = geocodingUrlParams.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         
         let geocodingApiKey = Bundle.main.infoDictionary?["Geocoding_API_KEY"] as! String
         
-        let geocodingFullReqUrl = geocodingUrl + geocodingUrlParamsEncoded + "&apiKey=" + geocodingApiKey
+        let geocodingFullUrl = URL(string: geocodingUrl + geocodingUrlParamsEncoded + "&apiKey=" + geocodingApiKey)!
         
-        print(geocodingUrl)
-        print(geocodingUrlParams)
-        print(geocodingUrlParamsEncoded)
+        // https://cocoacasts.com/networking-fundamentals-how-to-make-an-http-request-in-swift
         
-        print(geocodingFullReqUrl)
+        var geocodingRequest = URLRequest(url: geocodingFullUrl)
+        
+        // ask the URLSession class for the shared singleton session object for performing the request
+        // This method returns a URLSessionDataTask instance and accepts two arguments, a URL object and a completion handler.
+        let geocodingReqTask = URLSession.shared.dataTask(with: geocodingFullUrl) { data, response, error in
+            
+            if let responseData = data {
+                print(responseData)
+            } else {
+                print("Did not get any data")
+            }
+        }
+        
+        // call resume() on the task to execute it
+        
+        geocodingReqTask.resume()
+        
+        
+    
         
     }
 }
