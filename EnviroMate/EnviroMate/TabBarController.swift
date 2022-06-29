@@ -1,22 +1,25 @@
 //
-//  ViewController.swift
+//  TabBarController.swift
 //  EnviroMate
 //
-//  Created by Joshua Boyd on 6/26/22.
+//  Created by Joshua Boyd on 6/28/22.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       // Do any additional setup after loading the view.
+
+        // Do any additional setup after loading the view.
+        
+        // set the default tab bar item that is selected
+        // to the weather item (item 2 where index starts at 0)
+        self.selectedIndex = 2
         
         getLocLatLon()
-        
     }
-    
     
     func getLocLatLon() {
         
@@ -65,5 +68,16 @@ class ViewController: UIViewController {
         // call resume() on the task to execute it
         geocodingReqTask.resume()
     }
-}
+    
 
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}
