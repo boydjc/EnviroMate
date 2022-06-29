@@ -57,7 +57,7 @@
             </objects>
             <point key="canvasLocation" x="854" y="817"/>
         </scene>
-        <!--Item-->
+        <!--Fire / Water-->
         <scene sceneID="OTY-yb-kWZ">
             <objects>
                 <viewController id="L3f-eS-zdV" sceneMemberID="viewController">
@@ -67,14 +67,14 @@
                         <viewLayoutGuide key="safeArea" id="a92-kW-YoC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Af9-Cr-qBo"/>
+                    <tabBarItem key="tabBarItem" title="Fire / Water" id="Af9-Cr-qBo"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="snI-yQ-oTY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-86" y="386"/>
         </scene>
-        <!--Item-->
+        <!--Soil-->
         <scene sceneID="HLg-j6-SbQ">
             <objects>
                 <viewController id="0Lc-ej-2Ts" sceneMemberID="viewController">
@@ -84,7 +84,7 @@
                         <viewLayoutGuide key="safeArea" id="jn8-d5-EH6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="v9z-cp-Zb1"/>
+                    <tabBarItem key="tabBarItem" title="Soil" id="v9z-cp-Zb1"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fcs-HN-dHC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -94,7 +94,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="hdn-UQ-IGQ">
             <objects>
-                <tabBarController id="tQF-57-pMM" sceneMemberID="viewController">
+                <tabBarController id="tQF-57-pMM" customClass="TabBarController" customModule="EnviroMate" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vlO-g8-37L">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
