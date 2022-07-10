@@ -219,6 +219,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="weatherLocTextFieldEditingFinished:" destination="lVO-GH-ikp" eventType="editingDidEndOnExit" id="Djy-t5-lfq"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angeles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpn-wa-6Ah">
                                                 <rect key="frame" x="8" y="118" width="233" height="147"/>
@@ -261,6 +264,10 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="dcT-bC-uC6" appends="YES" id="t1Z-e3-caa"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -286,8 +293,18 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Weather" image="sun" selectedImage="sun" id="0oQ-ad-k6j"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="weatherLatLabel" destination="NWo-lF-Sdk" id="Trx-y1-q9B"/>
+                        <outlet property="weatherLocTextField" destination="5Ja-Db-bI3" id="Eiy-z2-TAc"/>
+                        <outlet property="weatherLonLabel" destination="ePL-qW-F9E" id="eOW-Dv-mlf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z7c-a9-jB9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="dcT-bC-uC6">
+                    <connections>
+                        <action selector="onTapGuestureRecognized:" destination="lVO-GH-ikp" id="HQD-cx-WmC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="853.62318840579712" y="816.96428571428567"/>
         </scene>
