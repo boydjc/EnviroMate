@@ -4,6 +4,8 @@
 <dict>
 	<key>Geocoding_API_KEY</key>
 	<string>$(Geocoding_API_KEY)</string>
+	<key>Ambee_API_KEY</key>
+	<string>$(Ambee_API_KEY)</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
