@@ -18,7 +18,7 @@ class TabBarController: UITabBarController {
         // to the weather item (item 2 where index starts at 0)
         self.selectedIndex = 2
         
-        getLocLatLon()
+        //getLocLatLon()
         
         //let ambeeApiKey = Bundle.main.infoDictionary?["Ambee_API_KEY"] as! String
         
