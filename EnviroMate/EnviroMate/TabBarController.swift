@@ -20,7 +20,7 @@ class TabBarController: UITabBarController {
         
         //getLocLatLon()
         
-        let ambeeApiKey = Bundle.main.infoDictionary?["Ambee_API_KEY"] as! String
+        //let ambeeApiKey = Bundle.main.infoDictionary?["Ambee_API_KEY"] as! String
         
         
         
@@ -38,7 +38,7 @@ class TabBarController: UITabBarController {
         
         let geocodingFullUrl = URL(string: geocodingUrl + geocodingAddrEncoded + "&apiKey=" + geocodingApiKey)!
         
-        //print(geocodingFullUrl)
+        print(geocodingFullUrl)
         
         var geocodingRequest = URLRequest(url: geocodingFullUrl)
         

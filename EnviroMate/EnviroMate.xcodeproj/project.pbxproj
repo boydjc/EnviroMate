@@ -24,7 +24,7 @@
 		42B7993D286939610010E6A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42B79940286939610010E6A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42B79942286939610010E6A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		42B7994828693A850010E6A2 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		42FAE0AC287B453A001D068C /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +41,7 @@
 		42B799282869395E0010E6A2 = {
 			isa = PBXGroup;
 			children = (
-				42B7994828693A850010E6A2 /* Config.xcconfig */,
+				42FAE0AC287B453A001D068C /* Config.xcconfig */,
 				42B799332869395E0010E6A2 /* EnviroMate */,
 				42B799322869395E0010E6A2 /* Products */,
 			);
@@ -170,7 +170,7 @@
 /* Begin XCBuildConfiguration section */
 		42B79943286939610010E6A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42B7994828693A850010E6A2 /* Config.xcconfig */;
+			baseConfigurationReference = 42FAE0AC287B453A001D068C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -231,7 +231,7 @@
 		};
 		42B79944286939610010E6A2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 42B7994828693A850010E6A2 /* Config.xcconfig */;
+			baseConfigurationReference = 42FAE0AC287B453A001D068C /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
