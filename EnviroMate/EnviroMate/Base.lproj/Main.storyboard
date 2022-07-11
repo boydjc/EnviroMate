@@ -11,7 +11,7 @@
         <!--Plants-->
         <scene sceneID="FdR-75-CVi">
             <objects>
-                <viewController id="MYL-6U-gez" sceneMemberID="viewController">
+                <viewController id="MYL-6U-gez" customClass="PlantContentViewController" customModule="EnviroMate" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZIy-Ps-ol7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -326,7 +326,7 @@
         <!--Fire / Water-->
         <scene sceneID="OTY-yb-kWZ">
             <objects>
-                <viewController id="L3f-eS-zdV" sceneMemberID="viewController">
+                <viewController id="L3f-eS-zdV" customClass="FireWaterContentViewController" customModule="EnviroMate" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iXo-Hw-Jcn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -421,7 +421,7 @@
         <!--Soil-->
         <scene sceneID="HLg-j6-SbQ">
             <objects>
-                <viewController id="0Lc-ej-2Ts" sceneMemberID="viewController">
+                <viewController id="0Lc-ej-2Ts" customClass="SoilContentViewController" customModule="EnviroMate" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Yfb-5e-1Sv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

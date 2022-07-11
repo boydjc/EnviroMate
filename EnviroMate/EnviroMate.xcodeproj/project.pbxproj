@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4210C69B287C649100650DF5 /* AirQualityContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4210C69A287C649100650DF5 /* AirQualityContentViewController.swift */; };
+		4210C69D287C695800650DF5 /* PlantContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4210C69C287C695800650DF5 /* PlantContentViewController.swift */; };
+		4210C69F287C69F000650DF5 /* FireWaterContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4210C69E287C69F000650DF5 /* FireWaterContentViewController.swift */; };
+		4210C6A1287C6A4F00650DF5 /* SoilContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4210C6A0287C6A4F00650DF5 /* SoilContentViewController.swift */; };
 		4270942B286BE7200002E95A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4270942A286BE7200002E95A /* TabBarController.swift */; };
 		42B799352869395E0010E6A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B799342869395E0010E6A2 /* AppDelegate.swift */; };
 		42B799372869395E0010E6A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B799362869395E0010E6A2 /* SceneDelegate.swift */; };
@@ -19,6 +22,9 @@
 
 /* Begin PBXFileReference section */
 		4210C69A287C649100650DF5 /* AirQualityContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityContentViewController.swift; sourceTree = "<group>"; };
+		4210C69C287C695800650DF5 /* PlantContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantContentViewController.swift; sourceTree = "<group>"; };
+		4210C69E287C69F000650DF5 /* FireWaterContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireWaterContentViewController.swift; sourceTree = "<group>"; };
+		4210C6A0287C6A4F00650DF5 /* SoilContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoilContentViewController.swift; sourceTree = "<group>"; };
 		4270942A286BE7200002E95A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		42B799312869395E0010E6A2 /* EnviroMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnviroMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42B799342869395E0010E6A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +51,8 @@
 		42B799282869395E0010E6A2 = {
 			isa = PBXGroup;
 			children = (
+				4210C6A0287C6A4F00650DF5 /* SoilContentViewController.swift */,
+				4210C69E287C69F000650DF5 /* FireWaterContentViewController.swift */,
 				42FAE0AC287B453A001D068C /* Config.xcconfig */,
 				42B799332869395E0010E6A2 /* EnviroMate */,
 				42B799322869395E0010E6A2 /* Products */,
@@ -67,6 +75,7 @@
 				4270942A286BE7200002E95A /* TabBarController.swift */,
 				42FAE0B2287B59DF001D068C /* WeatherContentViewController.swift */,
 				42B7993A2869395E0010E6A2 /* Main.storyboard */,
+				4210C69C287C695800650DF5 /* PlantContentViewController.swift */,
 				4210C69A287C649100650DF5 /* AirQualityContentViewController.swift */,
 				42B7993D286939610010E6A2 /* Assets.xcassets */,
 				42B7993F286939610010E6A2 /* LaunchScreen.storyboard */,
@@ -149,7 +158,10 @@
 				4210C69B287C649100650DF5 /* AirQualityContentViewController.swift in Sources */,
 				4270942B286BE7200002E95A /* TabBarController.swift in Sources */,
 				42B799352869395E0010E6A2 /* AppDelegate.swift in Sources */,
+				4210C6A1287C6A4F00650DF5 /* SoilContentViewController.swift in Sources */,
 				42B799372869395E0010E6A2 /* SceneDelegate.swift in Sources */,
+				4210C69D287C695800650DF5 /* PlantContentViewController.swift in Sources */,
+				4210C69F287C69F000650DF5 /* FireWaterContentViewController.swift in Sources */,
 				42FAE0B3287B59E1001D068C /* WeatherContentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
