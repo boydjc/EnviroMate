@@ -105,7 +105,7 @@
         <!--Air-->
         <scene sceneID="KpN-Uf-pqx">
             <objects>
-                <viewController id="vG1-nj-MJ6" sceneMemberID="viewController">
+                <viewController id="vG1-nj-MJ6" customClass="AirQualityContentViewController" customModule="EnviroMate" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l0F-N5-3LW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -125,6 +125,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="airQualLocTextFieldDoneEditing:" destination="vG1-nj-MJ6" eventType="editingDidEndOnExit" id="iUR-h7-fbl"/>
+                                                </connections>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="airLarge" translatesAutoresizingMaskIntoConstraints="NO" id="OmH-bF-hvk">
                                                 <rect key="frame" x="249" y="118" width="157" height="147"/>
@@ -167,6 +170,10 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="L2l-Tu-H2w" appends="YES" id="CAg-Lm-PVR"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -191,8 +198,16 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Air" image="air" id="z70-6E-Gju"/>
+                    <connections>
+                        <outlet property="airQualLocTextField" destination="nGI-P8-NjY" id="Dfa-ng-CKS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H70-cv-izd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="L2l-Tu-H2w">
+                    <connections>
+                        <action selector="tapGuestureRecognized:" destination="vG1-nj-MJ6" id="kgL-dH-QZb"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1744.9275362318842" y="-279.24107142857139"/>
         </scene>

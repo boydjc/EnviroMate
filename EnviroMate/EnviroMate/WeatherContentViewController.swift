@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import WebKit
 
 class WeatherContentViewController: UIViewController {
 
@@ -15,6 +14,7 @@ class WeatherContentViewController: UIViewController {
     
     @IBAction func weatherLocTextFieldEditingFinished(_ sender: UITextField) {
         sender.resignFirstResponder()
+        // update the ui
     }
     
     @IBOutlet weak var weatherLatLabel: UILabel!
@@ -23,6 +23,7 @@ class WeatherContentViewController: UIViewController {
     
     @IBAction func onTapGuestureRecognized(_ sender: Any) {
         weatherLocTextField.resignFirstResponder()
+        // update the ui
     }
     
     
