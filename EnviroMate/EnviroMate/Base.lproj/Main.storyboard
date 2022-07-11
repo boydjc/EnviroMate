@@ -31,6 +31,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="plantLocTextFieldDoneEditing:" destination="MYL-6U-gez" eventType="editingDidEndOnExit" id="NGB-sc-xOT"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angeles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kC-Z6-k2w">
                                                 <rect key="frame" x="8" y="118" width="233" height="147"/>
@@ -73,6 +76,10 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="9ZK-Af-C3u" appends="YES" id="gvh-Q5-SBS"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -97,8 +104,16 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Plants" image="plant" id="a0s-Tp-K82"/>
+                    <connections>
+                        <outlet property="plantLocTextField" destination="tdZ-oc-Nwm" id="xfm-Dw-zYx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7MP-gX-cXn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="9ZK-Af-C3u">
+                    <connections>
+                        <action selector="tapGuestureRecognized:" destination="MYL-6U-gez" id="Dwk-rU-aKn"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1744.9275362318842" y="385.71428571428572"/>
         </scene>
@@ -346,6 +361,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="fireWaterLocTextFieldDoneEditing:" destination="L3f-eS-zdV" eventType="editingDidEndOnExit" id="gmx-eX-nZh"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angeles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59O-pC-JKP">
                                                 <rect key="frame" x="8" y="118" width="233" height="147"/>
@@ -388,6 +406,10 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="2rE-cq-0Ss" appends="YES" id="SUn-QJ-ddc"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -413,8 +435,16 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Fire / Water" image="fireandwater" id="Af9-Cr-qBo"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="fireWaterLocTextField" destination="zaF-Ad-XFR" id="rjC-bU-SXZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="snI-yQ-oTY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="2rE-cq-0Ss">
+                    <connections>
+                        <action selector="tapGuestureRecognized:" destination="L3f-eS-zdV" id="i9q-Y0-xHJ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-86.956521739130437" y="385.71428571428572"/>
         </scene>
@@ -441,6 +471,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="soilLocTextFieldDoneEditing:" destination="0Lc-ej-2Ts" eventType="editingDidEndOnExit" id="b73-T1-2VE"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angeles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="426-Vz-Wzc">
                                                 <rect key="frame" x="8" y="118" width="233" height="147"/>
@@ -483,6 +516,10 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="6h4-Mb-f9j" appends="YES" id="q9a-3i-JXi"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -508,8 +545,16 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Soil" image="soil" id="v9z-cp-Zb1"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="soilLocTextField" destination="epF-4t-VKq" id="lwS-Nb-KT4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fcs-HN-dHC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="6h4-Mb-f9j">
+                    <connections>
+                        <action selector="tapGuestureRecognized:" destination="0Lc-ej-2Ts" id="4ph-lw-CRR"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-88.405797101449281" y="-279.24107142857139"/>
         </scene>

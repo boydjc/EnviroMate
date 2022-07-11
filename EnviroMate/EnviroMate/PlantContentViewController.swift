@@ -9,6 +9,18 @@ import UIKit
 
 class PlantContentViewController: UIViewController {
 
+    @IBOutlet weak var plantLocTextField: UITextField!
+    
+    
+    @IBAction func plantLocTextFieldDoneEditing(_ sender: UITextField) {
+        sender.resignFirstResponder()
+    }
+    
+    
+    @IBAction func tapGuestureRecognized(_ sender: Any) {
+        plantLocTextField.resignFirstResponder()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
