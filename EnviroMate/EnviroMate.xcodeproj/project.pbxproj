@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4210C69B287C649100650DF5 /* AirQualityContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4210C69A287C649100650DF5 /* AirQualityContentViewController.swift */; };
 		4270942B286BE7200002E95A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4270942A286BE7200002E95A /* TabBarController.swift */; };
 		42B799352869395E0010E6A2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B799342869395E0010E6A2 /* AppDelegate.swift */; };
 		42B799372869395E0010E6A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B799362869395E0010E6A2 /* SceneDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4210C69A287C649100650DF5 /* AirQualityContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityContentViewController.swift; sourceTree = "<group>"; };
 		4270942A286BE7200002E95A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		42B799312869395E0010E6A2 /* EnviroMate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnviroMate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42B799342869395E0010E6A2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 				4270942A286BE7200002E95A /* TabBarController.swift */,
 				42FAE0B2287B59DF001D068C /* WeatherContentViewController.swift */,
 				42B7993A2869395E0010E6A2 /* Main.storyboard */,
+				4210C69A287C649100650DF5 /* AirQualityContentViewController.swift */,
 				42B7993D286939610010E6A2 /* Assets.xcassets */,
 				42B7993F286939610010E6A2 /* LaunchScreen.storyboard */,
 				42B79942286939610010E6A2 /* Info.plist */,
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4210C69B287C649100650DF5 /* AirQualityContentViewController.swift in Sources */,
 				4270942B286BE7200002E95A /* TabBarController.swift in Sources */,
 				42B799352869395E0010E6A2 /* AppDelegate.swift in Sources */,
 				42B799372869395E0010E6A2 /* SceneDelegate.swift in Sources */,
