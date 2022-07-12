@@ -9,6 +9,18 @@ import UIKit
 
 class SoilContentViewController: UIViewController {
 
+    @IBOutlet weak var soilLocTextField: UITextField!
+    
+    @IBAction func soilLocTextFieldDoneEditing(_ sender: UITextField) {
+        sender.resignFirstResponder()
+    }
+    
+    
+    @IBAction func tapGuestureRecognized(_ sender: Any) {
+        soilLocTextField.resignFirstResponder()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

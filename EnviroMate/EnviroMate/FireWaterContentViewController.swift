@@ -9,6 +9,16 @@ import UIKit
 
 class FireWaterContentViewController: UIViewController {
 
+    @IBOutlet weak var fireWaterLocTextField: UITextField!
+    
+    @IBAction func tapGuestureRecognized(_ sender: Any) {
+        fireWaterLocTextField.resignFirstResponder()
+    }
+    
+    @IBAction func fireWaterLocTextFieldDoneEditing(_ sender: UITextField) {
+        sender.resignFirstResponder()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -51,8 +51,6 @@
 		42B799282869395E0010E6A2 = {
 			isa = PBXGroup;
 			children = (
-				4210C6A0287C6A4F00650DF5 /* SoilContentViewController.swift */,
-				4210C69E287C69F000650DF5 /* FireWaterContentViewController.swift */,
 				42FAE0AC287B453A001D068C /* Config.xcconfig */,
 				42B799332869395E0010E6A2 /* EnviroMate */,
 				42B799322869395E0010E6A2 /* Products */,
@@ -70,10 +68,12 @@
 		42B799332869395E0010E6A2 /* EnviroMate */ = {
 			isa = PBXGroup;
 			children = (
+				4210C6A0287C6A4F00650DF5 /* SoilContentViewController.swift */,
 				42B799342869395E0010E6A2 /* AppDelegate.swift */,
 				42B799362869395E0010E6A2 /* SceneDelegate.swift */,
 				4270942A286BE7200002E95A /* TabBarController.swift */,
 				42FAE0B2287B59DF001D068C /* WeatherContentViewController.swift */,
+				4210C69E287C69F000650DF5 /* FireWaterContentViewController.swift */,
 				42B7993A2869395E0010E6A2 /* Main.storyboard */,
 				4210C69C287C695800650DF5 /* PlantContentViewController.swift */,
 				4210C69A287C649100650DF5 /* AirQualityContentViewController.swift */,

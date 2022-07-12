@@ -31,6 +31,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="plantLocTextFieldDoneEditing:" destination="MYL-6U-gez" eventType="editingDidEndOnExit" id="NGB-sc-xOT"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angeles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4kC-Z6-k2w">
                                                 <rect key="frame" x="8" y="118" width="233" height="147"/>
@@ -73,6 +76,10 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="9ZK-Af-C3u" appends="YES" id="gvh-Q5-SBS"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -97,8 +104,16 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Plants" image="plant" id="a0s-Tp-K82"/>
+                    <connections>
+                        <outlet property="plantLocTextField" destination="tdZ-oc-Nwm" id="xfm-Dw-zYx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7MP-gX-cXn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="9ZK-Af-C3u">
+                    <connections>
+                        <action selector="tapGuestureRecognized:" destination="MYL-6U-gez" id="Dwk-rU-aKn"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1744.9275362318842" y="385.71428571428572"/>
         </scene>
@@ -225,66 +240,90 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q3x-aI-K2a" userLabel="Weather Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="enviromateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="8Zp-we-axW">
-                                                <rect key="frame" x="8" y="0.0" width="240" height="68"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="California" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fn-XS-Hgw">
+                                                <rect key="frame" x="8" y="344" width="398" height="54"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="45"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunAnimate" translatesAutoresizingMaskIntoConstraints="NO" id="7cB-af-a3X">
+                                                <rect key="frame" x="8" y="118" width="398" height="150"/>
                                             </imageView>
-                                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a City/Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Ja-Db-bI3">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="enviromateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="8Zp-we-axW">
+                                                <rect key="frame" x="16" y="8" width="224" height="68"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 Test Address Circle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltW-ZF-jup">
+                                                <rect key="frame" x="8" y="406" width="398" height="27.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lat: 20.48" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWo-lF-Sdk">
+                                                <rect key="frame" x="16" y="451" width="190" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="NWo-lF-Sdk" secondAttribute="height" multiplier="95:14" id="2ew-RW-MlA"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Los Angeles" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpn-wa-6Ah">
+                                                <rect key="frame" x="8" y="276" width="398" height="60"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter a City/Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Ja-Db-bI3">
                                                 <rect key="frame" x="8" y="76" width="398" height="34"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
                                                     <action selector="weatherLocTextFieldEditingFinished:" destination="lVO-GH-ikp" eventType="editingDidEndOnExit" id="Djy-t5-lfq"/>
                                                 </connections>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angeles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gpn-wa-6Ah">
-                                                <rect key="frame" x="8" y="118" width="233" height="147"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="61"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="California" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fn-XS-Hgw">
-                                                <rect key="frame" x="8" y="273" width="398" height="66"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="sunAnimate" translatesAutoresizingMaskIntoConstraints="NO" id="7cB-af-a3X">
-                                                <rect key="frame" x="249" y="118" width="157" height="147"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="123 Test Address Circle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltW-ZF-jup">
-                                                <rect key="frame" x="8" y="347" width="398" height="31"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lat: 20.48" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWo-lF-Sdk">
-                                                <rect key="frame" x="8" y="386" width="197" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Lon: 20.48" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePL-qW-F9E">
-                                                <rect key="frame" x="209" y="386" width="197" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lon: 20.48" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePL-qW-F9E">
+                                                <rect key="frame" x="214" y="451" width="192" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="ePL-qW-F9E" secondAttribute="height" multiplier="48:7" id="qkg-OX-Qon"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="backgroundColor" red="0.52941176470588236" green="0.80784313725490198" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="ltW-ZF-jup" secondAttribute="trailing" constant="8" id="2e9-vS-zNz"/>
+                                            <constraint firstItem="gpn-wa-6Ah" firstAttribute="top" secondItem="Q3x-aI-K2a" secondAttribute="top" constant="276" id="BRt-84-yx7"/>
+                                            <constraint firstItem="8Zp-we-axW" firstAttribute="top" secondItem="Q3x-aI-K2a" secondAttribute="top" constant="8" id="CLV-4M-5WF"/>
+                                            <constraint firstItem="gpn-wa-6Ah" firstAttribute="top" secondItem="7cB-af-a3X" secondAttribute="bottom" constant="8" id="HOU-fa-I8H"/>
+                                            <constraint firstAttribute="trailing" secondItem="ePL-qW-F9E" secondAttribute="trailing" constant="8" id="MHU-j2-ohv"/>
+                                            <constraint firstItem="ltW-ZF-jup" firstAttribute="leading" secondItem="Q3x-aI-K2a" secondAttribute="leading" constant="8" id="OwL-fx-FUg"/>
+                                            <constraint firstItem="NWo-lF-Sdk" firstAttribute="top" secondItem="ltW-ZF-jup" secondAttribute="bottom" constant="17.5" id="QiM-1S-KfA"/>
+                                            <constraint firstItem="NWo-lF-Sdk" firstAttribute="leading" secondItem="Q3x-aI-K2a" secondAttribute="leading" constant="16" id="S9l-vp-Te3"/>
+                                            <constraint firstItem="8Zp-we-axW" firstAttribute="leading" secondItem="Q3x-aI-K2a" secondAttribute="leading" constant="16" id="Vc0-ve-zMH"/>
+                                            <constraint firstItem="ePL-qW-F9E" firstAttribute="top" secondItem="ltW-ZF-jup" secondAttribute="bottom" constant="17.5" id="bfj-Re-b17"/>
+                                            <constraint firstItem="9fn-XS-Hgw" firstAttribute="top" secondItem="Q3x-aI-K2a" secondAttribute="top" constant="344" id="ceO-on-hjX"/>
+                                            <constraint firstAttribute="trailing" secondItem="8Zp-we-axW" secondAttribute="trailing" constant="174" id="d6K-ty-Dmg"/>
+                                            <constraint firstAttribute="trailing" secondItem="5Ja-Db-bI3" secondAttribute="trailing" constant="8" id="d6v-33-bwi"/>
+                                            <constraint firstItem="5Ja-Db-bI3" firstAttribute="leading" secondItem="Q3x-aI-K2a" secondAttribute="leading" constant="8" id="deZ-BW-DmL"/>
+                                            <constraint firstAttribute="trailing" secondItem="9fn-XS-Hgw" secondAttribute="trailing" constant="8" id="faq-Eg-qB5"/>
+                                            <constraint firstItem="7cB-af-a3X" firstAttribute="top" secondItem="Q3x-aI-K2a" secondAttribute="top" constant="118" id="j0u-D3-f2M"/>
+                                            <constraint firstItem="5Ja-Db-bI3" firstAttribute="top" secondItem="Q3x-aI-K2a" secondAttribute="top" constant="76" id="n93-V1-i3E"/>
+                                            <constraint firstAttribute="trailing" secondItem="gpn-wa-6Ah" secondAttribute="trailing" constant="8" id="nIn-4z-w3R"/>
+                                            <constraint firstAttribute="trailing" secondItem="7cB-af-a3X" secondAttribute="trailing" constant="8" id="tI8-zn-AMP"/>
+                                            <constraint firstItem="7cB-af-a3X" firstAttribute="leading" secondItem="Q3x-aI-K2a" secondAttribute="leading" constant="8" id="tga-ys-hbO"/>
+                                            <constraint firstItem="ltW-ZF-jup" firstAttribute="top" secondItem="Q3x-aI-K2a" secondAttribute="top" constant="406" id="wA1-Uk-UYc"/>
+                                            <constraint firstItem="9fn-XS-Hgw" firstAttribute="leading" secondItem="Q3x-aI-K2a" secondAttribute="leading" constant="8" id="wx0-lY-Zd2"/>
+                                            <constraint firstItem="gpn-wa-6Ah" firstAttribute="leading" secondItem="Q3x-aI-K2a" secondAttribute="leading" constant="8" id="zDf-mW-Nx6"/>
+                                        </constraints>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="dcT-bC-uC6" appends="YES" id="t1Z-e3-caa"/>
                                         </connections>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" red="0.52941176470588236" green="0.80784313725490198" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Q3x-aI-K2a" firstAttribute="leading" secondItem="E39-DW-oi0" secondAttribute="leading" id="BDl-Bd-IAD"/>
                                     <constraint firstAttribute="bottom" secondItem="Q3x-aI-K2a" secondAttribute="bottom" id="iHU-kl-nKi"/>
@@ -309,9 +348,12 @@
                     <tabBarItem key="tabBarItem" title="Weather" image="sun" selectedImage="sun" id="0oQ-ad-k6j"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="weatherAddrLabel" destination="ltW-ZF-jup" id="Cdn-3u-SIo"/>
+                        <outlet property="weatherCityLabel" destination="gpn-wa-6Ah" id="DFI-i7-YWj"/>
                         <outlet property="weatherLatLabel" destination="NWo-lF-Sdk" id="Trx-y1-q9B"/>
                         <outlet property="weatherLocTextField" destination="5Ja-Db-bI3" id="Eiy-z2-TAc"/>
                         <outlet property="weatherLonLabel" destination="ePL-qW-F9E" id="eOW-Dv-mlf"/>
+                        <outlet property="weatherStateLabel" destination="9fn-XS-Hgw" id="vQI-Rp-e6L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z7c-a9-jB9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -321,7 +363,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="853.62318840579712" y="816.96428571428567"/>
+            <point key="canvasLocation" x="852.17391304347836" y="816.29464285714278"/>
         </scene>
         <!--Fire / Water-->
         <scene sceneID="OTY-yb-kWZ">
@@ -346,6 +388,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="fireWaterLocTextFieldDoneEditing:" destination="L3f-eS-zdV" eventType="editingDidEndOnExit" id="gmx-eX-nZh"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angeles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="59O-pC-JKP">
                                                 <rect key="frame" x="8" y="118" width="233" height="147"/>
@@ -388,6 +433,10 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="2rE-cq-0Ss" appends="YES" id="SUn-QJ-ddc"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -413,8 +462,16 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Fire / Water" image="fireandwater" id="Af9-Cr-qBo"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="fireWaterLocTextField" destination="zaF-Ad-XFR" id="rjC-bU-SXZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="snI-yQ-oTY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="2rE-cq-0Ss">
+                    <connections>
+                        <action selector="tapGuestureRecognized:" destination="L3f-eS-zdV" id="i9q-Y0-xHJ"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-86.956521739130437" y="385.71428571428572"/>
         </scene>
@@ -441,6 +498,9 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <action selector="soilLocTextFieldDoneEditing:" destination="0Lc-ej-2Ts" eventType="editingDidEndOnExit" id="b73-T1-2VE"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Los Angeles" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="426-Vz-Wzc">
                                                 <rect key="frame" x="8" y="118" width="233" height="147"/>
@@ -483,6 +543,10 @@
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="6h4-Mb-f9j" appends="YES" id="q9a-3i-JXi"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <constraints>
@@ -508,8 +572,16 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Soil" image="soil" id="v9z-cp-Zb1"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="soilLocTextField" destination="epF-4t-VKq" id="lwS-Nb-KT4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fcs-HN-dHC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="6h4-Mb-f9j">
+                    <connections>
+                        <action selector="tapGuestureRecognized:" destination="0Lc-ej-2Ts" id="4ph-lw-CRR"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-88.405797101449281" y="-279.24107142857139"/>
         </scene>

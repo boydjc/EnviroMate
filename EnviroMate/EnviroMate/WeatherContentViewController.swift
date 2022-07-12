@@ -15,8 +15,12 @@ class WeatherContentViewController: UIViewController {
     @IBAction func weatherLocTextFieldEditingFinished(_ sender: UITextField) {
         sender.resignFirstResponder()
         // update the ui
+        getLocLatLon(weatherLocTextField.text!)
     }
     
+    @IBOutlet weak var weatherCityLabel: UILabel!
+    @IBOutlet weak var weatherStateLabel: UILabel!
+    @IBOutlet weak var weatherAddrLabel: UILabel!
     @IBOutlet weak var weatherLatLabel: UILabel!
     @IBOutlet weak var weatherLonLabel: UILabel!
     
@@ -24,6 +28,7 @@ class WeatherContentViewController: UIViewController {
     @IBAction func onTapGuestureRecognized(_ sender: Any) {
         weatherLocTextField.resignFirstResponder()
         // update the ui
+        getLocLatLon(weatherLocTextField.text!)
     }
     
     
@@ -34,11 +39,11 @@ class WeatherContentViewController: UIViewController {
         
     }
     
-    func getLocLatLon() {
+    func getLocLatLon(_ addr: String) {
         
         let geocodingUrl = "https://api.geoapify.com/v1/geocode/search?text="
         
-        let addr = "New York City, New York"
+        //let addr = "New York City, New York"
         
         let geocodingAddrEncoded = addr.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         
@@ -46,7 +51,7 @@ class WeatherContentViewController: UIViewController {
         
         let geocodingFullUrl = URL(string: geocodingUrl + geocodingAddrEncoded + "&apiKey=" + geocodingApiKey)!
         
-        print(geocodingFullUrl)
+        //print(geocodingFullUrl)
         
         var geocodingRequest = URLRequest(url: geocodingFullUrl)
         
@@ -59,14 +64,24 @@ class WeatherContentViewController: UIViewController {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let featuresArr = responseDict["features"] as? [Any]
+                        print(featuresArr!)
                         let firstFeature = featuresArr![0] as? [String: Any]
                         let propertiesDict = firstFeature!["properties"] as? [String: Any]
-                        //print(propertiesDict!["address_line1"]!)
-                        //print(propertiesDict!["address_line2"]!)
-                        print("Lat: " + String(propertiesDict!["lat"] as! Double))
-                        let lat = propertiesDict!["lat"] as? Double
-                        print("Lon: " + String(propertiesDict!["lon"] as! Double))
-                        let lon = propertiesDict!["lon"] as? Double
+                        //print(propertiesDict!)
+                        //print("Lat: " + String(propertiesDict!["lat"] as! Double))
+                        let lat = propertiesDict!["lat"] as? Double ?? 0.00
+                        self.weatherLatLabel.text = String(lat)
+                        //print("Lon: " + String(propertiesDict!["lon"] as! Double))
+                        let lon = propertiesDict!["lon"] as? Double ?? 0.00
+                        self.weatherLonLabel.text = String(lon)
+                        let city = propertiesDict!["city"] as? String ?? "Error"
+                        let state = propertiesDict!["state"] as? String ?? "Error"
+                        if(propertiesDict!.keys.contains("housenumber")) {
+                            self.weatherAddrLabel.text = propertiesDict!["formatted"] as? String ?? "Error"
+                        } else {
+                            self.weatherAddrLabel.isHidden = true
+                        }
+                        
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
