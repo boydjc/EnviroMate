@@ -11,18 +11,19 @@ class WeatherContentViewController: UIViewController {
 
     @IBOutlet weak var weatherLocTextField: UITextField!
     
-    
-    @IBAction func weatherLocTextFieldEditingFinished(_ sender: UITextField) {
-        sender.resignFirstResponder()
-        // update the ui
-        getLocLatLon(weatherLocTextField.text!)
-    }
+    @IBOutlet weak var weatherContentView: UIView!
     
     @IBOutlet weak var weatherCityLabel: UILabel!
     @IBOutlet weak var weatherStateLabel: UILabel!
     @IBOutlet weak var weatherAddrLabel: UILabel!
     @IBOutlet weak var weatherLatLabel: UILabel!
     @IBOutlet weak var weatherLonLabel: UILabel!
+    
+    @IBAction func weatherLocTextFieldEditingFinished(_ sender: UITextField) {
+        sender.resignFirstResponder()
+        // update the ui
+        getLocLatLon(weatherLocTextField.text!)
+    }
     
     
     @IBAction func onTapGuestureRecognized(_ sender: Any) {
@@ -37,6 +38,17 @@ class WeatherContentViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        // Create a gradient layer for the content view.
+        let gradientLayer = CAGradientLayer()
+        // Set the size of the layer to be equal to size of the display.
+        gradientLayer.frame = view.bounds
+        // Set an array of Core Graphics colors (.cgColor) to create the gradient.
+        // This example uses a Color Literal and a UIColor from RGB values.
+        gradientLayer.colors = [#colorLiteral(red: 0.5294117647, green: 0.7938390981, blue: 0.9215686275, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+        // Rasterize this static layer to improve app performance.
+        gradientLayer.shouldRasterize = true
+        // Apply the gradient to the backgroundGradientView.
+        weatherContentView.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     func getLocLatLon(_ addr: String) {
@@ -57,6 +69,12 @@ class WeatherContentViewController: UIViewController {
         
         geocodingRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        var lat = 0.00
+        var lon = 0.00
+        var city = ""
+        var state = ""
+        var addr = ""
+        
         // ask the URLSession class for the shared singleton session object for performing the request
         // This method returns a URLSessionDataTask instance and accepts two arguments, a URL object and a completion handler.
         let geocodingReqTask = URLSession.shared.dataTask(with: geocodingRequest, completionHandler: {(data, response, error) in
@@ -64,35 +82,37 @@ class WeatherContentViewController: UIViewController {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let featuresArr = responseDict["features"] as? [Any]
-                        print(featuresArr!)
+                        //print(featuresArr!)
                         let firstFeature = featuresArr![0] as? [String: Any]
                         let propertiesDict = firstFeature!["properties"] as? [String: Any]
-                        //print(propertiesDict!)
+                        print(propertiesDict!)
                         //print("Lat: " + String(propertiesDict!["lat"] as! Double))
-                        let lat = propertiesDict!["lat"] as? Double ?? 0.00
-                        self.weatherLatLabel.text = String(lat)
+                        lat = propertiesDict!["lat"] as? Double ?? 0.00
                         //print("Lon: " + String(propertiesDict!["lon"] as! Double))
-                        let lon = propertiesDict!["lon"] as? Double ?? 0.00
-                        self.weatherLonLabel.text = String(lon)
-                        let city = propertiesDict!["city"] as? String ?? "Error"
-                        let state = propertiesDict!["state"] as? String ?? "Error"
+                        lon = propertiesDict!["lon"] as? Double ?? 0.00
+                        city = propertiesDict!["city"] as? String ?? "Error"
+                        state = propertiesDict!["state"] as? String ?? "Error"
                         if(propertiesDict!.keys.contains("housenumber")) {
-                            self.weatherAddrLabel.text = propertiesDict!["formatted"] as? String ?? "Error"
-                        } else {
-                            self.weatherAddrLabel.isHidden = true
+                            addr = propertiesDict!["address_line1"] as? String ?? "Error"
                         }
-                        
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
                 } else {
                     print("Failed to deserialize JSON")
                 }
+                DispatchQueue.main.async {
+                    self.weatherCityLabel.text = city
+                    self.weatherStateLabel.text = state
+                    self.weatherLatLabel.text = "Lat: " + String(lat)
+                    self.weatherLonLabel.text = "Lon: " + String(lon)
+                    self.weatherAddrLabel.text = addr
+                }
             } else {
                 print("Did not get any data from geocoding request")
             }
         })
-        
+    
         // call resume() on the task to execute it
         geocodingReqTask.resume()
     }
