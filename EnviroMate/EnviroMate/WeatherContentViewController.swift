@@ -7,11 +7,12 @@
 
 import UIKit
 
-class WeatherContentViewController: UIViewController {
+class WeatherContentViewController: UIViewController{
 
     @IBOutlet weak var weatherLocTextField: UITextField!
     
     @IBOutlet weak var weatherContentView: UIView!
+    @IBOutlet weak var weatherScrollView: UIScrollView!
     
     @IBOutlet weak var weatherCityLabel: UILabel!
     @IBOutlet weak var weatherStateLabel: UILabel!
@@ -44,12 +45,15 @@ class WeatherContentViewController: UIViewController {
         gradientLayer.frame = view.bounds
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
-        gradientLayer.colors = [#colorLiteral(red: 0.5294117647, green: 0.7938390981, blue: 0.9215686275, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+        gradientLayer.locations = [0, 0.3]
+        gradientLayer.colors = [#colorLiteral(red: 0.5303663611, green: 0.8072693944, blue: 0.9225050211, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
         // Rasterize this static layer to improve app performance.
         gradientLayer.shouldRasterize = true
-        // Apply the gradient to the backgroundGradientView.
+        // Apply the gradient to the backgroundGradientView and scroll view.
         weatherContentView.layer.insertSublayer(gradientLayer, at: 0)
     }
+    
+    
     
     func getLocAttrs(_ lat: Double, _ lon: Double) {
         
