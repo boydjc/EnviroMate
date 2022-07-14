@@ -9,8 +9,8 @@ import UIKit
 
 class SoilContentViewController: UIViewController {
 
+    @IBOutlet weak var soilContentView: UIView!
     @IBOutlet weak var soilLocTextField: UITextField!
-    
     @IBAction func soilLocTextFieldDoneEditing(_ sender: UITextField) {
         sender.resignFirstResponder()
     }
@@ -25,6 +25,19 @@ class SoilContentViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        // Create a gradient layer for the content view.
+        let gradientLayer = CAGradientLayer()
+        // Set the size of the layer to be equal to size of the display.
+        gradientLayer.frame = view.bounds
+        // Set an array of Core Graphics colors (.cgColor) to create the gradient.
+        // This example uses a Color Literal and a UIColor from RGB values.
+        gradientLayer.locations = [0, 0.3]
+        gradientLayer.colors = [#colorLiteral(red: 0.5838552713, green: 0.4331338406, blue: 0.1616405547, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+        // Rasterize this static layer to improve app performance.
+        gradientLayer.shouldRasterize = true
+        // Apply the gradient to the backgroundGradientView and scroll view.
+        soilContentView.layer.insertSublayer(gradientLayer, at: 0)
     }
     
 
