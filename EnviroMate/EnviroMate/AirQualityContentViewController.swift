@@ -31,7 +31,7 @@ class AirQualityContentViewController: UIViewController {
         // Create a gradient layer for the content view.
         let gradientLayer = CAGradientLayer()
         // Set the size of the layer to be equal to size of the display.
-        gradientLayer.frame = view.bounds
+        gradientLayer.frame = airContentView.bounds
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
         gradientLayer.locations = [0, 0.3]
