@@ -51,6 +51,28 @@ class WeatherContentViewController: UIViewController {
         weatherContentView.layer.insertSublayer(gradientLayer, at: 0)
     }
     
+    func getLocAttrs(_ lat: Double, _ lon: Double) {
+        
+        // air quality url https://api.ambeedata.com/latest/by-lat-lng?lat=X&lng=X
+        // green house gas url  https://api.ambeedata.com/ghg/latest/by-lat-lng?lat=X&lng=X
+        // weather url https://api.ambeedata.com/weather/latest/by-lat-lng?lat=X&lng=X
+        // pollen url https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=X&lng=X
+        // fire url https://api.ambeedata.com/latest/fire?lat=X&lng=X
+        // soil url  https://api.ambeedata.com/soil/latest/by-lat-lng?lat=X&lng=X
+        // NDVI url https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=X&lng=X
+        // watervapor url  https://api.ambeedata.com/waterVapor/history/by-lat-lng?lat=X&lng=X&from=2020-07-13 12:16:44&to=2020-07-18 08:16:44
+        
+        //let ambeeApiKey = Bundle.main.infoDictionary?["Ambee_API_KEY"] as! String
+        let ambeeApiTESTKey = "keykeykey123"
+        
+        let airQualityUrl = "https://api.ambeedata.com/latest/by-lat-lng?lat=" + String(lat)
+            + "&lng=" + String(lon)
+        
+        
+        
+        
+    }
+    
     func getLocLatLon(_ addr: String) {
         
         let geocodingUrl = "https://api.geoapify.com/v1/geocode/search?text="

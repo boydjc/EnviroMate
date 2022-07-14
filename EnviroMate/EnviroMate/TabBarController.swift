@@ -17,11 +17,6 @@ class TabBarController: UITabBarController {
         // set the default tab bar item that is selected
         // to the weather item (item 2 where index starts at 0)
         self.selectedIndex = 2
-        
-        //let ambeeApiKey = Bundle.main.infoDictionary?["Ambee_API_KEY"] as! String
-        
-        
-        
     }
     
 
