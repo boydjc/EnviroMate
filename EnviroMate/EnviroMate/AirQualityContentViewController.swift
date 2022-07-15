@@ -13,6 +13,23 @@ class AirQualityContentViewController: UIViewController {
     
     @IBOutlet weak var airQualLocTextField: UITextField!
     
+    @IBOutlet weak var airQualCityLabel: UILabel!
+    @IBOutlet weak var airQualStateLabel: UILabel!
+    @IBOutlet weak var airQualAddrLabel: UILabel!
+    @IBOutlet weak var airQualLatLabel: UILabel!
+    @IBOutlet weak var airQualLonLabel: UILabel!
+    
+    
+    var cityText: String = ""
+    var stateText: String = ""
+    var addrText: String = ""
+    var latText: String = ""
+    var lonText: String = ""
+    
+    
+    
+    
+    
     @IBAction func airQualLocTextFieldDoneEditing(_ sender: UITextField) {
         sender.resignFirstResponder()
         // update the ui
@@ -40,6 +57,32 @@ class AirQualityContentViewController: UIViewController {
         gradientLayer.shouldRasterize = true
         // Apply the gradient to the backgroundGradientView and scroll view.
         airContentView.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(cityText != "") {
+            airQualCityLabel.text = cityText
+        }
+        
+        if(stateText != "") {
+            airQualStateLabel.text = stateText
+        }
+        
+        if(addrText != "") {
+            if(addrText == "None") {
+                airQualAddrLabel.text = ""
+            }else {
+                airQualAddrLabel.text = addrText
+            }
+        }
+        
+        if(latText != "") {
+            airQualLatLabel.text = "Lat: " + latText
+        }
+        
+        if(lonText != "") {
+            airQualLonLabel.text = "Lon: " + lonText
+        }
     }
     
 

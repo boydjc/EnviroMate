@@ -33,14 +33,14 @@
                                                     <action selector="plantLocTextFieldDoneEditing:" destination="MYL-6U-gez" eventType="editingDidEndOnExit" id="NGB-sc-xOT"/>
                                                 </connections>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 Test Address Circle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjs-MN-5Gh">
-                                                <rect key="frame" x="8" y="384" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjs-MN-5Gh">
+                                                <rect key="frame" x="8" y="384" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lon:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTN-Jx-mEm">
-                                                <rect key="frame" x="8" y="452" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTN-Jx-mEm">
+                                                <rect key="frame" x="8" y="452" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -57,8 +57,8 @@
                                                     <constraint firstAttribute="width" secondItem="t6S-6n-eEn" secondAttribute="height" multiplier="207:64" id="YRf-SK-ORL"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lat:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPE-qL-qFG">
-                                                <rect key="frame" x="8" y="423" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPE-qL-qFG">
+                                                <rect key="frame" x="8" y="423" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -127,8 +127,13 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Plants" image="plant" id="a0s-Tp-K82"/>
                     <connections>
+                        <outlet property="plantAddrLabel" destination="pjs-MN-5Gh" id="hIR-x5-J1L"/>
+                        <outlet property="plantCityLabel" destination="NhW-6n-Q6B" id="hmq-qz-khf"/>
                         <outlet property="plantContentView" destination="cBB-p1-5vo" id="aQ9-Ua-261"/>
+                        <outlet property="plantLatLabel" destination="mPE-qL-qFG" id="azG-ne-TbS"/>
                         <outlet property="plantLocTextField" destination="tdZ-oc-Nwm" id="xfm-Dw-zYx"/>
+                        <outlet property="plantLonLabel" destination="JTN-Jx-mEm" id="ycd-PU-OTM"/>
+                        <outlet property="plantStateLabel" destination="J3f-rs-F4v" id="xcl-Jj-zOM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7MP-gX-cXn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -183,20 +188,20 @@
                                                     <action selector="airQualLocTextFieldDoneEditing:" destination="vG1-nj-MJ6" eventType="editingDidEndOnExit" id="iUR-h7-fbl"/>
                                                 </connections>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 Test Address Circle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFU-ax-GXj">
-                                                <rect key="frame" x="0.0" y="393" width="414" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MFU-ax-GXj">
+                                                <rect key="frame" x="0.0" y="393" width="414" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lon:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfK-5x-YFg">
-                                                <rect key="frame" x="8" y="461" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RfK-5x-YFg">
+                                                <rect key="frame" x="8" y="461" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lat:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gb-37-aWt">
-                                                <rect key="frame" x="8" y="432" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gb-37-aWt">
+                                                <rect key="frame" x="8" y="432" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -427,7 +432,12 @@
                     <tabBarItem key="tabBarItem" title="Air" image="air" id="z70-6E-Gju"/>
                     <connections>
                         <outlet property="airContentView" destination="yxS-54-FfR" id="wBl-rQ-Mfc"/>
+                        <outlet property="airQualAddrLabel" destination="MFU-ax-GXj" id="hYW-wz-Wox"/>
+                        <outlet property="airQualCityLabel" destination="nds-Z0-tmc" id="1BT-wZ-wRV"/>
+                        <outlet property="airQualLatLabel" destination="4Gb-37-aWt" id="pUk-P5-T1V"/>
                         <outlet property="airQualLocTextField" destination="nGI-P8-NjY" id="Dfa-ng-CKS"/>
+                        <outlet property="airQualLonLabel" destination="RfK-5x-YFg" id="0GB-hG-Myn"/>
+                        <outlet property="airQualStateLabel" destination="vap-oe-4gB" id="bzq-CR-MCt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H70-cv-izd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -465,14 +475,14 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="enviromateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="8Zp-we-axW">
                                                 <rect key="frame" x="16" y="8" width="224" height="68"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 Test Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltW-ZF-jup">
-                                                <rect key="frame" x="8" y="406" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ltW-ZF-jup">
+                                                <rect key="frame" x="8" y="406" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lat:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWo-lF-Sdk">
-                                                <rect key="frame" x="16" y="441.5" width="390" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWo-lF-Sdk">
+                                                <rect key="frame" x="16" y="414" width="390" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -491,8 +501,8 @@
                                                     <action selector="weatherLocTextFieldEditingFinished:" destination="lVO-GH-ikp" eventType="editingDidEndOnExit" id="Djy-t5-lfq"/>
                                                 </connections>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lon:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePL-qW-F9E">
-                                                <rect key="frame" x="16" y="477" width="390" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePL-qW-F9E">
+                                                <rect key="frame" x="16" y="422" width="390" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -614,20 +624,20 @@
                                                     <action selector="fireWaterLocTextFieldDoneEditing:" destination="L3f-eS-zdV" eventType="editingDidEndOnExit" id="gmx-eX-nZh"/>
                                                 </connections>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 Test Address Circle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLt-hX-lz6">
-                                                <rect key="frame" x="0.0" y="393" width="414" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iLt-hX-lz6">
+                                                <rect key="frame" x="0.0" y="393" width="414" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lat:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsR-Dn-c84">
-                                                <rect key="frame" x="8" y="438" width="398" height="28"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QsR-Dn-c84">
+                                                <rect key="frame" x="8" y="410.5" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lon:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwL-JT-5PR">
-                                                <rect key="frame" x="8" y="467.5" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bwL-JT-5PR">
+                                                <rect key="frame" x="8" y="412" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -699,7 +709,12 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="fireContentView" destination="ISn-lX-vZ8" id="m2x-Kb-OAX"/>
+                        <outlet property="fireWaterAddrLabel" destination="iLt-hX-lz6" id="9IB-is-oSG"/>
+                        <outlet property="fireWaterCityLabel" destination="DDz-DE-mvS" id="LxE-W6-BKG"/>
+                        <outlet property="fireWaterLatLabel" destination="QsR-Dn-c84" id="FeB-dL-QqA"/>
                         <outlet property="fireWaterLocTextField" destination="zaF-Ad-XFR" id="rjC-bU-SXZ"/>
+                        <outlet property="fireWaterLonLabel" destination="bwL-JT-5PR" id="rz1-sE-Ahv"/>
+                        <outlet property="fireWaterStateLabel" destination="xxh-bq-Ldm" id="OTt-t5-Kyh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="snI-yQ-oTY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -731,8 +746,8 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lat:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pps-Hs-87n">
-                                                <rect key="frame" x="8" y="423" width="398" height="28"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pps-Hs-87n">
+                                                <rect key="frame" x="8" y="395.5" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -742,14 +757,15 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                                 <connections>
+                                                    <action selector="soilLocTextFieldDoneEditing:" destination="0Lc-ej-2Ts" eventType="editingDidEnd" id="iUv-wj-3Wh"/>
                                                     <action selector="weatherLocTextFieldEditingFinished:" destination="lVO-GH-ikp" eventType="editingDidEndOnExit" id="iGI-zu-Q9m"/>
                                                 </connections>
                                             </textField>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="enviromateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="dQk-mh-Dqt">
                                                 <rect key="frame" x="16" y="0.0" width="224" height="68"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6d-gw-2JT">
-                                                <rect key="frame" x="8" y="385" width="390" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6d-gw-2JT">
+                                                <rect key="frame" x="8" y="385" width="390" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -763,8 +779,8 @@
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shovelindirt" translatesAutoresizingMaskIntoConstraints="NO" id="1c8-O2-zQ0">
                                                 <rect key="frame" x="8" y="110" width="398" height="137"/>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lon:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyH-AX-ey2">
-                                                <rect key="frame" x="8" y="459" width="398" height="28"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yyH-AX-ey2">
+                                                <rect key="frame" x="8" y="403.5" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -828,7 +844,13 @@
                     <tabBarItem key="tabBarItem" title="Soil" image="soil" id="v9z-cp-Zb1"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="soilAddrLabel" destination="J6d-gw-2JT" id="uEi-e9-SAc"/>
+                        <outlet property="soilCityLabel" destination="VaS-B8-IFY" id="luW-s1-bBL"/>
                         <outlet property="soilContentView" destination="9Hd-wH-lNq" id="peP-FL-RhW"/>
+                        <outlet property="soilLatLabel" destination="pps-Hs-87n" id="vxi-dc-VA3"/>
+                        <outlet property="soilLocTextField" destination="8md-MR-lH5" id="ROh-CP-WcF"/>
+                        <outlet property="soilLonLabel" destination="yyH-AX-ey2" id="Zuf-p3-DRa"/>
+                        <outlet property="soilStateLabel" destination="0qa-Q1-Vi6" id="rsV-xl-YUm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fcs-HN-dHC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -850,11 +872,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="vG1-nj-MJ6" kind="relationship" relationship="viewControllers" id="SEU-Hk-s6m"/>
-                        <segue destination="MYL-6U-gez" kind="relationship" relationship="viewControllers" id="oS2-qe-z2M"/>
-                        <segue destination="lVO-GH-ikp" kind="relationship" relationship="viewControllers" id="a0y-fo-xgY"/>
-                        <segue destination="L3f-eS-zdV" kind="relationship" relationship="viewControllers" id="jI5-oO-FEY"/>
-                        <segue destination="0Lc-ej-2Ts" kind="relationship" relationship="viewControllers" id="o36-7E-4EH"/>
+                        <segue destination="vG1-nj-MJ6" kind="relationship" relationship="viewControllers" destinationCreationSelector="toAirView" id="SEU-Hk-s6m"/>
+                        <segue destination="MYL-6U-gez" kind="relationship" relationship="viewControllers" destinationCreationSelector="toPlantView" id="oS2-qe-z2M"/>
+                        <segue destination="lVO-GH-ikp" kind="relationship" relationship="viewControllers" destinationCreationSelector="toWeatherView" id="a0y-fo-xgY"/>
+                        <segue destination="L3f-eS-zdV" kind="relationship" relationship="viewControllers" destinationCreationSelector="toFireView" id="jI5-oO-FEY"/>
+                        <segue destination="0Lc-ej-2Ts" kind="relationship" relationship="viewControllers" destinationCreationSelector="toSoilView" id="o36-7E-4EH"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NAT-hz-jAX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
