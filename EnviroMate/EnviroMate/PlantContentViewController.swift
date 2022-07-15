@@ -11,6 +11,18 @@ class PlantContentViewController: UIViewController {
 
     @IBOutlet weak var plantContentView: UIView!
     @IBOutlet weak var plantLocTextField: UITextField!
+
+    @IBOutlet weak var plantCityLabel: UILabel!
+    @IBOutlet weak var plantStateLabel: UILabel!
+    @IBOutlet weak var plantAddrLabel: UILabel!
+    @IBOutlet weak var plantLatLabel: UILabel!
+    @IBOutlet weak var plantLonLabel: UILabel!
+    
+    var cityText: String = ""
+    var stateText: String = ""
+    var addrText: String = ""
+    var latText: String = ""
+    var lonText: String = ""
     
     
     @IBAction func plantLocTextFieldDoneEditing(_ sender: UITextField) {
@@ -41,6 +53,34 @@ class PlantContentViewController: UIViewController {
         // Apply the gradient to the backgroundGradientView and scroll view.
         plantContentView.layer.insertSublayer(gradientLayer, at: 0)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if(cityText != "") {
+            plantCityLabel.text = cityText
+        }
+        
+        if(stateText != "") {
+            plantStateLabel.text = stateText
+        }
+        
+        if(addrText != "") {
+            if(addrText == "None") {
+                plantAddrLabel.text = ""
+            }else {
+                plantAddrLabel.text = addrText
+            }
+        }
+        
+        if(latText != "") {
+            plantLatLabel.text = "Lat: " + latText
+        }
+        
+        if(lonText != "") {
+            plantLonLabel.text = "Lon: " + lonText
+        }
+    }
+    
+    
     
 
     /*
