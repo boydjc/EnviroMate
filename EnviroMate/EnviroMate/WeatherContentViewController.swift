@@ -19,24 +19,19 @@ class WeatherContentViewController: UIViewController{
     @IBOutlet weak var weatherAddrLabel: UILabel!
     @IBOutlet weak var weatherLatLabel: UILabel!
     @IBOutlet weak var weatherLonLabel: UILabel!
-    
-    var cityText: String = ""
-    var stateText: String = ""
-    var addrText: String = ""
-    var latText: String = ""
-    var lonText: String = ""
+
     
     @IBAction func weatherLocTextFieldEditingFinished(_ sender: UITextField) {
         sender.resignFirstResponder()
         // update the ui
-        getLocLatLon(weatherLocTextField.text!)
+        (self.tabBarController as! TabBarController).getLocLatLon(weatherLocTextField.text!)
     }
     
     
     @IBAction func onTapGuestureRecognized(_ sender: Any) {
         weatherLocTextField.resignFirstResponder()
         // update the ui
-        getLocLatLon(weatherLocTextField.text!)
+        (self.tabBarController as! TabBarController).getLocLatLon(weatherLocTextField.text!)
     }
     
     override func viewDidLoad() {
@@ -58,34 +53,7 @@ class WeatherContentViewController: UIViewController{
         weatherContentView.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        if(cityText != "") {
-            weatherCityLabel.text = cityText
-        }
-        
-        if(stateText != "") {
-            weatherStateLabel.text = stateText
-        }
-        
-        if(addrText != "") {
-            if(addrText == "None") {
-                weatherAddrLabel.text = ""
-            }else {
-                weatherAddrLabel.text = addrText
-            }
-        }
-        
-        if(latText != "") {
-            weatherLatLabel.text = "Lat: " + latText
-        }
-        
-        if(lonText != "") {
-            weatherLonLabel.text = "Lon: " + lonText
-        }
-    }
-    
-    
-    func getLocAttrs(_ lat: Double, _ lon: Double) {
+    /*func getLocAttrs(_ lat: Double, _ lon: Double) {
         
         // air quality url https://api.ambeedata.com/latest/by-lat-lng?lat=X&lng=X
         // green house gas url  https://api.ambeedata.com/ghg/latest/by-lat-lng?lat=X&lng=X
@@ -102,102 +70,20 @@ class WeatherContentViewController: UIViewController{
         let airQualityUrl = "https://api.ambeedata.com/latest/by-lat-lng?lat=" + String(lat)
             + "&lng=" + String(lon)
         
+        let ghgUrl = "https://api.ambeedata.com/ghg/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
+        let weatherUrl = "https://api.ambeedata.com/weather/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
+        let pollenUrl = "https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
-    }
-    
-    func getLocLatLon(_ addr: String) {
+        let fireUrl = "https://api.ambeedata.com/latest/fire?lat=" + String(lat) + "&lng=" + String(lon)
         
-        let geocodingUrl = "https://api.geoapify.com/v1/geocode/search?text="
+        let soilUrl = "https://api.ambeedata.com/soil/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
-        //let addr = "New York City, New York"
+        let waterVaporUrl = "https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
-        let geocodingAddrEncoded = addr.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        
-        let geocodingApiKey = Bundle.main.infoDictionary?["Geocoding_API_KEY"] as! String
-        
-        let geocodingFullUrl = URL(string: geocodingUrl + geocodingAddrEncoded + "&apiKey=" + geocodingApiKey)!
-        
-        //print(geocodingFullUrl)
-        
-        var geocodingRequest = URLRequest(url: geocodingFullUrl)
-        
-        geocodingRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        var lat = 0.00
-        var lon = 0.00
-        var city = ""
-        var state = ""
-        var addr = "None"
-        
-        // ask the URLSession class for the shared singleton session object for performing the request
-        // This method returns a URLSessionDataTask instance and accepts two arguments, a URL object and a completion handler.
-        let geocodingReqTask = URLSession.shared.dataTask(with: geocodingRequest, completionHandler: {(data, response, error) in
-            if data != nil {
-                if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
-                    if let responseDict = responseJSON as? [String: Any] {
-                        let featuresArr = responseDict["features"] as? [Any]
-                        //print(featuresArr!)
-                        let firstFeature = featuresArr![0] as? [String: Any]
-                        let propertiesDict = firstFeature!["properties"] as? [String: Any]
-                        print(propertiesDict!)
-                        //print("Lat: " + String(propertiesDict!["lat"] as! Double))
-                        lat = propertiesDict!["lat"] as? Double ?? 0.00
-                        //print("Lon: " + String(propertiesDict!["lon"] as! Double))
-                        lon = propertiesDict!["lon"] as? Double ?? 0.00
-                        city = propertiesDict!["city"] as? String ?? "Error"
-                        state = propertiesDict!["state"] as? String ?? "Error"
-                        if(propertiesDict!.keys.contains("housenumber")) {
-                            addr = propertiesDict!["address_line1"] as? String ?? "Error"
-                        }
-                    } else {
-                        print("Error converting responseJSON to dictionary")
-                    }
-                } else {
-                    print("Failed to deserialize JSON")
-                }
-                DispatchQueue.main.async {
-                    (self.tabBarController?.viewControllers?[0] as! AirQualityContentViewController).cityText = city
-                    (self.tabBarController?.viewControllers?[0] as! AirQualityContentViewController).stateText = state
-                    (self.tabBarController?.viewControllers?[0] as! AirQualityContentViewController).addrText = addr
-                    (self.tabBarController?.viewControllers?[0] as! AirQualityContentViewController).latText = String(lat)
-                    (self.tabBarController?.viewControllers?[0] as! AirQualityContentViewController).lonText = String(lon)
-                    
-                    (self.tabBarController?.viewControllers?[1] as! PlantContentViewController).cityText = city
-                    (self.tabBarController?.viewControllers?[1] as! PlantContentViewController).stateText = state
-                    (self.tabBarController?.viewControllers?[1] as! PlantContentViewController).addrText = addr
-                    (self.tabBarController?.viewControllers?[1] as! PlantContentViewController).latText = String(lat)
-                    (self.tabBarController?.viewControllers?[1] as! PlantContentViewController).lonText = String(lon)
-                    
-                    (self.tabBarController?.viewControllers?[3] as! FireWaterContentViewController).cityText = city
-                    (self.tabBarController?.viewControllers?[3] as! FireWaterContentViewController).stateText = state
-                    (self.tabBarController?.viewControllers?[3] as! FireWaterContentViewController).addrText = addr
-                    (self.tabBarController?.viewControllers?[3] as! FireWaterContentViewController).latText = String(lat)
-                    (self.tabBarController?.viewControllers?[3] as! FireWaterContentViewController).lonText = String(lon)
-                    
-                    (self.tabBarController?.viewControllers?[4] as! SoilContentViewController).cityText = city
-                    (self.tabBarController?.viewControllers?[4] as! SoilContentViewController).stateText = state
-                    (self.tabBarController?.viewControllers?[4] as! SoilContentViewController).addrText = addr
-                    (self.tabBarController?.viewControllers?[4] as! SoilContentViewController).latText = String(lat)
-                    (self.tabBarController?.viewControllers?[4] as! SoilContentViewController).lonText = String(lon)
-                    
-                    self.weatherCityLabel.text = city
-                    self.weatherStateLabel.text = state
-                    self.weatherLatLabel.text = "Lat: " + String(lat)
-                    self.weatherLonLabel.text = "Lon: " + String(lon)
-                    if(addr != "None") {
-                        self.weatherAddrLabel.text = addr
-                    }
-                }
-            } else {
-                print("Did not get any data from geocoding request")
-            }
-        })
-    
-        // call resume() on the task to execute it
-        geocodingReqTask.resume()
-    }
+    }*/
+
     
 
     /*

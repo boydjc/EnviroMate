@@ -872,11 +872,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="vG1-nj-MJ6" kind="relationship" relationship="viewControllers" destinationCreationSelector="toAirView" id="SEU-Hk-s6m"/>
-                        <segue destination="MYL-6U-gez" kind="relationship" relationship="viewControllers" destinationCreationSelector="toPlantView" id="oS2-qe-z2M"/>
-                        <segue destination="lVO-GH-ikp" kind="relationship" relationship="viewControllers" destinationCreationSelector="toWeatherView" id="a0y-fo-xgY"/>
-                        <segue destination="L3f-eS-zdV" kind="relationship" relationship="viewControllers" destinationCreationSelector="toFireView" id="jI5-oO-FEY"/>
-                        <segue destination="0Lc-ej-2Ts" kind="relationship" relationship="viewControllers" destinationCreationSelector="toSoilView" id="o36-7E-4EH"/>
+                        <segue destination="vG1-nj-MJ6" kind="relationship" relationship="viewControllers" id="SEU-Hk-s6m"/>
+                        <segue destination="MYL-6U-gez" kind="relationship" relationship="viewControllers" id="oS2-qe-z2M"/>
+                        <segue destination="lVO-GH-ikp" kind="relationship" relationship="viewControllers" id="a0y-fo-xgY"/>
+                        <segue destination="L3f-eS-zdV" kind="relationship" relationship="viewControllers" id="jI5-oO-FEY"/>
+                        <segue destination="0Lc-ej-2Ts" kind="relationship" relationship="viewControllers" id="o36-7E-4EH"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NAT-hz-jAX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

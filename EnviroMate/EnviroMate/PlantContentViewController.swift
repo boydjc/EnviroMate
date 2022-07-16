@@ -18,20 +18,15 @@ class PlantContentViewController: UIViewController {
     @IBOutlet weak var plantLatLabel: UILabel!
     @IBOutlet weak var plantLonLabel: UILabel!
     
-    var cityText: String = ""
-    var stateText: String = ""
-    var addrText: String = ""
-    var latText: String = ""
-    var lonText: String = ""
-    
-    
     @IBAction func plantLocTextFieldDoneEditing(_ sender: UITextField) {
         sender.resignFirstResponder()
+        (self.tabBarController as! TabBarController).getLocLatLon(plantLocTextField.text!)
     }
     
     
     @IBAction func tapGuestureRecognized(_ sender: Any) {
         plantLocTextField.resignFirstResponder()
+        (self.tabBarController as! TabBarController).getLocLatLon(plantLocTextField.text!)
     }
     
     override func viewDidLoad() {
@@ -53,35 +48,7 @@ class PlantContentViewController: UIViewController {
         // Apply the gradient to the backgroundGradientView and scroll view.
         plantContentView.layer.insertSublayer(gradientLayer, at: 0)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if(cityText != "") {
-            plantCityLabel.text = cityText
-        }
         
-        if(stateText != "") {
-            plantStateLabel.text = stateText
-        }
-        
-        if(addrText != "") {
-            if(addrText == "None") {
-                plantAddrLabel.text = ""
-            }else {
-                plantAddrLabel.text = addrText
-            }
-        }
-        
-        if(latText != "") {
-            plantLatLabel.text = "Lat: " + latText
-        }
-        
-        if(lonText != "") {
-            plantLonLabel.text = "Lon: " + lonText
-        }
-    }
-    
-    
-    
 
     /*
     // MARK: - Navigation

@@ -12,26 +12,22 @@ class SoilContentViewController: UIViewController {
     @IBOutlet weak var soilContentView: UIView!
     @IBOutlet weak var soilLocTextField: UITextField!
     
-    
     @IBOutlet weak var soilCityLabel: UILabel!
     @IBOutlet weak var soilStateLabel: UILabel!
     @IBOutlet weak var soilAddrLabel: UILabel!
     @IBOutlet weak var soilLatLabel: UILabel!
     @IBOutlet weak var soilLonLabel: UILabel!
     
-    var cityText: String = ""
-    var stateText: String = ""
-    var addrText: String = ""
-    var latText: String = ""
-    var lonText: String = ""
     
     @IBAction func soilLocTextFieldDoneEditing(_ sender: UITextField) {
         sender.resignFirstResponder()
+        (self.tabBarController as! TabBarController).getLocLatLon(soilLocTextField.text!)
     }
     
     
     @IBAction func tapGuestureRecognized(_ sender: Any) {
         soilLocTextField.resignFirstResponder()
+        (self.tabBarController as! TabBarController).getLocLatLon(soilLocTextField.text!)
     }
     
     
@@ -53,33 +49,6 @@ class SoilContentViewController: UIViewController {
         // Apply the gradient to the backgroundGradientView and scroll view.
         soilContentView.layer.insertSublayer(gradientLayer, at: 0)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if(cityText != "") {
-            soilCityLabel.text = cityText
-        }
-        
-        if(stateText != "") {
-            soilStateLabel.text = stateText
-        }
-        
-        if(addrText != "") {
-            if(addrText == "None") {
-                soilAddrLabel.text = ""
-            }else {
-                soilAddrLabel.text = addrText
-            }
-        }
-        
-        if(latText != "") {
-            soilLatLabel.text = "Lat: " + latText
-        }
-        
-        if(lonText != "") {
-            soilLonLabel.text = "Lon: " + lonText
-        }
-    }
-    
 
     /*
     // MARK: - Navigation

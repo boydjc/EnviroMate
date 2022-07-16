@@ -18,20 +18,14 @@ class FireWaterContentViewController: UIViewController {
     @IBOutlet weak var fireWaterLatLabel: UILabel!
     @IBOutlet weak var fireWaterLonLabel: UILabel!
     
-    var cityText: String = ""
-    var stateText: String = ""
-    var addrText: String = ""
-    var latText: String = ""
-    var lonText: String = ""
-    
-    
-    
     @IBAction func tapGuestureRecognized(_ sender: Any) {
         fireWaterLocTextField.resignFirstResponder()
+        (self.tabBarController as! TabBarController).getLocLatLon(fireWaterLocTextField.text!)
     }
     
     @IBAction func fireWaterLocTextFieldDoneEditing(_ sender: UITextField) {
         sender.resignFirstResponder()
+        (self.tabBarController as! TabBarController).getLocLatLon(fireWaterLocTextField.text!)
     }
     
     override func viewDidLoad() {
@@ -51,32 +45,6 @@ class FireWaterContentViewController: UIViewController {
         gradientLayer.shouldRasterize = true
         // Apply the gradient to the backgroundGradientView and scroll view.
         fireContentView.layer.insertSublayer(gradientLayer, at: 0)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if(cityText != "") {
-            fireWaterCityLabel.text = cityText
-        }
-        
-        if(stateText != "") {
-            fireWaterStateLabel.text = stateText
-        }
-        
-        if(addrText != "") {
-            if(addrText == "None") {
-                fireWaterAddrLabel.text = ""
-            }else {
-                fireWaterAddrLabel.text = addrText
-            }
-        }
-        
-        if(latText != "") {
-            fireWaterLatLabel.text = "Lat: " + latText
-        }
-        
-        if(lonText != "") {
-            fireWaterLonLabel.text = "Lon: " + lonText
-        }
     }
     
 
