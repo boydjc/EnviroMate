@@ -19,14 +19,20 @@ class PlantContentViewController: UIViewController {
     @IBOutlet weak var plantLonLabel: UILabel!
     
     @IBAction func plantLocTextFieldDoneEditing(_ sender: UITextField) {
+        if(sender.text != "") {
+            // update the ui
+            (self.tabBarController as! TabBarController).getLocLatLon(plantLocTextField.text!)
+        }
         sender.resignFirstResponder()
-        (self.tabBarController as! TabBarController).getLocLatLon(plantLocTextField.text!)
     }
     
     
     @IBAction func tapGuestureRecognized(_ sender: Any) {
+        if(plantLocTextField.text != "") {
+            // update the ui
+            (self.tabBarController as! TabBarController).getLocLatLon(plantLocTextField.text!)
+        }
         plantLocTextField.resignFirstResponder()
-        (self.tabBarController as! TabBarController).getLocLatLon(plantLocTextField.text!)
     }
     
     override func viewDidLoad() {

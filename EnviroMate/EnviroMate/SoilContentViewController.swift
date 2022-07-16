@@ -20,14 +20,20 @@ class SoilContentViewController: UIViewController {
     
     
     @IBAction func soilLocTextFieldDoneEditing(_ sender: UITextField) {
+        if(sender.text != "") {
+            // update the ui
+            (self.tabBarController as! TabBarController).getLocLatLon(soilLocTextField.text!)
+        }
         sender.resignFirstResponder()
-        (self.tabBarController as! TabBarController).getLocLatLon(soilLocTextField.text!)
     }
     
     
     @IBAction func tapGuestureRecognized(_ sender: Any) {
+        if(soilLocTextField.text != "") {
+            // update the ui
+            (self.tabBarController as! TabBarController).getLocLatLon(soilLocTextField.text!)
+        }
         soilLocTextField.resignFirstResponder()
-        (self.tabBarController as! TabBarController).getLocLatLon(soilLocTextField.text!)
     }
     
     

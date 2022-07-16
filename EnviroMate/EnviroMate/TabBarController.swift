@@ -9,6 +9,7 @@ import UIKit
 
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
+    var prevSearch = ""
     var reqLat = 0.00
     var reqLon = 0.00
     var reqCity = ""
@@ -46,7 +47,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
             
             if(reqLon != 0.00) {
-                (viewController as! AirQualityContentViewController).airQualLonLabel.text = "Lon" + String(reqLon)
+                (viewController as! AirQualityContentViewController).airQualLonLabel.text = "Lon: " + String(reqLon)
+            }
+            
+            if(prevSearch != "") {
+                (viewController as! AirQualityContentViewController).airQualLocTextField.text = prevSearch
             }
         } else if(viewController == tabBarController.viewControllers![1]) {
             if(reqCity != "") {
@@ -66,7 +71,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
             
             if(reqLon != 0.00) {
-                (viewController as! PlantContentViewController).plantLonLabel.text = "Lon" + String(reqLon)
+                (viewController as! PlantContentViewController).plantLonLabel.text = "Lon: " + String(reqLon)
+            }
+            
+            if(prevSearch != "") {
+                (viewController as! PlantContentViewController).plantLocTextField.text = prevSearch
             }
         } else if(viewController == tabBarController.viewControllers![2]) {
             if(reqCity != "") {
@@ -86,7 +95,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
             
             if(reqLon != 0.00) {
-                (viewController as! WeatherContentViewController).weatherLonLabel.text = "Lon" + String(reqLon)
+                (viewController as! WeatherContentViewController).weatherLonLabel.text = "Lon: " + String(reqLon)
+            }
+            
+            if(prevSearch != "") {
+                (viewController as! WeatherContentViewController).weatherLocTextField.text = prevSearch
             }
         } else if(viewController == tabBarController.viewControllers![3]) {
             if(reqCity != "") {
@@ -106,7 +119,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
             
             if(reqLon != 0.00) {
-                (viewController as! FireWaterContentViewController).fireWaterLonLabel.text = "Lon" + String(reqLon)
+                (viewController as! FireWaterContentViewController).fireWaterLonLabel.text = "Lon: " + String(reqLon)
+            }
+            
+            if(prevSearch != "") {
+                (viewController as! FireWaterContentViewController).fireWaterLocTextField.text = prevSearch
             }
         } else if(viewController == tabBarController.viewControllers![4]) {
             if(reqCity != "") {
@@ -126,7 +143,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
             
             if(reqLon != 0.00) {
-                (viewController as! SoilContentViewController).soilLonLabel.text = "Lon" + String(reqLon)
+                (viewController as! SoilContentViewController).soilLonLabel.text = "Lon: " + String(reqLon)
+            }
+            
+            if(prevSearch != "") {
+                (viewController as! SoilContentViewController).soilLocTextField.text = prevSearch
             }
         }
     }
@@ -220,6 +241,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         (self.viewControllers?[4] as! SoilContentViewController).soilLatLabel.text = "Lat: " + String(self.reqLat)
                         (self.viewControllers?[4] as! SoilContentViewController).soilLonLabel.text = "Lon: " + String(self.reqLon)
                     }
+                    
+                    self.prevSearch = addr
                 }
             } else {
                 print("Did not get any data from geocoding request")

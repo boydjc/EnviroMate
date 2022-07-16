@@ -19,13 +19,19 @@ class FireWaterContentViewController: UIViewController {
     @IBOutlet weak var fireWaterLonLabel: UILabel!
     
     @IBAction func tapGuestureRecognized(_ sender: Any) {
+        if(fireWaterLocTextField.text != "") {
+            // update the ui
+            (self.tabBarController as! TabBarController).getLocLatLon(fireWaterLocTextField.text!)
+        }
         fireWaterLocTextField.resignFirstResponder()
-        (self.tabBarController as! TabBarController).getLocLatLon(fireWaterLocTextField.text!)
     }
     
     @IBAction func fireWaterLocTextFieldDoneEditing(_ sender: UITextField) {
+        if(sender.text != "") {
+            // update the ui
+            (self.tabBarController as! TabBarController).getLocLatLon(fireWaterLocTextField.text!)
+        }
         sender.resignFirstResponder()
-        (self.tabBarController as! TabBarController).getLocLatLon(fireWaterLocTextField.text!)
     }
     
     override func viewDidLoad() {
