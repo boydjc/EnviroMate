@@ -22,16 +22,18 @@ class WeatherContentViewController: UIViewController{
 
     
     @IBAction func weatherLocTextFieldEditingFinished(_ sender: UITextField) {
+        if(sender.text != "") {
+            (self.tabBarController as! TabBarController).getLocLatLon(weatherLocTextField.text!)
+        }
         sender.resignFirstResponder()
-        // update the ui
-        (self.tabBarController as! TabBarController).getLocLatLon(weatherLocTextField.text!)
     }
     
     
     @IBAction func onTapGuestureRecognized(_ sender: Any) {
+        if(weatherLocTextField.text != "") {
+            (self.tabBarController as! TabBarController).getLocLatLon(weatherLocTextField.text!)
+        }
         weatherLocTextField.resignFirstResponder()
-        // update the ui
-        (self.tabBarController as! TabBarController).getLocLatLon(weatherLocTextField.text!)
     }
     
     override func viewDidLoad() {

@@ -20,15 +20,19 @@ class AirQualityContentViewController: UIViewController {
     @IBOutlet weak var airQualLonLabel: UILabel!
     
     @IBAction func airQualLocTextFieldDoneEditing(_ sender: UITextField) {
+        if(sender.text != "") {
+            // update the ui
+            (self.tabBarController as! TabBarController).getLocLatLon(airQualLocTextField.text!)
+        }
         sender.resignFirstResponder()
-        // update the ui
-        (self.tabBarController as! TabBarController).getLocLatLon(airQualLocTextField.text!)
     }
     
     @IBAction func tapGuestureRecognized(_ sender: Any) {
+        if(airQualLocTextField.text != "") {
+            // update the ui
+            (self.tabBarController as! TabBarController).getLocLatLon(airQualLocTextField.text!)
+        }
         airQualLocTextField.resignFirstResponder()
-        // update the ui
-        (self.tabBarController as! TabBarController).getLocLatLon(airQualLocTextField.text!)
     }
     
     override func viewDidLoad() {
