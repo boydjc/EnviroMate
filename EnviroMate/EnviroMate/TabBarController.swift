@@ -17,7 +17,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     var reqAddr = "None"
     
     // dictionary that will hold all of the environmental attributes from the api request
-    var locAttr: [String:String] = [:]
+    var locAttrs: [String:Any] = [:]
     
 
     
@@ -292,9 +292,17 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 print("Got some data")
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
-                        let stationsArr = responseDict["stations"] as? [Any]
+                        let stationsArr = responseDict["stations"] as? [[String:Any]]
                         let stationsDict = stationsArr?[0]
-                        //print(stationsDict!)
+                        self.locAttrs["airQualAQI"] = stationsDict!["AQI"]! as? Int
+                        self.locAttrs["airQualNO2"] = stationsDict!["NO2"]! as? Double
+                        self.locAttrs["airQualOZONE"] = stationsDict!["OZONE"] as? Double
+                        self.locAttrs["airQualPM10"] = stationsDict!["PM10"] as? Double
+                        self.locAttrs["airQualPM25"] = stationsDict!["PM25"] as? Double
+                        self.locAttrs["airQualSO2"] = stationsDict!["SO2"] as? Double
+                        self.locAttrs["airQualAQIPollutant"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["pollutant"] as? String
+                        self.locAttrs["airQualAQIConcentration"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["concentration"] as? Double
+                        self.locAttrs["airQualAQICategory"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["category"] as? String
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
