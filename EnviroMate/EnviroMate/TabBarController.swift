@@ -16,6 +16,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     var reqState = ""
     var reqAddr = "None"
     
+    // dictionary that will hold all of the environmental attributes from the api request
+    var locAttr: [String:String] = [:]
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -243,6 +248,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     }
                     
                     self.prevSearch = addr
+                    
+                    self.getLocAttrs()
                 }
             } else {
                 print("Did not get any data from geocoding request")
@@ -253,9 +260,80 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         geocodingReqTask.resume()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    func getLocAttrs() {
         
+        // air quality url https://api.ambeedata.com/latest/by-lat-lng?lat=X&lng=X
+        // green house gas url  https://api.ambeedata.com/ghg/latest/by-lat-lng?lat=X&lng=X
+        // weather url https://api.ambeedata.com/weather/latest/by-lat-lng?lat=X&lng=X
+        // pollen url https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=X&lng=X
+        // fire url https://api.ambeedata.com/latest/fire?lat=X&lng=X
+        // soil url  https://api.ambeedata.com/soil/latest/by-lat-lng?lat=X&lng=X
+        // NDVI url https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=X&lng=X
+        // watervapor url  https://api.ambeedata.com/waterVapor/history/by-lat-lng?lat=X&lng=X&from=2020-07-13 12:16:44&to=2020-07-18 08:16:44
+        
+        let ambeeApiKey = Bundle.main.infoDictionary?["Ambee_API_KEY"] as! String
+        
+        // build the request for each url and then execute them all at the end
+        
+        // AIR QUALITY API
+        let airQualityUrl = "https://api.ambeedata.com/latest/by-lat-lng?lat=" + String(reqLat)
+            + "&lng=" + String(reqLon)
+        
+        let airQualityUrlObj = URL(string: airQualityUrl)!
+        
+        var airQualityRequest = URLRequest(url: airQualityUrlObj)
+        
+        airQualityRequest.setValue("application/json", forHTTPHeaderField: "Content-type")
+        airQualityRequest.setValue(ambeeApiKey, forHTTPHeaderField: "x-api-key")
+        
+        let airQualityReqTask = URLSession.shared.dataTask(with: airQualityRequest, completionHandler: {(data, response, error) in
+            
+            if data != nil {
+                print("Got some data")
+                if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
+                    if let responseDict = responseJSON as? [String: Any] {
+                        let stationsArr = responseDict["stations"] as? [Any]
+                        let stationsDict = stationsArr?[0]
+                        //print(stationsDict!)
+                    } else {
+                        print("Error converting responseJSON to dictionary")
+                    }
+                } else {
+                    print("Failed to deserialize JSON")
+                }
+            }else {
+                print("No data returned")
+            }
+        })
+        
+        /*let ghgUrl = "https://api.ambeedata.com/ghg/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
+        
+        let ghgUrlEncoded = ghgUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        
+        let weatherUrl = "https://api.ambeedata.com/weather/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
+        
+        let weatherUrlEncoded = weatherUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        
+        let pollenUrl = "https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
+        
+        let pollenUrlEncoded = pollenUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        
+        let fireUrl = "https://api.ambeedata.com/latest/fire?lat=" + String(lat) + "&lng=" + String(lon)
+        
+        let fireUrlEncoded = fireUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        
+        let soilUrl = "https://api.ambeedata.com/soil/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
+        
+        let soilUrlEncoded = soilUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        
+        let waterVaporUrl = "https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
+        
+        let waterVaporUrlEncoded = waterVaporUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)*/
+        
+        
+        airQualityReqTask.resume()
     }
+   
     /*
     // MARK: - Navigation
 
