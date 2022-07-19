@@ -294,15 +294,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     if let responseDict = responseJSON as? [String: Any] {
                         let stationsArr = responseDict["stations"] as? [[String:Any]]
                         let stationsDict = stationsArr?[0]
-                        self.locAttrs["airQualAQI"] = stationsDict!["AQI"]! as? Int
-                        self.locAttrs["airQualNO2"] = stationsDict!["NO2"]! as? Double
-                        self.locAttrs["airQualOZONE"] = stationsDict!["OZONE"] as? Double
-                        self.locAttrs["airQualPM10"] = stationsDict!["PM10"] as? Double
-                        self.locAttrs["airQualPM25"] = stationsDict!["PM25"] as? Double
-                        self.locAttrs["airQualSO2"] = stationsDict!["SO2"] as? Double
-                        self.locAttrs["airQualAQIPollutant"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["pollutant"] as? String
-                        self.locAttrs["airQualAQIConcentration"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["concentration"] as? Double
-                        self.locAttrs["airQualAQICategory"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["category"] as? String
+                        self.locAttrs["airQualAqi"] = stationsDict!["AQI"]! as? Int
+                        self.locAttrs["airQualNo2"] = stationsDict!["NO2"]! as? Double
+                        self.locAttrs["airQualOzone"] = stationsDict!["OZONE"] as? Double
+                        self.locAttrs["airQualPm10"] = stationsDict!["PM10"] as? Double
+                        self.locAttrs["airQualPm25"] = stationsDict!["PM25"] as? Double
+                        self.locAttrs["airQualSo2"] = stationsDict!["SO2"] as? Double
+                        self.locAttrs["airQualAqiPollutant"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["pollutant"] as? String
+                        self.locAttrs["airQualAqiConcentration"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["concentration"] as? Double
+                        self.locAttrs["airQualAqiCategory"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["category"] as? String
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
@@ -314,9 +314,46 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
         })
         
-        /*let ghgUrl = "https://api.ambeedata.com/ghg/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
-        
-        let ghgUrlEncoded = ghgUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+        let ghgUrl = "https://api.ambeedata.com/ghg/latest/by-lat-lng?lat=" + String(reqLat) + "&lng=" + String(reqLon)
+         
+        //Greenhouse gas (ghg) API
+
+        let ghgUrlObj = URL(string: ghgUrl)!
+         
+        var ghgRequest = URLRequest(url: ghgUrlObj)
+         
+        ghgRequest.setValue("application/json", forHTTPHeaderField: "Content-type")
+        ghgRequest.setValue(ambeeApiKey, forHTTPHeaderField: "x-api-key")
+         
+        let ghgReqTask = URLSession.shared.dataTask(with: ghgRequest, completionHandler: {(data, response, error) in
+             
+            if data != nil {
+                print("Got some data")
+                if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
+                    if let responseDict = responseJSON as? [String: Any] {
+                        let ghgDataArr = responseDict["data"] as? [Any]
+                        let ghgDataDict = ghgDataArr![0] as? [String:Any]
+                        self.locAttrs["ghgOzoneValue"] = (ghgDataDict!["ozone"]! as? [String:String])!["value"]!
+                        self.locAttrs["ghgOzoneUnits"] = (ghgDataDict!["ozone"]! as? [String:String])!["units"]!
+                        self.locAttrs["ghgCo2Value"] = (ghgDataDict!["co2"]! as? [String:String])!["value"]!
+                        self.locAttrs["ghgCo2Units"] = (ghgDataDict!["co2"]! as? [String:String])!["units"]!
+                        self.locAttrs["ghgCh4Value"] = (ghgDataDict!["ch4"]! as? [String:String])!["value"]!
+                        self.locAttrs["ghgCh4Units"] = (ghgDataDict!["ch4"]! as? [String:String])!["units"]!
+                        // for some reason casting the values of water_vapor to Int, String, Double, or whatever doesn't seem to work
+                        self.locAttrs["ghgWaterVaporValue"] = (ghgDataDict!["water_vapor"]! as? [String:Any])!["value"]!
+                        self.locAttrs["ghgWaterVaporUnits"] = (ghgDataDict!["water_vapor"]! as? [String:Any])!["units"]!
+                    } else {
+                        print("Error converting responseJSON to dictionary")
+                    }
+                } else {
+                    print("Failed to deserialize JSON")
+                }
+            }else {
+                print("No data returned")
+            }
+        })
+         
+        /*
         
         let weatherUrl = "https://api.ambeedata.com/weather/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
@@ -340,6 +377,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         
         airQualityReqTask.resume()
+        ghgReqTask.resume()
     }
    
     /*
