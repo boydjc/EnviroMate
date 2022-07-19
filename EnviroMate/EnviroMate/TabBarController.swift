@@ -289,7 +289,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let airQualityReqTask = URLSession.shared.dataTask(with: airQualityRequest, completionHandler: {(data, response, error) in
             
             if data != nil {
-                print("Got some data")
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let stationsArr = responseDict["stations"] as? [[String:Any]]
@@ -314,9 +313,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
         })
         
+        // Greenhouse gas (ghg) API
+        
         let ghgUrl = "https://api.ambeedata.com/ghg/latest/by-lat-lng?lat=" + String(reqLat) + "&lng=" + String(reqLon)
-         
-        //Greenhouse gas (ghg) API
 
         let ghgUrlObj = URL(string: ghgUrl)!
          
@@ -328,7 +327,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let ghgReqTask = URLSession.shared.dataTask(with: ghgRequest, completionHandler: {(data, response, error) in
              
             if data != nil {
-                print("Got some data")
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let ghgDataArr = responseDict["data"] as? [Any]
@@ -340,6 +338,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         self.locAttrs["ghgCh4Value"] = (ghgDataDict!["ch4"]! as? [String:String])!["value"]!
                         self.locAttrs["ghgCh4Units"] = (ghgDataDict!["ch4"]! as? [String:String])!["units"]!
                         // for some reason casting the values of water_vapor to Int, String, Double, or whatever doesn't seem to work
+                        // even though the API documentation shows them as String and what is being actually returned seems to be Int
                         self.locAttrs["ghgWaterVaporValue"] = (ghgDataDict!["water_vapor"]! as? [String:Any])!["value"]!
                         self.locAttrs["ghgWaterVaporUnits"] = (ghgDataDict!["water_vapor"]! as? [String:Any])!["units"]!
                     } else {
@@ -352,12 +351,52 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 print("No data returned")
             }
         })
-         
+        
+        // weather API
+        let weatherUrl = "https://api.ambeedata.com/weather/latest/by-lat-lng?lat=" + String(reqLat) + "&lng=" + String(reqLon)
+
+        let weatherUrlObj = URL(string: weatherUrl)!
+          
+        var weatherRequest = URLRequest(url: weatherUrlObj)
+          
+        weatherRequest.setValue("application/json", forHTTPHeaderField: "Content-type")
+        weatherRequest.setValue(ambeeApiKey, forHTTPHeaderField: "x-api-key")
+          
+        let weatherReqTask = URLSession.shared.dataTask(with: weatherRequest, completionHandler: {(data, response, error) in
+              
+            if data != nil {
+                if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
+                    if let responseDict = responseJSON as? [String: Any] {
+                        let weatherDataDict = responseDict["data"] as? [String:Any]
+                        self.locAttrs["weatherPrecipIntensity"] = weatherDataDict!["precipIntensity"]
+                        self.locAttrs["weatherPrecipType"] = weatherDataDict!["precipType"] ?? "None"
+                        self.locAttrs["weatherTemperature"] = weatherDataDict!["temperature"]
+                        self.locAttrs["weatherApprentTemp"] = weatherDataDict!["apparentTemperature"]
+                        self.locAttrs["weatherSummary"] = weatherDataDict!["summary"]
+                        self.locAttrs["weatherIcon"] = weatherDataDict!["icon"]
+                        self.locAttrs["weatherDewPoint"] = weatherDataDict!["dewPoint"]
+                        self.locAttrs["weatherHumidity"] = weatherDataDict!["humidity"]
+                        self.locAttrs["weatherPressure"] = weatherDataDict!["pressure"]
+                        self.locAttrs["weatherWindSpeed"] = weatherDataDict!["windSpeed"]
+                        self.locAttrs["weatherWindGust"] = weatherDataDict!["windGust"]
+                        self.locAttrs["weatherWindBearing"] = weatherDataDict!["windBearing"]
+                        self.locAttrs["weatherCloudCover"] = weatherDataDict!["cloudCover"]
+                        self.locAttrs["weatherVisibility"] = weatherDataDict!["visibility"]
+                        
+                        print(self.locAttrs)
+                    } else {
+                        print("Error converting responseJSON to dictionary")
+                    }
+                } else {
+                    print("Failed to deserialize JSON")
+                }
+            }else {
+                print("No data returned")
+            }
+        })
+    
+        
         /*
-        
-        let weatherUrl = "https://api.ambeedata.com/weather/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
-        
-        let weatherUrlEncoded = weatherUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         
         let pollenUrl = "https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
@@ -376,8 +415,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let waterVaporUrlEncoded = waterVaporUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)*/
         
         
-        airQualityReqTask.resume()
-        ghgReqTask.resume()
+        //airQualityReqTask.resume()
+        //ghgReqTask.resume()
+        weatherReqTask.resume()
     }
    
     /*
