@@ -269,7 +269,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         // fire url https://api.ambeedata.com/latest/fire?lat=X&lng=X
         // soil url  https://api.ambeedata.com/soil/latest/by-lat-lng?lat=X&lng=X
         // NDVI url https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=X&lng=X
-        // watervapor url  https://api.ambeedata.com/waterVapor/history/by-lat-lng?lat=X&lng=X&from=2020-07-13 12:16:44&to=2020-07-18 08:16:44
+        // watervapor url  https://api.ambeedata.com/waterVapor/latest/by-lat-lng?lat=X&lng=X
         
         let ambeeApiKey = Bundle.main.infoDictionary?["Ambee_API_KEY"] as! String
         
@@ -536,10 +536,40 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 print("No data returned")
             }
         })
+        
+        // ndvi API
+        let ndviUrl = "https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=" + String(reqLat) + "&lng=" + String(reqLon)
+        
+        let ndviUrlObj = URL(string: ndviUrl)!
+          
+        var ndviRequest = URLRequest(url: ndviUrlObj)
+          
+        ndviRequest.setValue("application/json", forHTTPHeaderField: "Content-type")
+        ndviRequest.setValue(ambeeApiKey, forHTTPHeaderField: "x-api-key")
+          
+        let ndviReqTask = URLSession.shared.dataTask(with: ndviRequest, completionHandler: {(data, response, error) in
+              
+            if data != nil {
+                if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
+                    if let responseDict = responseJSON as? [String: Any] {
+                        let ndviDataArr = (responseDict["data"] as? [Any])
+                        let ndviDataDict = ndviDataArr![0] as? [String:Any]
+                        self.locAttrs["ndviSummary"] = ndviDataDict!["summary"]
+                        self.locAttrs["ndviEvi"] = ndviDataDict!["evi"]
+                        self.locAttrs["ndvi"] = ndviDataDict!["ndvi"]
+                        print(self.locAttrs)
+                    } else {
+                        print("Error converting responseJSON to dictionary")
+                    }
+                } else {
+                    print("Failed to deserialize JSON")
+                }
+            }else {
+                print("No data returned")
+            }
+        })
          
         /*
-         
-        let nvdiUrl = "https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=" + String(lat) + &lng=" + String(lon)
         
         let waterVaporUrl = "https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
@@ -551,7 +581,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         //weatherReqTask.resume()
         //pollenReqTask.resume()
         //fireReqTask.resume()
-        soilReqTask.resume()
+        //soilReqTask.resume()
+        ndviReqTask.resume()
     }
    
     /*
