@@ -557,7 +557,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         self.locAttrs["ndviSummary"] = ndviDataDict!["summary"]
                         self.locAttrs["ndviEvi"] = ndviDataDict!["evi"]
                         self.locAttrs["ndvi"] = ndviDataDict!["ndvi"]
-                        print(self.locAttrs)
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
@@ -569,20 +568,46 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
         })
          
-        /*
         
-        let waterVaporUrl = "https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
+        let waterVaporUrl = "https://api.ambeedata.com/waterVapor/latest/by-lat-lng?lat=" + String(reqLat) + "&lng=" + String(reqLon)
+    
+        let waterVaporUrlObj = URL(string: waterVaporUrl)!
+          
+        var waterVaporRequest = URLRequest(url: waterVaporUrlObj)
+          
+        waterVaporRequest.setValue("application/json", forHTTPHeaderField: "Content-type")
+        waterVaporRequest.setValue(ambeeApiKey, forHTTPHeaderField: "x-api-key")
+          
+        let waterVaporReqTask = URLSession.shared.dataTask(with: waterVaporRequest, completionHandler: {(data, response, error) in
+              
+            if data != nil {
+                if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
+                    if let responseDict = responseJSON as? [String: Any] {
+                        let waterVaporDataArr = (responseDict["data"] as? [Any])
+                        let waterVaporDataDict = waterVaporDataArr![0] as? [String:Any]
+                        self.locAttrs["waterVapor"] = waterVaporDataDict!["water_vapor"]
+                        print(self.locAttrs)
+                    } else {
+                        print("Error converting responseJSON to dictionary")
+                    }
+                } else {
+                    print("Failed to deserialize JSON")
+                }
+            }else {
+                print("No data returned")
+            }
+        })
+    
         
-         */
         
-        
-        //airQualityReqTask.resume()
-        //ghgReqTask.resume()
-        //weatherReqTask.resume()
-        //pollenReqTask.resume()
-        //fireReqTask.resume()
-        //soilReqTask.resume()
+        airQualityReqTask.resume()
+        ghgReqTask.resume()
+        weatherReqTask.resume()
+        pollenReqTask.resume()
+        fireReqTask.resume()
+        soilReqTask.resume()
         ndviReqTask.resume()
+        waterVaporReqTask.resume()
     }
    
     /*
