@@ -489,6 +489,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                             for item in fireDataArr! {
                                 // there is a chance that there will be multiple fires in the area
                                 // this will have to be taken care of later
+                                // perhaps by using a small table view to show the nearby fires
                                 // we are only interesting in the detection_time and frp
                                 print(item)
                             }
@@ -505,10 +506,40 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 print("No data returned")
             }
         })
-    
-        /*
         
-        let soilUrl = "https://api.ambeedata.com/soil/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
+        // soil API
+        let soilUrl = "https://api.ambeedata.com/soil/latest/by-lat-lng?lat=" + String(reqLat) + "&lng=" + String(reqLon)
+        
+        let soilUrlObj = URL(string: soilUrl)!
+          
+        var soilRequest = URLRequest(url: soilUrlObj)
+          
+        soilRequest.setValue("application/json", forHTTPHeaderField: "Content-type")
+        soilRequest.setValue(ambeeApiKey, forHTTPHeaderField: "x-api-key")
+          
+        let soilReqTask = URLSession.shared.dataTask(with: soilRequest, completionHandler: {(data, response, error) in
+              
+            if data != nil {
+                if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
+                    if let responseDict = responseJSON as? [String: Any] {
+                        let soilDataArr = (responseDict["data"] as? [Any])
+                        let soilDataDict = soilDataArr![0] as? [String:Any]
+                        self.locAttrs["soilMoisture"] = soilDataDict!["soil_moisture"]
+                        self.locAttrs["soilTemperature"] = soilDataDict!["soil_temperature"]
+                    } else {
+                        print("Error converting responseJSON to dictionary")
+                    }
+                } else {
+                    print("Failed to deserialize JSON")
+                }
+            }else {
+                print("No data returned")
+            }
+        })
+         
+        /*
+         
+        let nvdiUrl = "https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=" + String(lat) + &lng=" + String(lon)
         
         let waterVaporUrl = "https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
@@ -519,7 +550,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         //ghgReqTask.resume()
         //weatherReqTask.resume()
         //pollenReqTask.resume()
-        fireReqTask.resume()
+        //fireReqTask.resume()
+        soilReqTask.resume()
     }
    
     /*
