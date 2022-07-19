@@ -382,8 +382,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         self.locAttrs["weatherWindBearing"] = weatherDataDict!["windBearing"]
                         self.locAttrs["weatherCloudCover"] = weatherDataDict!["cloudCover"]
                         self.locAttrs["weatherVisibility"] = weatherDataDict!["visibility"]
-                        
-                        print(self.locAttrs)
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
@@ -394,13 +392,85 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 print("No data returned")
             }
         })
-    
+
+        // pollen API
+        let pollenUrl = "https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=" + String(reqLat) + "&lng=" + String(reqLon)
+        
+        let pollenUrlObj = URL(string: pollenUrl)!
+          
+        var pollenRequest = URLRequest(url: pollenUrlObj)
+          
+        pollenRequest.setValue("application/json", forHTTPHeaderField: "Content-type")
+        pollenRequest.setValue(ambeeApiKey, forHTTPHeaderField: "x-api-key")
+          
+        let pollenReqTask = URLSession.shared.dataTask(with: pollenRequest, completionHandler: {(data, response, error) in
+              
+            if data != nil {
+                if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
+                    if let responseDict = responseJSON as? [String: Any] {
+                        let pollenDataArr = responseDict["data"] as? [Any]
+                        // the data dictionary has several parts with nested dictionaries
+                        // The top level has 3: Species, Pollen Count, and Risk
+                        // we are parsing each one of them separtely here
+                        let pollenDataDict = pollenDataArr![0] as? [String:Any]
+                        // species data
+                        let pollenSpeciesDict = pollenDataDict!["Species"] as? [String:Any]
+                            // tree species
+                        let pollenSpeciesTreeDict = pollenSpeciesDict!["Tree"] as? [String:Int]
+                        self.locAttrs["pollenSpeciesTreeMullbery"] = pollenSpeciesTreeDict!["Mulberry"]
+                        self.locAttrs["pollenSpeciesTreePine"] = pollenSpeciesTreeDict!["Pine"]
+                        self.locAttrs["pollenSpeciesTreeElm"] = pollenSpeciesTreeDict!["Elm"]
+                        self.locAttrs["pollenSpeciesTreeBirch"] = pollenSpeciesTreeDict!["Birch"]
+                            // the Cypress, juniper and cedar species are all in one value from the api
+                        self.locAttrs["pollenSpeciesTreeCypJunCed"] = pollenSpeciesTreeDict!["Cypress / Juniper / Cedar"]
+                        self.locAttrs["pollenSpeciesTreeAsh"] = pollenSpeciesTreeDict!["Ash"]
+                        self.locAttrs["pollenSpeciesTreeOak"] = pollenSpeciesTreeDict!["Oak"]
+                            // the Poplar and cottenwood species are also in one value from the api
+                        self.locAttrs["pollenSpeciesTreePopCot"] = pollenSpeciesTreeDict!["Poplar / Cottenwood"]
+                        self.locAttrs["pollenSpeciesTreeMaple"] = pollenSpeciesTreeDict!["Maple"]
+                        self.locAttrs["pollenSpeciesTreeAlder"] = pollenSpeciesTreeDict!["Alder"]
+                        self.locAttrs["pollenSpeciesTreeHazel"] = pollenSpeciesTreeDict!["Hazel"]
+                        self.locAttrs["pollenSpeciesTreePlane"] = pollenSpeciesTreeDict!["Plane"]
+                            /* for paris the cypress was it's own category, will probably need to find a better way
+                             to handle this */
+                        self.locAttrs["Cypress"] = pollenSpeciesTreeDict!["Cypress"]
+                        
+                            // weed species
+                        let pollenSpeciesWeedDict = pollenSpeciesDict!["Weed"] as? [String:Int]
+                        self.locAttrs["pollenSpeciesWeedChenopod"] = pollenSpeciesWeedDict!["Chenopod"]
+                        self.locAttrs["pollenSpeciesWeedRagWeed"] = pollenSpeciesWeedDict!["Ragweed"]
+                        self.locAttrs["pollenSpeciesWeedMugwort"] = pollenSpeciesWeedDict!["Mugwort"]
+                        self.locAttrs["pollenSpeciesWeedNettle"] = pollenSpeciesWeedDict!["Nettle"]
+                        //print(pollenSpeciesWeedDict!)
+                        
+                            // other species
+                        self.locAttrs["pollenSpeciesOther"] = pollenSpeciesDict!["Others"]
+                        
+                        // pollen count data
+                        let pollenCountDict = pollenDataDict!["Count"] as? [String:Int]
+                        self.locAttrs["pollenCountWeed"] = pollenCountDict!["weed_pollen"]
+                        self.locAttrs["pollenCountGrass"] = pollenCountDict!["grass_pollen"]
+                        self.locAttrs["pollenCountTree"] = pollenCountDict!["tree_pollen"]
+                        
+                        // pollen risk data
+                        let pollenRiskDict = pollenDataDict!["Risk"] as? [String:String]
+                        self.locAttrs["pollenRiskGrass"] = pollenRiskDict!["grass_pollen"]
+                        self.locAttrs["pollenRiskTree"] = pollenRiskDict!["tree_pollen"]
+                        self.locAttrs["pollenRiskWeed"] = pollenRiskDict!["weed_pollen"]
+                        
+                    } else {
+                        print("Error converting responseJSON to dictionary")
+                    }
+                } else {
+                    print("Failed to deserialize JSON")
+                }
+            }else {
+                print("No data returned")
+            }
+        })
+
         
         /*
-        
-        let pollenUrl = "https://api.ambeedata.com/latest/pollen/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
-        
-        let pollenUrlEncoded = pollenUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         
         let fireUrl = "https://api.ambeedata.com/latest/fire?lat=" + String(lat) + "&lng=" + String(lon)
         
@@ -417,7 +487,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         //airQualityReqTask.resume()
         //ghgReqTask.resume()
-        weatherReqTask.resume()
+        //weatherReqTask.resume()
+        //pollenReqTask.resume()
     }
    
     /*
