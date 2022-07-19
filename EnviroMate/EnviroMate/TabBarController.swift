@@ -469,26 +469,57 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             }
         })
 
+        // fire API
+        let fireUrl = "https://api.ambeedata.com/latest/fire?lat=" + String(reqLat) + "&lng=" + String(reqLon)
         
+        let fireUrlObj = URL(string: fireUrl)!
+          
+        var fireRequest = URLRequest(url: fireUrlObj)
+          
+        fireRequest.setValue("application/json", forHTTPHeaderField: "Content-type")
+        fireRequest.setValue(ambeeApiKey, forHTTPHeaderField: "x-api-key")
+          
+        let fireReqTask = URLSession.shared.dataTask(with: fireRequest, completionHandler: {(data, response, error) in
+              
+            if data != nil {
+                if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
+                    if let responseDict = responseJSON as? [String: Any] {
+                        let fireDataArr = (responseDict["data"] as? [Any])
+                        if(fireDataArr != nil) {
+                            for item in fireDataArr! {
+                                // there is a chance that there will be multiple fires in the area
+                                // this will have to be taken care of later
+                                // we are only interesting in the detection_time and frp
+                                print(item)
+                            }
+                        } else {
+                            print("No fire data")
+                        }
+                    } else {
+                        print("Error converting responseJSON to dictionary")
+                    }
+                } else {
+                    print("Failed to deserialize JSON")
+                }
+            }else {
+                print("No data returned")
+            }
+        })
+    
         /*
-        
-        let fireUrl = "https://api.ambeedata.com/latest/fire?lat=" + String(lat) + "&lng=" + String(lon)
-        
-        let fireUrlEncoded = fireUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         
         let soilUrl = "https://api.ambeedata.com/soil/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
-        let soilUrlEncoded = soilUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-        
         let waterVaporUrl = "https://api.ambeedata.com/ndvi/latest/by-lat-lng?lat=" + String(lat) + "&lng=" + String(lon)
         
-        let waterVaporUrlEncoded = waterVaporUrl.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)*/
+         */
         
         
         //airQualityReqTask.resume()
         //ghgReqTask.resume()
         //weatherReqTask.resume()
         //pollenReqTask.resume()
+        fireReqTask.resume()
     }
    
     /*
