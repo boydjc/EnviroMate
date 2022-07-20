@@ -293,6 +293,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     if let responseDict = responseJSON as? [String: Any] {
                         let stationsArr = responseDict["stations"] as? [[String:Any]]
                         let stationsDict = stationsArr?[0]
+                        self.locAttrs["airQualCo2"] = stationsDict!["CO"]! as? Double
                         self.locAttrs["airQualAqi"] = stationsDict!["AQI"]! as? Int
                         self.locAttrs["airQualNo2"] = stationsDict!["NO2"]! as? Double
                         self.locAttrs["airQualOzone"] = stationsDict!["OZONE"] as? Double
@@ -307,6 +308,28 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     }
                 } else {
                     print("Failed to deserialize JSON")
+                }
+                DispatchQueue.main.async {
+                    if(self.selectedIndex == 0) {
+                        let viewController = self.viewControllers?[self.selectedIndex] as! AirQualityContentViewController
+                        viewController.airQualCo2ConcenLabel.text = String(self.locAttrs["airQualCo2"] as! Double) + " (ppm)"
+                        viewController.airQualNo2ConcenLabel.text = String(self.locAttrs["airQualNo2"] as! Double) + " (ppb)"
+                        viewController.airQualOzoneConcenLabel.text = String(self.locAttrs["airQualOzone"] as! Double) + " (ppb)"
+                        viewController.airQualPartMatUnderTenLabel.text = String(self.locAttrs["airQualPm10"] as! Double) + " (ug/m3)"
+                        viewController.airQualPartMatUnderTwoFiveLabel.text = String(self.locAttrs["airQualPm25"] as! Double) + " (ug/m3)"
+                        viewController.airQualSulpherConcenLabel.text = String(self.locAttrs["airQualSo2"] as! Double) + " (ppb)"
+                        viewController.airQualIndexLabel.text = String(self.locAttrs["airQualAqi"] as! Int)
+                        viewController.airQualPollutantLabel.text = (self.locAttrs["airQualAqiPollutant"] as! String)
+                        // later this concentration unit value needs to be changed to reflect the appropriate
+                        // unit for the type of pollutant. The various units of measurements are ppm, ppb, (ug/m3)
+                        if((self.locAttrs["airQualAqiPollutant"] as! String) == "PM2.5" || (self.locAttrs["airQualAqiPollutant"] as! String) == "PM10"){
+                            viewController.airQualPollConcenLabel.text = String(self.locAttrs["airQualAqiConcentration"] as! Double) + " (ug/m3)"
+                        }else if((self.locAttrs["airQualAqiPollutant"] as! String) == "SO2" || (self.locAttrs["airQualAqiPollutant"] as! String) == "NO2") {
+                            viewController.airQualPollConcenLabel.text = String(self.locAttrs["airQualAqiConcentration"] as! Double) + " (ppb)"
+                        }else if((self.locAttrs["airQualAqiPollutant"] as! String) == "CO") {
+                            viewController.airQualPollConcenLabel.text = String(self.locAttrs["airQualAqiConcentration"] as! Double) + " (ppm)"
+                        }
+                    }
                 }
             }else {
                 print("No data returned")
@@ -332,7 +355,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         let ghgDataArr = responseDict["data"] as? [Any]
                         let ghgDataDict = ghgDataArr![0] as? [String:Any]
                         self.locAttrs["ghgOzoneValue"] = (ghgDataDict!["ozone"]! as? [String:String])!["value"]!
-                        self.locAttrs["ghgOzoneUnits"] = (ghgDataDict!["ozone"]! as? [String:String])!["units"]!
                         self.locAttrs["ghgCo2Value"] = (ghgDataDict!["co2"]! as? [String:String])!["value"]!
                         self.locAttrs["ghgCo2Units"] = (ghgDataDict!["co2"]! as? [String:String])!["units"]!
                         self.locAttrs["ghgCh4Value"] = (ghgDataDict!["ch4"]! as? [String:String])!["value"]!
@@ -346,6 +368,14 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     }
                 } else {
                     print("Failed to deserialize JSON")
+                }
+                DispatchQueue.main.async {
+                    if(self.selectedIndex == 0) {
+                        let viewController = self.viewControllers?[self.selectedIndex] as! AirQualityContentViewController
+                        viewController.airQualOzoneValueLabel.text = self.locAttrs["ghgOzoneValue"] as! String + " molecules/cm2"
+                        viewController.airQualCo2LevelLabel.text = self.locAttrs["ghgCo2Value"] as! String + " ppmv"
+                        viewController.airQualCh4LevelLabel.text = self.locAttrs["ghgCh4Value"] as! String + " molecules/cm2"
+                    }
                 }
             }else {
                 print("No data returned")
@@ -602,12 +632,12 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         airQualityReqTask.resume()
         ghgReqTask.resume()
-        weatherReqTask.resume()
-        pollenReqTask.resume()
-        fireReqTask.resume()
-        soilReqTask.resume()
-        ndviReqTask.resume()
-        waterVaporReqTask.resume()
+        //weatherReqTask.resume()
+        //pollenReqTask.resume()
+        //fireReqTask.resume()
+        //soilReqTask.resume()
+        //ndviReqTask.resume()
+        //waterVaporReqTask.resume()
     }
    
     /*
