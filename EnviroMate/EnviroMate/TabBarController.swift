@@ -443,6 +443,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         // The top level has 3: Species, Pollen Count, and Risk
                         // we are parsing each one of them separtely here
                         let pollenDataDict = pollenDataArr![0] as? [String:Any]
+                        print(pollenDataDict!)
                         // species data
                         let pollenSpeciesDict = pollenDataDict!["Species"] as? [String:Any]
                             // tree species
@@ -630,8 +631,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
         
         
-        airQualityReqTask.resume()
-        ghgReqTask.resume()
+        //airQualityReqTask.resume()
+        //ghgReqTask.resume()
         //weatherReqTask.resume()
         //pollenReqTask.resume()
         //fireReqTask.resume()
