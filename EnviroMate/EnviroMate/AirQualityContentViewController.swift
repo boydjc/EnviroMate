@@ -19,6 +19,38 @@ class AirQualityContentViewController: UIViewController {
     @IBOutlet weak var airQualLatLabel: UILabel!
     @IBOutlet weak var airQualLonLabel: UILabel!
     
+    
+    
+    @IBOutlet weak var airQualCo2ConcenLabel: UILabel!
+    @IBOutlet weak var airQualNo2ConcenLabel: UILabel!
+    @IBOutlet weak var airQualOzoneConcenLabel: UILabel!
+    @IBOutlet weak var airQualOzoneValueLabel: UILabel!
+    @IBOutlet weak var airQualCo2LevelLabel: UILabel!
+    @IBOutlet weak var airQualCh4LevelLabel: UILabel!
+    @IBOutlet weak var airQualPartMatUnderTenLabel: UILabel!
+    @IBOutlet weak var airQualPartMatUnderTwoFiveLabel: UILabel!
+    @IBOutlet weak var airQualSulpherConcenLabel: UILabel!
+    @IBOutlet weak var airQualIndexLabel: UILabel!
+    @IBOutlet weak var airQualPollutantLabel: UILabel!
+    @IBOutlet weak var airQualPollConcenLabel: UILabel!
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @IBAction func airQualLocTextFieldDoneEditing(_ sender: UITextField) {
         if(sender.text != "") {
             // update the ui
