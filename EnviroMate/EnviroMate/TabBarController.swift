@@ -17,7 +17,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     var reqAddr = "None"
     
     // dictionary that will hold all of the environmental attributes from the api request
-    var locAttrs: [String:Any] = [:]
+    var locAttrs: [String:Any?] = [:]
     
 
     
@@ -303,33 +303,34 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         self.locAttrs["airQualAqiPollutant"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["pollutant"] as? String
                         self.locAttrs["airQualAqiConcentration"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["concentration"] as? Double
                         self.locAttrs["airQualAqiCategory"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["category"] as? String
+                        
+                        DispatchQueue.main.async {
+                            if(self.selectedIndex == 0) {
+                                let viewController = self.viewControllers?[self.selectedIndex] as! AirQualityContentViewController
+                                viewController.airQualCo2ConcenLabel.text = String(self.locAttrs["airQualCo2"] as! Double) + " (ppm)"
+                                viewController.airQualNo2ConcenLabel.text = String(self.locAttrs["airQualNo2"] as! Double) + " (ppb)"
+                                viewController.airQualOzoneConcenLabel.text = String(self.locAttrs["airQualOzone"] as! Double) + " (ppb)"
+                                viewController.airQualPartMatUnderTenLabel.text = String(self.locAttrs["airQualPm10"] as! Double) + " (ug/m3)"
+                                viewController.airQualPartMatUnderTwoFiveLabel.text = String(self.locAttrs["airQualPm25"] as! Double) + " (ug/m3)"
+                                viewController.airQualSulpherConcenLabel.text = String(self.locAttrs["airQualSo2"] as! Double) + " (ppb)"
+                                viewController.airQualIndexLabel.text = String(self.locAttrs["airQualAqi"] as! Int)
+                                viewController.airQualPollutantLabel.text = (self.locAttrs["airQualAqiPollutant"] as! String)
+                                // later this concentration unit value needs to be changed to reflect the appropriate
+                                // unit for the type of pollutant. The various units of measurements are ppm, ppb, (ug/m3)
+                                if((self.locAttrs["airQualAqiPollutant"] as! String) == "PM2.5" || (self.locAttrs["airQualAqiPollutant"] as! String) == "PM10"){
+                                    viewController.airQualPollConcenLabel.text = String(self.locAttrs["airQualAqiConcentration"] as! Double) + " (ug/m3)"
+                                }else if((self.locAttrs["airQualAqiPollutant"] as! String) == "SO2" || (self.locAttrs["airQualAqiPollutant"] as! String) == "NO2") {
+                                    viewController.airQualPollConcenLabel.text = String(self.locAttrs["airQualAqiConcentration"] as! Double) + " (ppb)"
+                                }else if((self.locAttrs["airQualAqiPollutant"] as! String) == "CO") {
+                                    viewController.airQualPollConcenLabel.text = String(self.locAttrs["airQualAqiConcentration"] as! Double) + " (ppm)"
+                                }
+                            }
+                        }
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
                 } else {
                     print("Failed to deserialize JSON")
-                }
-                DispatchQueue.main.async {
-                    if(self.selectedIndex == 0) {
-                        let viewController = self.viewControllers?[self.selectedIndex] as! AirQualityContentViewController
-                        viewController.airQualCo2ConcenLabel.text = String(self.locAttrs["airQualCo2"] as! Double) + " (ppm)"
-                        viewController.airQualNo2ConcenLabel.text = String(self.locAttrs["airQualNo2"] as! Double) + " (ppb)"
-                        viewController.airQualOzoneConcenLabel.text = String(self.locAttrs["airQualOzone"] as! Double) + " (ppb)"
-                        viewController.airQualPartMatUnderTenLabel.text = String(self.locAttrs["airQualPm10"] as! Double) + " (ug/m3)"
-                        viewController.airQualPartMatUnderTwoFiveLabel.text = String(self.locAttrs["airQualPm25"] as! Double) + " (ug/m3)"
-                        viewController.airQualSulpherConcenLabel.text = String(self.locAttrs["airQualSo2"] as! Double) + " (ppb)"
-                        viewController.airQualIndexLabel.text = String(self.locAttrs["airQualAqi"] as! Int)
-                        viewController.airQualPollutantLabel.text = (self.locAttrs["airQualAqiPollutant"] as! String)
-                        // later this concentration unit value needs to be changed to reflect the appropriate
-                        // unit for the type of pollutant. The various units of measurements are ppm, ppb, (ug/m3)
-                        if((self.locAttrs["airQualAqiPollutant"] as! String) == "PM2.5" || (self.locAttrs["airQualAqiPollutant"] as! String) == "PM10"){
-                            viewController.airQualPollConcenLabel.text = String(self.locAttrs["airQualAqiConcentration"] as! Double) + " (ug/m3)"
-                        }else if((self.locAttrs["airQualAqiPollutant"] as! String) == "SO2" || (self.locAttrs["airQualAqiPollutant"] as! String) == "NO2") {
-                            viewController.airQualPollConcenLabel.text = String(self.locAttrs["airQualAqiConcentration"] as! Double) + " (ppb)"
-                        }else if((self.locAttrs["airQualAqiPollutant"] as! String) == "CO") {
-                            viewController.airQualPollConcenLabel.text = String(self.locAttrs["airQualAqiConcentration"] as! Double) + " (ppm)"
-                        }
-                    }
                 }
             }else {
                 print("No data returned")
@@ -363,19 +364,20 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         // even though the API documentation shows them as String and what is being actually returned seems to be Int
                         self.locAttrs["ghgWaterVaporValue"] = (ghgDataDict!["water_vapor"]! as? [String:Any])!["value"]!
                         self.locAttrs["ghgWaterVaporUnits"] = (ghgDataDict!["water_vapor"]! as? [String:Any])!["units"]!
+                        
+                        DispatchQueue.main.async {
+                            if(self.selectedIndex == 0) {
+                                let viewController = self.viewControllers?[self.selectedIndex] as! AirQualityContentViewController
+                                viewController.airQualOzoneValueLabel.text = self.locAttrs["ghgOzoneValue"] as! String + " molecules/cm2"
+                                viewController.airQualCo2LevelLabel.text = self.locAttrs["ghgCo2Value"] as! String + " ppmv"
+                                viewController.airQualCh4LevelLabel.text = self.locAttrs["ghgCh4Value"] as! String + " molecules/cm2"
+                            }
+                        }
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
                 } else {
                     print("Failed to deserialize JSON")
-                }
-                DispatchQueue.main.async {
-                    if(self.selectedIndex == 0) {
-                        let viewController = self.viewControllers?[self.selectedIndex] as! AirQualityContentViewController
-                        viewController.airQualOzoneValueLabel.text = self.locAttrs["ghgOzoneValue"] as! String + " molecules/cm2"
-                        viewController.airQualCo2LevelLabel.text = self.locAttrs["ghgCo2Value"] as! String + " ppmv"
-                        viewController.airQualCh4LevelLabel.text = self.locAttrs["ghgCh4Value"] as! String + " molecules/cm2"
-                    }
                 }
             }else {
                 print("No data returned")
@@ -443,36 +445,51 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         // The top level has 3: Species, Pollen Count, and Risk
                         // we are parsing each one of them separtely here
                         let pollenDataDict = pollenDataArr![0] as? [String:Any]
-                        print(pollenDataDict!)
+                        //print(pollenDataDict!)
                         // species data
                         let pollenSpeciesDict = pollenDataDict!["Species"] as? [String:Any]
                             // tree species
-                        let pollenSpeciesTreeDict = pollenSpeciesDict!["Tree"] as? [String:Int]
-                        self.locAttrs["pollenSpeciesTreeMullbery"] = pollenSpeciesTreeDict!["Mulberry"]
-                        self.locAttrs["pollenSpeciesTreePine"] = pollenSpeciesTreeDict!["Pine"]
-                        self.locAttrs["pollenSpeciesTreeElm"] = pollenSpeciesTreeDict!["Elm"]
-                        self.locAttrs["pollenSpeciesTreeBirch"] = pollenSpeciesTreeDict!["Birch"]
-                            // the Cypress, juniper and cedar species are all in one value from the api
-                        self.locAttrs["pollenSpeciesTreeCypJunCed"] = pollenSpeciesTreeDict!["Cypress / Juniper / Cedar"]
-                        self.locAttrs["pollenSpeciesTreeAsh"] = pollenSpeciesTreeDict!["Ash"]
-                        self.locAttrs["pollenSpeciesTreeOak"] = pollenSpeciesTreeDict!["Oak"]
-                            // the Poplar and cottenwood species are also in one value from the api
-                        self.locAttrs["pollenSpeciesTreePopCot"] = pollenSpeciesTreeDict!["Poplar / Cottenwood"]
-                        self.locAttrs["pollenSpeciesTreeMaple"] = pollenSpeciesTreeDict!["Maple"]
-                        self.locAttrs["pollenSpeciesTreeAlder"] = pollenSpeciesTreeDict!["Alder"]
-                        self.locAttrs["pollenSpeciesTreeHazel"] = pollenSpeciesTreeDict!["Hazel"]
-                        self.locAttrs["pollenSpeciesTreePlane"] = pollenSpeciesTreeDict!["Plane"]
-                            /* for paris the cypress was it's own category, will probably need to find a better way
-                             to handle this */
-                        self.locAttrs["Cypress"] = pollenSpeciesTreeDict!["Cypress"]
+                        let pollenSpeciesTreeDict = pollenSpeciesDict!["Tree"] as? [String:Any]
                         
-                            // weed species
-                        let pollenSpeciesWeedDict = pollenSpeciesDict!["Weed"] as? [String:Int]
-                        self.locAttrs["pollenSpeciesWeedChenopod"] = pollenSpeciesWeedDict!["Chenopod"]
-                        self.locAttrs["pollenSpeciesWeedRagWeed"] = pollenSpeciesWeedDict!["Ragweed"]
-                        self.locAttrs["pollenSpeciesWeedMugwort"] = pollenSpeciesWeedDict!["Mugwort"]
-                        self.locAttrs["pollenSpeciesWeedNettle"] = pollenSpeciesWeedDict!["Nettle"]
-                        //print(pollenSpeciesWeedDict!)
+                        for (key) in pollenSpeciesTreeDict!.keys {
+                            if(key.contains("/")) {
+                                let mulKeys = key.components(separatedBy: "/")
+                                for (item) in mulKeys {
+                                    let strippedKey = item.trimmingCharacters(in: .whitespaces)
+                                    self.locAttrs["pollenSpeciesTree" + strippedKey] = pollenSpeciesTreeDict![key] as? Int ?? 0
+                                }
+                            }else {
+                                self.locAttrs["pollenSpeciesTree" + key] = pollenSpeciesTreeDict![key] as? Int ?? 0
+                            }
+                        }
+                        
+                        // weed species
+                        let pollenSpeciesWeedDict = pollenSpeciesDict!["Weed"] as? [String:Any]
+                        for (key) in pollenSpeciesWeedDict!.keys {
+                            if(key.contains("/")) {
+                                let mulKeys = key.components(separatedBy: "/")
+                                for (item) in mulKeys {
+                                    let strippedKey = item.trimmingCharacters(in: .whitespaces)
+                                    self.locAttrs["pollenSpeciesWeed" + strippedKey] = pollenSpeciesWeedDict![key] as? Int ?? 0
+                                }
+                            }else {
+                                self.locAttrs["pollenSpeciesWeed" + key] = pollenSpeciesWeedDict![key] as? Int ?? 0
+                            }
+                        }
+                        
+                        // grass species
+                        let pollenSpeciesGrassDict = pollenSpeciesDict!["Grass"] as? [String:Any]
+                        for (key) in pollenSpeciesGrassDict!.keys {
+                            if(key.contains("/")) {
+                                let mulKeys = key.components(separatedBy: "/")
+                                for (item) in mulKeys {
+                                    let strippedKey = item.trimmingCharacters(in: .whitespaces)
+                                    self.locAttrs["pollenSpeciesGrass" + strippedKey] = pollenSpeciesGrassDict![key] as? Int ?? 0
+                                }
+                            }else {
+                                self.locAttrs["pollenSpeciesGrass" + key] = pollenSpeciesGrassDict![key] as? Int ?? 0
+                            }
+                        }
                         
                             // other species
                         self.locAttrs["pollenSpeciesOther"] = pollenSpeciesDict!["Others"]
@@ -488,6 +505,94 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         self.locAttrs["pollenRiskGrass"] = pollenRiskDict!["grass_pollen"]
                         self.locAttrs["pollenRiskTree"] = pollenRiskDict!["tree_pollen"]
                         self.locAttrs["pollenRiskWeed"] = pollenRiskDict!["weed_pollen"]
+                        
+                        print(self.locAttrs)
+                        
+                        DispatchQueue.main.async {
+                            if(self.selectedIndex == 1) {
+                                let viewController = self.viewControllers?[self.selectedIndex] as! PlantContentViewController
+                                // updating tree labels
+                                viewController.plantTreeRiskLabel.text = "Risk: " + (self.locAttrs["pollenRiskTree"] as! String)
+                                viewController.plantTreePollenCountLabel.text = "Pollen Count: " + String(self.locAttrs["pollenCountTree"] as? Int ?? 0)
+                                if(self.locAttrs["pollenCountTreeAlder"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreeAlderLabel.text = String(self.locAttrs["pollenCountTreeAlder"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreeBirch"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreeBirchLabel.text = String(self.locAttrs["pollenCountTreeBirch"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreeCypress"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreeCypressLabel.text = String(self.locAttrs["pollenCountTreeCypress"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreeElm"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreeElmLabel.text = String(self.locAttrs["pollenCountTreeElm"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreeHazel"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreeHazelLabel.text = String(self.locAttrs["pollenCountTreeHazel"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreeOak"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreeOakLabel.text = String(self.locAttrs["pollenCountTreeOak"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreePine"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreePineLabel.text = String(self.locAttrs["pollenCountTreePine"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreePlane"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreePlaneLabel.text = String(self.locAttrs["pollenCountTreePlane"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreePoplar"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreePoplarLabel.text = String(self.locAttrs["pollenCountTreePoplar"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreeCottenwood"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreeCottenwoodLabel.text = String(self.locAttrs["pollenCountTreeCottenwood"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreeJuniper"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreeJuniperLabel.text = String(self.locAttrs["pollenCountTreeJuniper"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenCountTreeCedar"] as? Int ?? 0 != 0) {
+                                    viewController.plantTreeCedarLabel.text = String(self.locAttrs["pollenCountTreeCedar"] as? Int ?? 0)
+                                }
+                                
+                                // updating weed labels
+                                viewController.plantWeedRiskLabel.text = "Risk: " + (self.locAttrs["pollenRiskWeed"] as! String)
+                                viewController.plantWeedPollenCountLabel.text = "Pollen Count: " + String(self.locAttrs["pollenCountWeed"] as? Int ?? 0)
+                                if(self.locAttrs["pollenSpeciesWeedNettle"] as? Int ?? 0 != 0) {
+                                    viewController.plantWeedNettleLabel.text = String(self.locAttrs["pollenSpeciesWeedNettle"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenSpeciesWeedMugwort"] as? Int ?? 0 != 0) {
+                                    viewController.plantWeedMugwortLabel.text = String(self.locAttrs["pollenSpeciesWeedMugwort"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenSpeciesWeedRagweed"] as? Int ?? 0 != 0) {
+                                    viewController.plantWeedRagweedLabel.text = String(self.locAttrs["pollenSpeciesWeedRagweed"] as? Int ?? 0)
+                                }
+                                
+                                if(self.locAttrs["pollenSpeciesWeedChenopod"] as? Int ?? 0 != 0) {
+                                    viewController.plantWeedChenopodLabel.text = String(self.locAttrs["pollenSpeciesWeedChenopod"] as? Int ?? 0)
+                                }
+                                
+                                // updating grass labels
+                                viewController.plantGrassRiskLabel.text = (self.locAttrs["pollenRiskGrass"] as! String)
+                                viewController.plantGrassPollenCountLabel.text = "Pollen Count: " + String(self.locAttrs["pollenCountGrass"] as! Int)
+                                
+                                if((self.locAttrs["pollenSpeciesGrassGrass"] as? Int ?? 0) == (self.locAttrs["pollenSpeciesGrassPoaceae"] as? Int ?? 0)) {
+                                    viewController.plantGrassGrassLabel.text = "0"
+                                } else {
+                                    viewController.plantGrassGrassLabel.text = String(self.locAttrs["pollenSpeciesGrassGrass"] as? Int ?? 0)
+                                }
+                                viewController.plantGrassPoaceaeLabel.text = String(self.locAttrs["pollenSpeciesGrassPoaceae"] as? Int ?? 0)
+                            }
+                        }
                         
                     } else {
                         print("Error converting responseJSON to dictionary")
@@ -634,7 +739,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         //airQualityReqTask.resume()
         //ghgReqTask.resume()
         //weatherReqTask.resume()
-        //pollenReqTask.resume()
+        pollenReqTask.resume()
         //fireReqTask.resume()
         //soilReqTask.resume()
         //ndviReqTask.resume()

@@ -17,6 +17,50 @@ class PlantContentViewController: UIViewController {
     @IBOutlet weak var plantAddrLabel: UILabel!
     @IBOutlet weak var plantLatLabel: UILabel!
     @IBOutlet weak var plantLonLabel: UILabel!
+ 
+    // tree labels
+    @IBOutlet weak var plantTreeRiskLabel: UILabel!
+    @IBOutlet weak var plantTreePollenCountLabel: UILabel!
+    
+    
+    
+    @IBOutlet weak var plantTreeAlderTitle: UILabel!
+    @IBOutlet weak var plantTreeAlderLabel: UILabel!
+    
+    
+    @IBOutlet weak var plantTreeBirchLabel: UILabel!
+    @IBOutlet weak var plantTreeCypressLabel: UILabel!
+    @IBOutlet weak var plantTreeElmLabel: UILabel!
+    @IBOutlet weak var plantTreeHazelLabel: UILabel!
+    @IBOutlet weak var plantTreeOakLabel: UILabel!
+    @IBOutlet weak var plantTreePineLabel: UILabel!
+    @IBOutlet weak var plantTreePlaneLabel: UILabel!
+    @IBOutlet weak var plantTreePoplarLabel: UILabel!
+    @IBOutlet weak var plantTreeCottenwoodLabel: UILabel!
+    @IBOutlet weak var plantTreeJuniperLabel: UILabel!
+    @IBOutlet weak var plantTreeCedarLabel: UILabel!
+    
+    // weed labels
+    
+    @IBOutlet weak var plantWeedRiskLabel: UILabel!
+    @IBOutlet weak var plantWeedPollenCountLabel: UILabel!
+    @IBOutlet weak var plantWeedChenopodLabel: UILabel!
+    @IBOutlet weak var plantWeedMugwortLabel: UILabel!
+    @IBOutlet weak var plantWeedNettleLabel: UILabel!
+    @IBOutlet weak var plantWeedRagweedLabel: UILabel!
+    
+    // grass labels
+    
+    @IBOutlet weak var plantGrassRiskLabel: UILabel!
+    @IBOutlet weak var plantGrassPollenCountLabel: UILabel!
+    @IBOutlet weak var plantGrassGrassLabel: UILabel!
+    
+    
+    @IBOutlet weak var plantGrassPoaceaeTitle: UILabel!
+    @IBOutlet weak var plantGrassPoaceaeLabel: UILabel!
+    
+    
+    
     
     @IBAction func plantLocTextFieldDoneEditing(_ sender: UITextField) {
         if(sender.text != "") {
