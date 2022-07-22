@@ -90,7 +90,7 @@ class PlantContentViewController: UIViewController {
         gradientLayer.frame = plantContentView.bounds
         // Set an array of Core Graphics colors (.cgColor) to create the gradient
         
-        gradientLayer.locations = [0, 0.3]
+        gradientLayer.locations = [0, 0.8]
         // This example uses a Color Literal and a UIColor from RGB values.
         gradientLayer.colors = [#colorLiteral(red: 0.4567747116, green: 0.7525791526, blue: 0.3089949489, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
         // Rasterize this static layer to improve app performance.

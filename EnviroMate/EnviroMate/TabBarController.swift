@@ -400,20 +400,46 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let weatherDataDict = responseDict["data"] as? [String:Any]
-                        self.locAttrs["weatherPrecipIntensity"] = weatherDataDict!["precipIntensity"]
+                        print(weatherDataDict!)
+                        self.locAttrs["weatherPrecipIntensity"] = weatherDataDict!["precipIntensity"] as? Double ?? 0.00
                         self.locAttrs["weatherPrecipType"] = weatherDataDict!["precipType"] ?? "None"
-                        self.locAttrs["weatherTemperature"] = weatherDataDict!["temperature"]
-                        self.locAttrs["weatherApprentTemp"] = weatherDataDict!["apparentTemperature"]
-                        self.locAttrs["weatherSummary"] = weatherDataDict!["summary"]
+                        self.locAttrs["weatherTemperature"] = weatherDataDict!["temperature"] as? Double ?? 0.00
+                        self.locAttrs["weatherApparentTemp"] = weatherDataDict!["apparentTemperature"] as? Double ?? 0.00
+                        self.locAttrs["weatherSummary"] = weatherDataDict!["summary"] ?? "None"
                         self.locAttrs["weatherIcon"] = weatherDataDict!["icon"]
-                        self.locAttrs["weatherDewPoint"] = weatherDataDict!["dewPoint"]
-                        self.locAttrs["weatherHumidity"] = weatherDataDict!["humidity"]
-                        self.locAttrs["weatherPressure"] = weatherDataDict!["pressure"]
-                        self.locAttrs["weatherWindSpeed"] = weatherDataDict!["windSpeed"]
-                        self.locAttrs["weatherWindGust"] = weatherDataDict!["windGust"]
-                        self.locAttrs["weatherWindBearing"] = weatherDataDict!["windBearing"]
-                        self.locAttrs["weatherCloudCover"] = weatherDataDict!["cloudCover"]
-                        self.locAttrs["weatherVisibility"] = weatherDataDict!["visibility"]
+                        self.locAttrs["weatherDewPoint"] = weatherDataDict!["dewPoint"] as? Double ?? 0.00
+                        self.locAttrs["weatherHumidity"] = weatherDataDict!["humidity"] as? Double ?? 0.00
+                        self.locAttrs["weatherPressure"] = weatherDataDict!["pressure"] as? Double ?? 0.00
+                        self.locAttrs["weatherWindSpeed"] = weatherDataDict!["windSpeed"] as? Double ?? 0.00
+                        self.locAttrs["weatherWindGust"] = weatherDataDict!["windGust"] as? Double ?? 0.00
+                        self.locAttrs["weatherWindBearing"] = weatherDataDict!["windBearing"] as? Int ?? 0
+                        self.locAttrs["weatherCloudCover"] = weatherDataDict!["cloudCover"] as? Double ?? 0.00
+                        self.locAttrs["weatherVisibility"] = weatherDataDict!["visibility"] as? Double ?? 0.00
+                        
+                        DispatchQueue.main.async {
+                            if(self.selectedIndex == 2) {
+                                let viewController = self.viewControllers?[self.selectedIndex] as! WeatherContentViewController
+                                viewController.weatherSummaryLabel.text = (self.locAttrs["weatherSummary"] as! String)
+                                viewController.weatherTemperatureLabel.text = " " + String(self.locAttrs["weatherTemperature"] as! Double) + "˚"
+                                viewController.weatherFeelsLikeLabel.text = "Feels Like: " + String(self.locAttrs["weatherApparentTemp"] as! Double) + "˚"
+                                if !((self.locAttrs["precipIntensity"] as? Double ?? 0.00) == 0.00) {
+                                    viewController.weatherPrecipitationLabel.text = "Precipitation: " + (self.locAttrs["weatherPrecipType"] as! String)
+                                    viewController.weatherPrecipIntensityLabel.text = "Intensity: " + String(self.locAttrs["weatherPrecipIntensity"] as! Double)
+                                }else {
+                                    viewController.weatherPrecipitationLabel.text = ""
+                                    viewController.weatherPrecipIntensityLabel.text = ""
+                                }
+                                
+                                viewController.weatherDewPointLabel.text = "Dew Point: " + String(self.locAttrs["weatherDewPoint"] as! Double)
+                                viewController.weatherHumidityLabel.text = "Humidity: " + String(self.locAttrs["weatherHumidity"] as! Double)
+                                viewController.weatherAirPressureLabel.text = "Air Pressure: " + String(self.locAttrs["weatherPressure"] as! Double)
+                                viewController.weatherWindSpeedLabel.text = "Wind Speed: " + String(self.locAttrs["weatherWindSpeed"] as! Double)
+                                viewController.weatherWindGustLabel.text = "Wind Gust: " + String(self.locAttrs["weatherWindGust"] as! Double)
+                                viewController.weatherWindBearingLabel.text = "Wind Bearing: " + String(self.locAttrs["weatherWindBearing"] as! Int)
+                                viewController.weatherCloudCoverLabel.text = "Cloud Cover: " + String(self.locAttrs["weatherCloudCover"] as! Double)
+                                viewController.weatherVisibilityLabel.text = "Visibility: " + String(self.locAttrs["weatherVisibility"] as! Double)
+                            }
+                        }
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
@@ -738,8 +764,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         //airQualityReqTask.resume()
         //ghgReqTask.resume()
-        //weatherReqTask.resume()
-        pollenReqTask.resume()
+        weatherReqTask.resume()
+        //pollenReqTask.resume()
         //fireReqTask.resume()
         //soilReqTask.resume()
         //ndviReqTask.resume()
