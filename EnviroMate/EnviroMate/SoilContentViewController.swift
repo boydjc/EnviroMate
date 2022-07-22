@@ -48,7 +48,7 @@ class SoilContentViewController: UIViewController {
         gradientLayer.frame = view.bounds
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
-        gradientLayer.locations = [0, 0.3]
+        gradientLayer.locations = [0, 0.8]
         gradientLayer.colors = [#colorLiteral(red: 0.5838552713, green: 0.4331338406, blue: 0.1616405547, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
         // Rasterize this static layer to improve app performance.
         gradientLayer.shouldRasterize = true

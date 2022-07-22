@@ -78,7 +78,7 @@ class AirQualityContentViewController: UIViewController {
         gradientLayer.frame = airContentView.bounds
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
-        gradientLayer.locations = [0, 0.3]
+        gradientLayer.locations = [0, 0.8]
         gradientLayer.colors = [#colorLiteral(red: 0.01109799836, green: 0.9990333915, blue: 0.9484464526, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
         // Rasterize this static layer to improve app performance.
         gradientLayer.shouldRasterize = true
