@@ -646,17 +646,37 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             if data != nil {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
-                        let fireDataArr = (responseDict["data"] as? [Any])
+                        let fireDataArr = (responseDict["data"] as? [[String:Any]])
                         if(fireDataArr != nil) {
-                            for item in fireDataArr! {
-                                // there is a chance that there will be multiple fires in the area
-                                // this will have to be taken care of later
-                                // perhaps by using a small table view to show the nearby fires
-                                // we are only interesting in the detection_time and frp
-                                print(item)
+                            let fireData = fireDataArr![0]
+                            self.locAttrs["fireDetectionTime"] = fireData["detection_time"] as? String ?? "None"
+                            self.locAttrs["fireRadPow"] = fireData["frp"] as? Double ?? 0.00
+                            self.locAttrs["fireLat"] = fireData["lat"] as? Double ?? 0.00
+                            self.locAttrs["fireLon"] = fireData["lon"] as? Double ?? 0.00
+                            print(self.locAttrs)
+                            DispatchQueue.main.async {
+                                if(self.selectedIndex == 3) {
+                                    let viewController = self.viewControllers?[self.selectedIndex] as! FireWaterContentViewController
+                                    if((self.locAttrs["fireDetectionTime"] as! String) != "None") {
+                                        viewController.fireWaterFireDetectedLabel.text = String((self.locAttrs["fireDetectionTime"] as! String).prefix(19))
+                                    }
+                                    
+                                    viewController.fireWaterFireRadPowTitleLabel.text = "Radiation Power: "
+                                    viewController.fireWaterFireRadPowLabel.text = String(self.locAttrs["fireRadPow"] as! Double) + " MW"
+                                    viewController.fireWaterFireLatLabel.text = "Lat: " + String(self.locAttrs["fireLat"] as! Double)
+                                    viewController.fireWaterFireLonLabel.text = "Lon: " + String(self.locAttrs["fireLon"] as! Double)
+                                }
                             }
                         } else {
-                            print("No fire data")
+                            DispatchQueue.main.async {
+                                let viewController = self.viewControllers?[self.selectedIndex] as! FireWaterContentViewController
+                                viewController.fireWaterFireDetectedTitleLabel.text = ""
+                                viewController.fireWaterFireDetectedLabel.text = "No fires detected in your area."
+                                viewController.fireWaterFireRadPowLabel.text = ""
+                                viewController.fireWaterFireRadPowTitleLabel.text = ""
+                                viewController.fireWaterFireLatLabel.text = ""
+                                viewController.fireWaterFireLonLabel.text = ""
+                            }
                         }
                     } else {
                         print("Error converting responseJSON to dictionary")
@@ -764,9 +784,9 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         //airQualityReqTask.resume()
         //ghgReqTask.resume()
-        weatherReqTask.resume()
+        //weatherReqTask.resume()
         //pollenReqTask.resume()
-        //fireReqTask.resume()
+        fireReqTask.resume()
         //soilReqTask.resume()
         //ndviReqTask.resume()
         //waterVaporReqTask.resume()

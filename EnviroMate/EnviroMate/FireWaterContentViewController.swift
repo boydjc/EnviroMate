@@ -18,6 +18,23 @@ class FireWaterContentViewController: UIViewController {
     @IBOutlet weak var fireWaterLatLabel: UILabel!
     @IBOutlet weak var fireWaterLonLabel: UILabel!
     
+    
+    @IBOutlet weak var fireWaterWaterVaporLabel: UILabel!
+    
+    @IBOutlet weak var fireWaterFireDetectedTitleLabel: UILabel!
+    @IBOutlet weak var fireWaterFireDetectedLabel: UILabel!
+    @IBOutlet weak var fireWaterFireRadPowTitleLabel: UILabel!
+    @IBOutlet weak var fireWaterFireRadPowLabel: UILabel!
+    @IBOutlet weak var fireWaterFireLatLabel: UILabel!
+    @IBOutlet weak var fireWaterFireLonLabel: UILabel!
+    
+    
+    
+    
+    
+    
+    
+    
     @IBAction func tapGuestureRecognized(_ sender: Any) {
         if(fireWaterLocTextField.text != "") {
             // update the ui
@@ -42,7 +59,7 @@ class FireWaterContentViewController: UIViewController {
         // Create a gradient layer for the content view.
         let gradientLayer = CAGradientLayer()
         // Set the size of the layer to be equal to size of the display.
-        gradientLayer.frame = view.bounds
+        gradientLayer.frame = fireContentView.bounds
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
         gradientLayer.locations = [0, 0.8]
