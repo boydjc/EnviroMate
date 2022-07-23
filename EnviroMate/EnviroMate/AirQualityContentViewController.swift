@@ -9,6 +9,8 @@ import UIKit
 
 class AirQualityContentViewController: UIViewController {
     
+    @IBOutlet weak var airScrollView: UIScrollView!
+    
     @IBOutlet weak var airContentView: UIView!
     
     @IBOutlet weak var airQualLocTextField: UITextField!
@@ -77,7 +79,16 @@ class AirQualityContentViewController: UIViewController {
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
         gradientLayer.locations = [0, 0.8]
-        gradientLayer.colors = [#colorLiteral(red: 0.01109799836, green: 0.9990333915, blue: 0.9484464526, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+        let todayDate = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: todayDate)
+        if(hour > 17) {
+            gradientLayer.colors = [#colorLiteral(red: 0.007741939118, green: 0.696923485, blue: 0.6616341483, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            airScrollView.backgroundColor = #colorLiteral(red: 0.007741939118, green: 0.696923485, blue: 0.6616341483, alpha: 1)
+        } else {
+            gradientLayer.colors = [#colorLiteral(red: 0.01109799836, green: 0.9990333915, blue: 0.9484464526, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            airScrollView.backgroundColor = #colorLiteral(red: 0.01109799836, green: 0.9990333915, blue: 0.9484464526, alpha: 1)
+        }
         // Rasterize this static layer to improve app performance.
         gradientLayer.shouldRasterize = true
         // Apply the gradient to the backgroundGradientView and scroll view.

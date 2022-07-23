@@ -11,6 +11,8 @@ class FireWaterContentViewController: UIViewController {
 
     @IBOutlet weak var fireContentView: UIView!
     
+    @IBOutlet weak var fireScrollView: UIScrollView!
+    
     @IBOutlet weak var fireWaterLocTextField: UITextField!
     @IBOutlet weak var fireWaterCityLabel: UILabel!
     @IBOutlet weak var fireWaterStateLabel: UILabel!
@@ -65,7 +67,17 @@ class FireWaterContentViewController: UIViewController {
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
         gradientLayer.locations = [0, 0.8]
-        gradientLayer.colors = [#colorLiteral(red: 0.7185935974, green: 0.5005773902, blue: 0.1909169853, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+
+        let todayDate = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: todayDate)
+        if(hour > 17) {
+            gradientLayer.colors = [#colorLiteral(red: 0.5372851365, green: 0.374276632, blue: 0.1427466914, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            fireScrollView.backgroundColor = #colorLiteral(red: 0.5382220149, green: 0.3734494448, blue: 0.1455885768, alpha: 1)
+        } else {
+            gradientLayer.colors = [#colorLiteral(red: 0.7185935974, green: 0.5005773902, blue: 0.1909169853, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            fireScrollView.backgroundColor = #colorLiteral(red: 0.7185935974, green: 0.5005773902, blue: 0.1909169853, alpha: 1)
+        }
         // Rasterize this static layer to improve app performance.
         gradientLayer.shouldRasterize = true
         // Apply the gradient to the backgroundGradientView and scroll view.
