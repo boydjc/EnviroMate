@@ -29,12 +29,6 @@ class FireWaterContentViewController: UIViewController {
     @IBOutlet weak var fireWaterFireLonLabel: UILabel!
     
     
-    
-    
-    
-    
-    
-    
     @IBAction func tapGuestureRecognized(_ sender: Any) {
         if(fireWaterLocTextField.text != "") {
             // update the ui
@@ -49,6 +43,14 @@ class FireWaterContentViewController: UIViewController {
             (self.tabBarController as! TabBarController).getLocLatLon(fireWaterLocTextField.text!)
         }
         sender.resignFirstResponder()
+    }
+    
+    func clearDataLabels() {
+        fireWaterWaterVaporLabel.text = "Loading..."
+        fireWaterFireDetectedLabel.text = "Loading..."
+        fireWaterFireRadPowLabel.text = "Loading..."
+        fireWaterFireLatLabel.text = "Loading..."
+        fireWaterFireLonLabel.text = "Loading..."
     }
     
     override func viewDidLoad() {

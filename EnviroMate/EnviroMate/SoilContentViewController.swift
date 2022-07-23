@@ -40,6 +40,11 @@ class SoilContentViewController: UIViewController {
         soilLocTextField.resignFirstResponder()
     }
     
+    func clearDataLabels() {
+        soilMoistureLabel.text = "Loading..."
+        soilTemperatureLabel.text = "Loading..."
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()

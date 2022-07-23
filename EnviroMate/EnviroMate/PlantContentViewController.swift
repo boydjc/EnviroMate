@@ -26,11 +26,7 @@ class PlantContentViewController: UIViewController {
     @IBOutlet weak var plantTreeRiskLabel: UILabel!
     @IBOutlet weak var plantTreePollenCountLabel: UILabel!
     
-    
-    
-    @IBOutlet weak var plantTreeAlderTitle: UILabel!
     @IBOutlet weak var plantTreeAlderLabel: UILabel!
-    
     
     @IBOutlet weak var plantTreeBirchLabel: UILabel!
     @IBOutlet weak var plantTreeCypressLabel: UILabel!
@@ -59,11 +55,7 @@ class PlantContentViewController: UIViewController {
     @IBOutlet weak var plantGrassPollenCountLabel: UILabel!
     @IBOutlet weak var plantGrassGrassLabel: UILabel!
     
-    
-    @IBOutlet weak var plantGrassPoaceaeTitle: UILabel!
     @IBOutlet weak var plantGrassPoaceaeLabel: UILabel!
-    
-    
     
     
     @IBAction func plantLocTextFieldDoneEditing(_ sender: UITextField) {
@@ -81,6 +73,36 @@ class PlantContentViewController: UIViewController {
             (self.tabBarController as! TabBarController).getLocLatLon(plantLocTextField.text!)
         }
         plantLocTextField.resignFirstResponder()
+    }
+    
+    func clearDateLabels() {
+        plantEviLabel.text = "Loading..."
+        plantNdviLabel.text = "Loading..."
+        plantSummaryLabel.text = "Loading..."
+        plantTreeRiskLabel.text = "Loading..."
+        plantTreePollenCountLabel.text = "Loading..."
+        plantTreeAlderLabel.text = "Loading..."
+        plantTreeBirchLabel.text = "Loading..."
+        plantTreeCypressLabel.text = "Loading..."
+        plantTreeElmLabel.text = "Loading..."
+        plantTreeHazelLabel.text = "Loading..."
+        plantTreeOakLabel.text = "Loading..."
+        plantTreePineLabel.text = "Loading..."
+        plantTreePlaneLabel.text = "Loading..."
+        plantTreePoplarLabel.text = "Loading..."
+        plantTreeCottenwoodLabel.text = "Loading..."
+        plantTreeJuniperLabel.text = "Loading..."
+        plantTreeCedarLabel.text = "Loading..."
+        plantWeedRiskLabel.text = "Loading..."
+        plantWeedPollenCountLabel.text = "Loading..."
+        plantWeedChenopodLabel.text = "Loading..."
+        plantWeedMugwortLabel.text = "Loading..."
+        plantWeedNettleLabel.text = "Loading..."
+        plantWeedRagweedLabel.text = "Loading..."
+        plantGrassRiskLabel.text = "Loading..."
+        plantGrassPollenCountLabel.text = "Loading..."
+        plantGrassGrassLabel.text = "Loading..."
+        plantGrassPoaceaeLabel.text = "Loading..."
     }
     
     override func viewDidLoad() {
