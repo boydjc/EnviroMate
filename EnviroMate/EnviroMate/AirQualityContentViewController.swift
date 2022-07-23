@@ -34,23 +34,6 @@ class AirQualityContentViewController: UIViewController {
     @IBOutlet weak var airQualPollutantLabel: UILabel!
     @IBOutlet weak var airQualPollConcenLabel: UILabel!
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     @IBAction func airQualLocTextFieldDoneEditing(_ sender: UITextField) {
         if(sender.text != "") {
             // update the ui
@@ -65,6 +48,21 @@ class AirQualityContentViewController: UIViewController {
             (self.tabBarController as! TabBarController).getLocLatLon(airQualLocTextField.text!)
         }
         airQualLocTextField.resignFirstResponder()
+    }
+    
+    func clearDataLabels() {
+        airQualCo2ConcenLabel.text = "Loading..."
+        airQualNo2ConcenLabel.text = "Loading..."
+        airQualOzoneConcenLabel.text = "Loading..."
+        airQualOzoneValueLabel.text = "Loading..."
+        airQualCo2LevelLabel.text = "Loading..."
+        airQualCh4LevelLabel.text = "Loading..."
+        airQualPartMatUnderTenLabel.text = "Loading..."
+        airQualPartMatUnderTwoFiveLabel.text = "Loading..."
+        airQualSulpherConcenLabel.text = "Loading..."
+        airQualIndexLabel.text = "Loading..."
+        airQualPollutantLabel.text = "Loading..."
+        airQualPollConcenLabel.text = "Loading..."
     }
     
     override func viewDidLoad() {

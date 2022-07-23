@@ -49,6 +49,22 @@ class WeatherContentViewController: UIViewController{
         weatherLocTextField.resignFirstResponder()
     }
     
+    func clearDataLabels() {
+        weatherSummaryLabel.text = "Loading..."
+        weatherTemperatureLabel.text = "Loading..."
+        weatherFeelsLikeLabel.text = "Loading..."
+        weatherPrecipitationLabel.text = "Loading..."
+        weatherPrecipIntensityLabel.text = "Loading..."
+        weatherDewPointLabel.text = "Loading..."
+        weatherHumidityLabel.text = "Loading..."
+        weatherAirPressureLabel.text = "Loading..."
+        weatherWindSpeedLabel.text = "Loading..."
+        weatherWindGustLabel.text = "Loading..."
+        weatherWindBearingLabel.text = "Loading..."
+        weatherCloudCoverLabel.text = "Loading..."
+        weatherVisibilityLabel.text = "Loading..."
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

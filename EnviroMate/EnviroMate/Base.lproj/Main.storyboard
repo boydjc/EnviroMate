@@ -33,14 +33,14 @@
                                                     <action selector="plantLocTextFieldDoneEditing:" destination="MYL-6U-gez" eventType="editingDidEndOnExit" id="NGB-sc-xOT"/>
                                                 </connections>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 Test address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjs-MN-5Gh">
-                                                <rect key="frame" x="8" y="384" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pjs-MN-5Gh">
+                                                <rect key="frame" x="8" y="384" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lon: 232141" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTN-Jx-mEm">
-                                                <rect key="frame" x="8" y="452" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTN-Jx-mEm">
+                                                <rect key="frame" x="8" y="452" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -57,8 +57,8 @@
                                                     <constraint firstAttribute="width" secondItem="t6S-6n-eEn" secondAttribute="height" multiplier="207:64" id="YRf-SK-ORL"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lat: 423423" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPE-qL-qFG">
-                                                <rect key="frame" x="8" y="423" width="398" height="27.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mPE-qL-qFG">
+                                                <rect key="frame" x="8" y="423" width="398" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -492,7 +492,6 @@
                         <outlet property="plantStateLabel" destination="J3f-rs-F4v" id="xcl-Jj-zOM"/>
                         <outlet property="plantSummaryLabel" destination="Gvs-XS-y4f" id="NV9-YW-Tj9"/>
                         <outlet property="plantTreeAlderLabel" destination="y18-P4-Lsw" id="JOS-Vi-MpB"/>
-                        <outlet property="plantTreeAlderTitle" destination="5EM-CO-0gu" id="JVM-rI-A3n"/>
                         <outlet property="plantTreeBirchLabel" destination="6Fq-vO-yuj" id="84V-52-sDW"/>
                         <outlet property="plantTreeCedarLabel" destination="AEe-tr-Vvi" id="eRU-Ko-eRh"/>
                         <outlet property="plantTreeCottenwoodLabel" destination="qzz-cM-KLq" id="9E6-XT-aY5"/>
