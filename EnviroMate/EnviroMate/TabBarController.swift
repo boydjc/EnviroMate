@@ -669,13 +669,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                             }
                         } else {
                             DispatchQueue.main.async {
-                                let viewController = self.viewControllers?[self.selectedIndex] as! FireWaterContentViewController
-                                viewController.fireWaterFireDetectedTitleLabel.text = ""
-                                viewController.fireWaterFireDetectedLabel.text = "No fires detected in your area."
-                                viewController.fireWaterFireRadPowLabel.text = ""
-                                viewController.fireWaterFireRadPowTitleLabel.text = ""
-                                viewController.fireWaterFireLatLabel.text = ""
-                                viewController.fireWaterFireLonLabel.text = ""
+                                if(self.selectedIndex == 3) {
+                                    let viewController = self.viewControllers?[self.selectedIndex] as! FireWaterContentViewController
+                                    viewController.fireWaterFireDetectedTitleLabel.text = ""
+                                    viewController.fireWaterFireDetectedLabel.text = "No fires detected in your area."
+                                    viewController.fireWaterFireRadPowLabel.text = ""
+                                    viewController.fireWaterFireRadPowTitleLabel.text = ""
+                                    viewController.fireWaterFireLatLabel.text = ""
+                                    viewController.fireWaterFireLonLabel.text = ""
+                                }
                             }
                         }
                     } else {
@@ -706,8 +708,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     if let responseDict = responseJSON as? [String: Any] {
                         let soilDataArr = (responseDict["data"] as? [Any])
                         let soilDataDict = soilDataArr![0] as? [String:Any]
-                        self.locAttrs["soilMoisture"] = soilDataDict!["soil_moisture"]
-                        self.locAttrs["soilTemperature"] = soilDataDict!["soil_temperature"]
+                        self.locAttrs["soilMoisture"] = soilDataDict!["soil_moisture"] as? Double ?? 0.00
+                        self.locAttrs["soilTemperature"] = soilDataDict!["soil_temperature"] as? Double ?? 0.00
+                        DispatchQueue.main.async {
+                            if(self.selectedIndex == 4) {
+                                let viewController = self.viewControllers?[self.selectedIndex] as! SoilContentViewController
+                                viewController.soilMoistureLabel.text = String(round((self.locAttrs["soilMoisture"] as! Double) * 100) / 100) + "%"
+                                viewController.soilTemperatureLabel.text = String(Int(self.locAttrs["soilTemperature"] as! Double)) + "˚C"
+                            }
+                        }
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
@@ -786,8 +795,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         //ghgReqTask.resume()
         //weatherReqTask.resume()
         //pollenReqTask.resume()
-        fireReqTask.resume()
-        //soilReqTask.resume()
+        //fireReqTask.resume()
+        soilReqTask.resume()
         //ndviReqTask.resume()
         //waterVaporReqTask.resume()
     }
