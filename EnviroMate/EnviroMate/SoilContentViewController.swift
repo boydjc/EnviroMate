@@ -19,6 +19,10 @@ class SoilContentViewController: UIViewController {
     @IBOutlet weak var soilLonLabel: UILabel!
     
     
+    @IBOutlet weak var soilMoistureLabel: UILabel!
+    @IBOutlet weak var soilTemperatureLabel: UILabel!
+    
+    
     @IBAction func soilLocTextFieldDoneEditing(_ sender: UITextField) {
         if(sender.text != "") {
             // update the ui
@@ -45,7 +49,7 @@ class SoilContentViewController: UIViewController {
         // Create a gradient layer for the content view.
         let gradientLayer = CAGradientLayer()
         // Set the size of the layer to be equal to size of the display.
-        gradientLayer.frame = view.bounds
+        gradientLayer.frame = soilContentView.bounds
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
         gradientLayer.locations = [0, 0.8]
