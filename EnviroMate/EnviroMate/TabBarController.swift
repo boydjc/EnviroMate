@@ -19,8 +19,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     // dictionary that will hold all of the environmental attributes from the api request
     var locAttrs: [String:Any?] = [:]
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,7 +41,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         } else if(viewController == tabBarController.viewControllers![2]) {
             populateWeatherData()
         } else if(viewController == tabBarController.viewControllers![3]) {
-            if(self.locAttrs.keys.contains("fireDetectionTime")) {
+            if(self.locAttrs.keys.contains("fireDetectionTime") && self.locAttrs["fireDetectionTime"] as! String != "None") {
                 populateFireData(isFire: true)
             } else {
                 populateFireData(isFire: false)
@@ -75,20 +73,18 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let featuresArr = responseDict["features"] as? [Any]
-                        let firstFeature = featuresArr![0] as? [String: Any]
-                        let propertiesDict = firstFeature!["properties"] as? [String: Any]
-                        self.reqLat = propertiesDict!["lat"] as? Double ?? 0.00
-                        self.reqLon = propertiesDict!["lon"] as? Double ?? 0.00
-                        self.reqCity = propertiesDict!["city"] as? String ?? ""
-                        self.reqState = propertiesDict!["state"] as? String ?? ""
-                        if(propertiesDict!.keys.contains("housenumber")) {
-                            self.reqAddr = propertiesDict!["address_line1"] as? String ?? ""
+                        if(!(featuresArr!.isEmpty)) {
+                            let firstFeature = featuresArr![0] as? [String: Any]
+                            let propertiesDict = firstFeature!["properties"] as? [String: Any]
+                            self.reqLat = propertiesDict!["lat"] as? Double ?? 0.00
+                            self.reqLon = propertiesDict!["lon"] as? Double ?? 0.00
+                            self.reqCity = propertiesDict!["city"] as? String ?? ""
+                            self.reqState = propertiesDict!["state"] as? String ?? ""
+                            if(propertiesDict!.keys.contains("housenumber")) {
+                                self.reqAddr = propertiesDict!["address_line1"] as? String ?? ""
+                            }
                         }
-                    } else {
-                        print("Error converting responseJSON to dictionary")
                     }
-                } else {
-                    print("Failed to deserialize JSON")
                 }
                 DispatchQueue.main.async {
                     // we can only directly select the currently selected view's labels
@@ -142,8 +138,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     
                     self.getLocAttrs()
                 }
-            } else {
-                print("Did not get any data from geocoding request")
             }
         })
     
@@ -183,31 +177,37 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let stationsArr = responseDict["stations"] as? [[String:Any]]
-                        let stationsDict = stationsArr?[0]
-                        self.locAttrs["airQualCo2"] = stationsDict!["CO"]! as? Double ?? 0.00
-                        self.locAttrs["airQualAqi"] = stationsDict!["AQI"]! as? Int ?? 0
-                        self.locAttrs["airQualNo2"] = stationsDict!["NO2"]! as? Double ?? 0.00
-                        self.locAttrs["airQualOzone"] = stationsDict!["OZONE"] as? Double ?? 0.00
-                        self.locAttrs["airQualPm10"] = stationsDict!["PM10"] as? Double ?? 0.00
-                        self.locAttrs["airQualPm25"] = stationsDict!["PM25"] as? Double ?? 0.00
-                        self.locAttrs["airQualSo2"] = stationsDict!["SO2"] as? Double ?? 0.00
-                        self.locAttrs["airQualAqiPollutant"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["pollutant"] as? String ?? "0.00"
-                        self.locAttrs["airQualAqiConcentration"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["concentration"] as? Double ?? 0.00
-                        self.locAttrs["airQualAqiCategory"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["category"] as? String ?? "0.00"
-                        
+                        if(!(stationsArr!.isEmpty)) {
+                            let stationsDict = stationsArr?[0]
+                            self.locAttrs["airQualCo2"] = stationsDict!["CO"]! as? Double ?? 0.00
+                            self.locAttrs["airQualAqi"] = stationsDict!["AQI"]! as? Int ?? 0
+                            self.locAttrs["airQualNo2"] = stationsDict!["NO2"]! as? Double ?? 0.00
+                            self.locAttrs["airQualOzone"] = stationsDict!["OZONE"] as? Double ?? 0.00
+                            self.locAttrs["airQualPm10"] = stationsDict!["PM10"] as? Double ?? 0.00
+                            self.locAttrs["airQualPm25"] = stationsDict!["PM25"] as? Double ?? 0.00
+                            self.locAttrs["airQualSo2"] = stationsDict!["SO2"] as? Double ?? 0.00
+                            self.locAttrs["airQualAqiPollutant"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["pollutant"] as? String ?? "0.00"
+                            self.locAttrs["airQualAqiConcentration"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["concentration"] as? Double ?? 0.00
+                            self.locAttrs["airQualAqiCategory"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["category"] as? String ?? "0.00"
+                        } else {
+                            self.locAttrs["airQualCo2"] = "Unavailable"
+                            self.locAttrs["airQualAqi"] = "Unavailable"
+                            self.locAttrs["airQualNo2"] = "Unavailable"
+                            self.locAttrs["airQualOzone"] = "Unavailable"
+                            self.locAttrs["airQualPm10"] = "Unavailable"
+                            self.locAttrs["airQualPm25"] = "Unavailable"
+                            self.locAttrs["airQualSo2"] = "Unavailable"
+                            self.locAttrs["airQualAqiPollutant"] = "Unavailable"
+                            self.locAttrs["airQualAqiConcentration"] = "Unavailable"
+                            self.locAttrs["airQualAqiCategory"] = "Unavailable"
+                        }
                         DispatchQueue.main.async {
                             if(self.selectedIndex == 0) {
                                 self.populateAirData()
                             }
                         }
-                    } else {
-                        print("Error converting responseJSON to dictionary")
                     }
-                } else {
-                    print("Failed to deserialize JSON")
                 }
-            }else {
-                print("No data returned")
             }
         })
         
@@ -294,14 +294,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                                 self.populateWeatherData()
                             }
                         }
-                    } else {
-                        print("Error converting responseJSON to dictionary")
                     }
-                } else {
-                    print("Failed to deserialize JSON")
                 }
-            }else {
-                print("No data returned")
             }
         })
 
@@ -321,84 +315,78 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let pollenDataArr = responseDict["data"] as? [Any]
-                        // the data dictionary has several parts with nested dictionaries
-                        // The top level has 3: Species, Pollen Count, and Risk
-                        // we are parsing each one of them separtely here
-                        let pollenDataDict = pollenDataArr![0] as? [String:Any]
-                        // species data
-                        let pollenSpeciesDict = pollenDataDict!["Species"] as? [String:Any]
-                            // tree species
-                        let pollenSpeciesTreeDict = pollenSpeciesDict!["Tree"] as? [String:Any]
-                        
-                        for (key) in pollenSpeciesTreeDict!.keys {
-                            if(key.contains("/")) {
-                                let mulKeys = key.components(separatedBy: "/")
-                                for (item) in mulKeys {
-                                    let strippedKey = item.trimmingCharacters(in: .whitespaces)
-                                    self.locAttrs["pollenSpeciesTree" + strippedKey] = pollenSpeciesTreeDict![key] as? Int ?? 0
+                        if(!(pollenDataArr!.isEmpty)) {
+                            // the data dictionary has several parts with nested dictionaries
+                            // The top level has 3: Species, Pollen Count, and Risk
+                            // we are parsing each one of them separtely here
+                            let pollenDataDict = pollenDataArr![0] as? [String:Any]
+                            // species data
+                            let pollenSpeciesDict = pollenDataDict!["Species"] as? [String:Any]
+                                // tree species
+                            let pollenSpeciesTreeDict = pollenSpeciesDict!["Tree"] as? [String:Any]
+                            
+                            for (key) in pollenSpeciesTreeDict!.keys {
+                                if(key.contains("/")) {
+                                    let mulKeys = key.components(separatedBy: "/")
+                                    for (item) in mulKeys {
+                                        let strippedKey = item.trimmingCharacters(in: .whitespaces)
+                                        self.locAttrs["pollenSpeciesTree" + strippedKey] = pollenSpeciesTreeDict![key] as? Int ?? 0
+                                    }
+                                }else {
+                                    self.locAttrs["pollenSpeciesTree" + key] = pollenSpeciesTreeDict![key] as? Int ?? 0
                                 }
-                            }else {
-                                self.locAttrs["pollenSpeciesTree" + key] = pollenSpeciesTreeDict![key] as? Int ?? 0
                             }
-                        }
-                        
-                        // weed species
-                        let pollenSpeciesWeedDict = pollenSpeciesDict!["Weed"] as? [String:Any]
-                        for (key) in pollenSpeciesWeedDict!.keys {
-                            if(key.contains("/")) {
-                                let mulKeys = key.components(separatedBy: "/")
-                                for (item) in mulKeys {
-                                    let strippedKey = item.trimmingCharacters(in: .whitespaces)
-                                    self.locAttrs["pollenSpeciesWeed" + strippedKey] = pollenSpeciesWeedDict![key] as? Int ?? 0
+                            
+                            // weed species
+                            let pollenSpeciesWeedDict = pollenSpeciesDict!["Weed"] as? [String:Any]
+                            for (key) in pollenSpeciesWeedDict!.keys {
+                                if(key.contains("/")) {
+                                    let mulKeys = key.components(separatedBy: "/")
+                                    for (item) in mulKeys {
+                                        let strippedKey = item.trimmingCharacters(in: .whitespaces)
+                                        self.locAttrs["pollenSpeciesWeed" + strippedKey] = pollenSpeciesWeedDict![key] as? Int ?? 0
+                                    }
+                                }else {
+                                    self.locAttrs["pollenSpeciesWeed" + key] = pollenSpeciesWeedDict![key] as? Int ?? 0
                                 }
-                            }else {
-                                self.locAttrs["pollenSpeciesWeed" + key] = pollenSpeciesWeedDict![key] as? Int ?? 0
                             }
-                        }
-                        
-                        // grass species
-                        let pollenSpeciesGrassDict = pollenSpeciesDict!["Grass"] as? [String:Any]
-                        for (key) in pollenSpeciesGrassDict!.keys {
-                            if(key.contains("/")) {
-                                let mulKeys = key.components(separatedBy: "/")
-                                for (item) in mulKeys {
-                                    let strippedKey = item.trimmingCharacters(in: .whitespaces)
-                                    self.locAttrs["pollenSpeciesGrass" + strippedKey] = pollenSpeciesGrassDict![key] as? Int ?? 0
+                            
+                            // grass species
+                            let pollenSpeciesGrassDict = pollenSpeciesDict!["Grass"] as? [String:Any]
+                            for (key) in pollenSpeciesGrassDict!.keys {
+                                if(key.contains("/")) {
+                                    let mulKeys = key.components(separatedBy: "/")
+                                    for (item) in mulKeys {
+                                        let strippedKey = item.trimmingCharacters(in: .whitespaces)
+                                        self.locAttrs["pollenSpeciesGrass" + strippedKey] = pollenSpeciesGrassDict![key] as? Int ?? 0
+                                    }
+                                }else {
+                                    self.locAttrs["pollenSpeciesGrass" + key] = pollenSpeciesGrassDict![key] as? Int ?? 0
                                 }
-                            }else {
-                                self.locAttrs["pollenSpeciesGrass" + key] = pollenSpeciesGrassDict![key] as? Int ?? 0
                             }
+                            
+                            // other species
+                            self.locAttrs["pollenSpeciesOther"] = pollenSpeciesDict!["Others"] as? Int ?? 0
+                            
+                            // pollen count data
+                            let pollenCountDict = pollenDataDict!["Count"] as? [String:Int]
+                            self.locAttrs["pollenCountWeed"] = pollenCountDict!["weed_pollen"] ?? 0
+                            self.locAttrs["pollenCountGrass"] = pollenCountDict!["grass_pollen"] ?? 0
+                            self.locAttrs["pollenCountTree"] = pollenCountDict!["tree_pollen"] ?? 0
+                            
+                            // pollen risk data
+                            let pollenRiskDict = pollenDataDict!["Risk"] as? [String:String]
+                            self.locAttrs["pollenRiskGrass"] = pollenRiskDict!["grass_pollen"] ?? "None"
+                            self.locAttrs["pollenRiskTree"] = pollenRiskDict!["tree_pollen"] ?? "None"
+                            self.locAttrs["pollenRiskWeed"] = pollenRiskDict!["weed_pollen"] ?? "None"
                         }
-                        
-                        // other species
-                        self.locAttrs["pollenSpeciesOther"] = pollenSpeciesDict!["Others"] as? Int ?? 0
-                        
-                        // pollen count data
-                        let pollenCountDict = pollenDataDict!["Count"] as? [String:Int]
-                        self.locAttrs["pollenCountWeed"] = pollenCountDict!["weed_pollen"] ?? 0
-                        self.locAttrs["pollenCountGrass"] = pollenCountDict!["grass_pollen"] ?? 0
-                        self.locAttrs["pollenCountTree"] = pollenCountDict!["tree_pollen"] ?? 0
-                        
-                        // pollen risk data
-                        let pollenRiskDict = pollenDataDict!["Risk"] as? [String:String]
-                        self.locAttrs["pollenRiskGrass"] = pollenRiskDict!["grass_pollen"] ?? "None"
-                        self.locAttrs["pollenRiskTree"] = pollenRiskDict!["tree_pollen"] ?? "None"
-                        self.locAttrs["pollenRiskWeed"] = pollenRiskDict!["weed_pollen"] ?? "None"
-                        
                         DispatchQueue.main.async {
                             if(self.selectedIndex == 1) {
                                 self.populatePollenData()
                             }
                         }
-                        
-                    } else {
-                        print("Error converting responseJSON to dictionary")
                     }
-                } else {
-                    print("Failed to deserialize JSON")
                 }
-            }else {
-                print("No data returned")
             }
         })
 
@@ -420,30 +408,27 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         let fireDataArr = (responseDict["data"] as? [[String:Any]])
                         if(fireDataArr != nil) {
                             let fireData = fireDataArr![0]
-                            self.locAttrs["fireDetectionTime"] = fireData["detection_time"] as? String ?? "None"
+                            let detectionTime = fireData["detection_time"] as? String ?? "None"
+                            let modDetectionTime = detectionTime.replacingOccurrences(of: "T", with: " ")
+                            self.locAttrs["fireDetectionTime"] = modDetectionTime
                             self.locAttrs["fireRadPow"] = fireData["frp"] as? Double ?? 0.00
                             self.locAttrs["fireLat"] = fireData["lat"] as? Double ?? 0.00
-                            self.locAttrs["fireLon"] = fireData["lon"] as? Double ?? 0.00
+                            self.locAttrs["fireLon"] = fireData["lng"] as? Double ?? 0.00
                             DispatchQueue.main.async {
                                 if(self.selectedIndex == 3) {
                                     self.populateFireData(isFire: true)
                                 }
                             }
                         } else {
+                            self.locAttrs["fireDetectionTime"] = "None"
                             DispatchQueue.main.async {
                                 if(self.selectedIndex == 3) {
                                     self.populateFireData(isFire: false)
                                 }
                             }
                         }
-                    } else {
-                        print("Error converting responseJSON to dictionary")
                     }
-                } else {
-                    print("Failed to deserialize JSON")
                 }
-            }else {
-                print("No data returned")
             }
         })
         
@@ -463,22 +448,21 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let soilDataArr = (responseDict["data"] as? [Any])
-                        let soilDataDict = soilDataArr![0] as? [String:Any]
-                        self.locAttrs["soilMoisture"] = soilDataDict!["soil_moisture"] as? Double ?? 0.00
-                        self.locAttrs["soilTemperature"] = soilDataDict!["soil_temperature"] as? Double ?? 0.00
+                        if(!(soilDataArr!.isEmpty)) {
+                            let soilDataDict = soilDataArr![0] as? [String:Any]
+                            self.locAttrs["soilMoisture"] = soilDataDict!["soil_moisture"] as? Double ?? 0.00
+                            self.locAttrs["soilTemperature"] = soilDataDict!["soil_temperature"] as? Double ?? 0.00
+                        } else {
+                            self.locAttrs["soilMoisture"] = "Unavailable"
+                            self.locAttrs["soilTemperature"] = "Unavailable"
+                        }
                         DispatchQueue.main.async {
                             if(self.selectedIndex == 4) {
                                 self.populateSoilData()
                             }
                         }
-                    } else {
-                        print("Error converting responseJSON to dictionary")
                     }
-                } else {
-                    print("Failed to deserialize JSON")
                 }
-            }else {
-                print("No data returned")
             }
         })
         
@@ -498,23 +482,23 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let ndviDataArr = (responseDict["data"] as? [Any])
-                        let ndviDataDict = ndviDataArr![0] as? [String:Any]
-                        self.locAttrs["ndviSummary"] = ndviDataDict!["summary"] as? String ?? "No Summary Found"
-                        self.locAttrs["ndviEvi"] = ndviDataDict!["evi"] as? Double ?? 0.00
-                        self.locAttrs["ndvi"] = ndviDataDict!["ndvi"] as? Double ?? 0.00
+                        if(!(ndviDataArr!.isEmpty)) {
+                            let ndviDataDict = ndviDataArr![0] as? [String:Any]
+                            self.locAttrs["ndviSummary"] = ndviDataDict!["summary"] as? String ?? "No Summary Found"
+                            self.locAttrs["ndviEvi"] = ndviDataDict!["evi"] as? Double ?? 0.00
+                            self.locAttrs["ndvi"] = ndviDataDict!["ndvi"] as? Double ?? 0.00
+                        } else {
+                            self.locAttrs["ndviSummary"] = "Unavailable"
+                            self.locAttrs["ndviEvi"] = "Unavailable"
+                            self.locAttrs["ndvi"] = "Unavailable"
+                        }
                         DispatchQueue.main.async {
                             if(self.selectedIndex == 1) {
                                 self.populateNvdiData()
                             }
                         }
-                    } else {
-                        print("Error converting responseJSON to dictionary")
                     }
-                } else {
-                    print("Failed to deserialize JSON")
                 }
-            }else {
-                print("No data returned")
             }
         })
          
@@ -534,21 +518,19 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
                         let waterVaporDataArr = (responseDict["data"] as? [Any])
-                        let waterVaporDataDict = waterVaporDataArr![0] as? [String:Any]
-                        self.locAttrs["waterVapor"] = waterVaporDataDict!["water_vapor"] as? Double ?? 0.00
+                        if(!(waterVaporDataArr!.isEmpty)) {
+                            let waterVaporDataDict = waterVaporDataArr![0] as? [String:Any]
+                            self.locAttrs["waterVapor"] = waterVaporDataDict!["water_vapor"] as? Double ?? 0.00
+                        } else {
+                            self.locAttrs["waterVapor"] = "Unavailable"
+                        }
                         DispatchQueue.main.async {
                             if(self.selectedIndex == 3) {
                                 self.populateWaterVaporData()
                             }
                         }
-                    } else {
-                        print("Error converting responseJSON to dictionary")
                     }
-                } else {
-                    print("Failed to deserialize JSON")
                 }
-            }else {
-                print("No data returned")
             }
         })
     
@@ -682,19 +664,31 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         }
         
         if(self.locAttrs.keys.contains("ghgOzoneValue")) {
-            airViewController.airQualOzoneValueLabel.text = self.locAttrs["ghgOzoneValue"] as! String + " molecules/cm2"
+            if(self.locAttrs["ghgOzoneValue"] as! String != "Unavailable") {
+                airViewController.airQualOzoneValueLabel.text = self.locAttrs["ghgOzoneValue"] as! String + " molecules/cm2"
+            } else {
+                airViewController.airQualOzoneValueLabel.text = (self.locAttrs["ghgOzoneValue"] as! String)
+            }
         } else {
             airViewController.airQualOzoneValueLabel.text = ""
         }
         
         if(self.locAttrs.keys.contains("ghgCo2Value")) {
-            airViewController.airQualCo2LevelLabel.text = self.locAttrs["ghgCo2Value"] as! String + " ppmv"
+            if(self.locAttrs["ghgCo2Value"] as! String != "Unavailable") {
+                airViewController.airQualCo2LevelLabel.text = self.locAttrs["ghgCo2Value"] as! String + " ppmv"
+            } else {
+                airViewController.airQualCo2LevelLabel.text = (self.locAttrs["ghgCo2Value"] as! String)
+            }
         } else {
             airViewController.airQualCo2LevelLabel.text = ""
         }
         
         if(self.locAttrs.keys.contains("ghgCh4Value")) {
-            airViewController.airQualCh4LevelLabel.text = self.locAttrs["ghgCh4Value"] as! String + " molecules/cm2"
+            if(self.locAttrs["ghgCh4Value"] as! String != "Unavailable") {
+                airViewController.airQualCh4LevelLabel.text = self.locAttrs["ghgCh4Value"] as! String + " molecules/cm2"
+            } else {
+                airViewController.airQualCh4LevelLabel.text = (self.locAttrs["ghgCh4Value"] as! String)
+            }
         } else {
             airViewController.airQualCh4LevelLabel.text = ""
         }
