@@ -17,7 +17,11 @@ class PlantContentViewController: UIViewController {
     @IBOutlet weak var plantAddrLabel: UILabel!
     @IBOutlet weak var plantLatLabel: UILabel!
     @IBOutlet weak var plantLonLabel: UILabel!
- 
+    
+    @IBOutlet weak var plantEviLabel: UILabel!
+    @IBOutlet weak var plantNdviLabel: UILabel!
+    @IBOutlet weak var plantSummaryLabel: UILabel!
+    
     // tree labels
     @IBOutlet weak var plantTreeRiskLabel: UILabel!
     @IBOutlet weak var plantTreePollenCountLabel: UILabel!

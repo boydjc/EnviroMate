@@ -532,8 +532,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                         self.locAttrs["pollenRiskTree"] = pollenRiskDict!["tree_pollen"]
                         self.locAttrs["pollenRiskWeed"] = pollenRiskDict!["weed_pollen"]
                         
-                        print(self.locAttrs)
-                        
                         DispatchQueue.main.async {
                             if(self.selectedIndex == 1) {
                                 let viewController = self.viewControllers?[self.selectedIndex] as! PlantContentViewController
@@ -608,7 +606,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                                 }
                                 
                                 // updating grass labels
-                                viewController.plantGrassRiskLabel.text = (self.locAttrs["pollenRiskGrass"] as! String)
+                                viewController.plantGrassRiskLabel.text = "Risk: " + (self.locAttrs["pollenRiskGrass"] as! String)
                                 viewController.plantGrassPollenCountLabel.text = "Pollen Count: " + String(self.locAttrs["pollenCountGrass"] as! Int)
                                 
                                 if((self.locAttrs["pollenSpeciesGrassGrass"] as? Int ?? 0) == (self.locAttrs["pollenSpeciesGrassPoaceae"] as? Int ?? 0)) {
@@ -745,9 +743,17 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     if let responseDict = responseJSON as? [String: Any] {
                         let ndviDataArr = (responseDict["data"] as? [Any])
                         let ndviDataDict = ndviDataArr![0] as? [String:Any]
-                        self.locAttrs["ndviSummary"] = ndviDataDict!["summary"]
-                        self.locAttrs["ndviEvi"] = ndviDataDict!["evi"]
-                        self.locAttrs["ndvi"] = ndviDataDict!["ndvi"]
+                        self.locAttrs["ndviSummary"] = ndviDataDict!["summary"] as? String ?? "No Summary Found"
+                        self.locAttrs["ndviEvi"] = ndviDataDict!["evi"] as? Double ?? 0.00
+                        self.locAttrs["ndvi"] = ndviDataDict!["ndvi"] as? Double ?? 0.00
+                        DispatchQueue.main.async {
+                            if(self.selectedIndex == 1) {
+                                let viewController = self.viewControllers?[self.selectedIndex] as! PlantContentViewController
+                                viewController.plantNdviLabel.text = String(self.locAttrs["ndvi"] as! Double)
+                                viewController.plantEviLabel.text = String(self.locAttrs["ndviEvi"] as! Double)
+                                viewController.plantSummaryLabel.text = (self.locAttrs["ndviSummary"] as! String)
+                            }
+                        }
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
@@ -799,11 +805,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         //airQualityReqTask.resume()
         //ghgReqTask.resume()
         //weatherReqTask.resume()
-        //pollenReqTask.resume()
-        fireReqTask.resume()
+        pollenReqTask.resume()
+        //fireReqTask.resume()
         //soilReqTask.resume()
-        //ndviReqTask.resume()
-        waterVaporReqTask.resume()
+        ndviReqTask.resume()
+        //waterVaporReqTask.resume()
     }
    
     /*
