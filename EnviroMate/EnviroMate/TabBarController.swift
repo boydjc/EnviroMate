@@ -776,8 +776,13 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                     if let responseDict = responseJSON as? [String: Any] {
                         let waterVaporDataArr = (responseDict["data"] as? [Any])
                         let waterVaporDataDict = waterVaporDataArr![0] as? [String:Any]
-                        self.locAttrs["waterVapor"] = waterVaporDataDict!["water_vapor"]
-                        print(self.locAttrs)
+                        self.locAttrs["waterVapor"] = waterVaporDataDict!["water_vapor"] as? Double ?? 0.00
+                        DispatchQueue.main.async {
+                            if(self.selectedIndex == 3) {
+                                let viewController = self.viewControllers?[self.selectedIndex] as! FireWaterContentViewController
+                                viewController.fireWaterWaterVaporLabel.text = String(Int(self.locAttrs["waterVapor"] as! Double)) + "cm"
+                            }
+                        }
                     } else {
                         print("Error converting responseJSON to dictionary")
                     }
@@ -795,10 +800,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         //ghgReqTask.resume()
         //weatherReqTask.resume()
         //pollenReqTask.resume()
-        //fireReqTask.resume()
-        soilReqTask.resume()
+        fireReqTask.resume()
+        //soilReqTask.resume()
         //ndviReqTask.resume()
-        //waterVaporReqTask.resume()
+        waterVaporReqTask.resume()
     }
    
     /*
