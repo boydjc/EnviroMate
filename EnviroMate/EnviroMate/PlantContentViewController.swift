@@ -9,6 +9,9 @@ import UIKit
 
 class PlantContentViewController: UIViewController {
 
+    
+    @IBOutlet weak var plantScrollView: UIScrollView!
+    
     @IBOutlet weak var plantContentView: UIView!
     @IBOutlet weak var plantLocTextField: UITextField!
 
@@ -118,7 +121,16 @@ class PlantContentViewController: UIViewController {
         
         gradientLayer.locations = [0, 0.8]
         // This example uses a Color Literal and a UIColor from RGB values.
-        gradientLayer.colors = [#colorLiteral(red: 0.4567747116, green: 0.7525791526, blue: 0.3089949489, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+        let todayDate = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: todayDate)
+        if(hour > 17) {
+            gradientLayer.colors = [#colorLiteral(red: 0.3331985459, green: 0.5489758363, blue: 0.2253992286, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            plantScrollView.backgroundColor = #colorLiteral(red: 0.3331985459, green: 0.5489758363, blue: 0.2253992286, alpha: 1)
+        } else {
+            gradientLayer.colors = [#colorLiteral(red: 0.4567747116, green: 0.7525791526, blue: 0.3089949489, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            plantScrollView.backgroundColor = #colorLiteral(red: 0.4567747116, green: 0.7525791526, blue: 0.3089949489, alpha: 1)
+        }
         // Rasterize this static layer to improve app performance.
         gradientLayer.shouldRasterize = true
         // Apply the gradient to the backgroundGradientView and scroll view.

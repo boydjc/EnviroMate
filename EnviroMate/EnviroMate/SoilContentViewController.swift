@@ -9,6 +9,8 @@ import UIKit
 
 class SoilContentViewController: UIViewController {
 
+    @IBOutlet weak var soilScrollView: UIScrollView!
+    
     @IBOutlet weak var soilContentView: UIView!
     @IBOutlet weak var soilLocTextField: UITextField!
     
@@ -58,7 +60,16 @@ class SoilContentViewController: UIViewController {
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
         gradientLayer.locations = [0, 0.8]
-        gradientLayer.colors = [#colorLiteral(red: 0.5838552713, green: 0.4331338406, blue: 0.1616405547, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+        let todayDate = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: todayDate)
+        if(hour > 17) {
+            gradientLayer.colors = [#colorLiteral(red: 0.4183843954, green: 0.3103790425, blue: 0.1158298796, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            soilScrollView.backgroundColor = #colorLiteral(red: 0.4183843954, green: 0.3103790425, blue: 0.1158298796, alpha:    1)
+        } else {
+            gradientLayer.colors = [#colorLiteral(red: 0.5838552713, green: 0.4331338406, blue: 0.1616405547, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            soilScrollView.backgroundColor = #colorLiteral(red: 0.5838552713, green: 0.4331338406, blue: 0.1616405547, alpha: 1)
+        }
         // Rasterize this static layer to improve app performance.
         gradientLayer.shouldRasterize = true
         // Apply the gradient to the backgroundGradientView and scroll view.

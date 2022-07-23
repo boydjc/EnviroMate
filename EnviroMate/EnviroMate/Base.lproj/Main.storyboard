@@ -489,6 +489,7 @@
                         <outlet property="plantLocTextField" destination="tdZ-oc-Nwm" id="xfm-Dw-zYx"/>
                         <outlet property="plantLonLabel" destination="JTN-Jx-mEm" id="ycd-PU-OTM"/>
                         <outlet property="plantNdviLabel" destination="4JG-Cm-nTQ" id="S8X-h7-nEa"/>
+                        <outlet property="plantScrollView" destination="ONI-lF-4f3" id="35z-Q0-Jua"/>
                         <outlet property="plantStateLabel" destination="J3f-rs-F4v" id="xcl-Jj-zOM"/>
                         <outlet property="plantSummaryLabel" destination="Gvs-XS-y4f" id="NV9-YW-Tj9"/>
                         <outlet property="plantTreeAlderLabel" destination="y18-P4-Lsw" id="JOS-Vi-MpB"/>
@@ -827,6 +828,7 @@
                         <outlet property="airQualPollutantLabel" destination="2QB-BJ-ig7" id="U2F-bP-Qvk"/>
                         <outlet property="airQualStateLabel" destination="vap-oe-4gB" id="bzq-CR-MCt"/>
                         <outlet property="airQualSulpherConcenLabel" destination="TEs-DB-7ci" id="vlY-ug-hxe"/>
+                        <outlet property="airScrollView" destination="rRH-hD-6Ok" id="OsS-NV-0UD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H70-cv-izd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -858,7 +860,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunAnimate" translatesAutoresizingMaskIntoConstraints="NO" id="7cB-af-a3X">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clearSky" translatesAutoresizingMaskIntoConstraints="NO" id="7cB-af-a3X">
                                                 <rect key="frame" x="8" y="118" width="398" height="150"/>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="enviromateLogo" translatesAutoresizingMaskIntoConstraints="NO" id="8Zp-we-axW">
@@ -1056,6 +1058,7 @@
                         <outlet property="weatherDewPointLabel" destination="mRJ-GS-aiR" id="oC7-fY-vxS"/>
                         <outlet property="weatherFeelsLikeLabel" destination="nN4-8i-eAy" id="fUM-1P-9Pz"/>
                         <outlet property="weatherHumidityLabel" destination="Jbw-dU-Uhq" id="dWw-qN-Jl1"/>
+                        <outlet property="weatherIcon" destination="7cB-af-a3X" id="eIO-fh-WYD"/>
                         <outlet property="weatherLatLabel" destination="NWo-lF-Sdk" id="Trx-y1-q9B"/>
                         <outlet property="weatherLocTextField" destination="5Ja-Db-bI3" id="Eiy-z2-TAc"/>
                         <outlet property="weatherLonLabel" destination="ePL-qW-F9E" id="eOW-Dv-mlf"/>
@@ -1265,6 +1268,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="fireContentView" destination="ISn-lX-vZ8" id="m2x-Kb-OAX"/>
+                        <outlet property="fireScrollView" destination="Suo-hs-JYm" id="7ep-o2-42F"/>
                         <outlet property="fireWaterAddrLabel" destination="iLt-hX-lz6" id="9IB-is-oSG"/>
                         <outlet property="fireWaterCityLabel" destination="DDz-DE-mvS" id="LxE-W6-BKG"/>
                         <outlet property="fireWaterFireDetectedLabel" destination="v4n-PP-xB8" id="T1W-D6-pes"/>
@@ -1441,6 +1445,7 @@
                         <outlet property="soilLocTextField" destination="8md-MR-lH5" id="ROh-CP-WcF"/>
                         <outlet property="soilLonLabel" destination="yyH-AX-ey2" id="Zuf-p3-DRa"/>
                         <outlet property="soilMoistureLabel" destination="73q-5p-bBP" id="eqo-Jl-QG3"/>
+                        <outlet property="soilScrollView" destination="OmP-Gh-B3b" id="882-8a-KgS"/>
                         <outlet property="soilStateLabel" destination="0qa-Q1-Vi6" id="rsV-xl-YUm"/>
                         <outlet property="soilTemperatureLabel" destination="Yeb-2Z-KVf" id="AEa-b5-GiR"/>
                     </connections>
@@ -1479,6 +1484,7 @@
     <resources>
         <image name="air" width="35" height="33"/>
         <image name="airLarge" width="260" height="260"/>
+        <image name="clearSky" width="50" height="50"/>
         <image name="enviromateLogo" width="300" height="68"/>
         <image name="fireandwater" width="35" height="21"/>
         <image name="firewaterlarge" width="428" height="283"/>
@@ -1486,7 +1492,6 @@
         <image name="shovelindirt" width="100" height="137"/>
         <image name="soil" width="35" height="14"/>
         <image name="sun" width="35" height="34"/>
-        <image name="sunAnimate" width="50" height="50"/>
         <image name="treeLarge" width="250" height="256"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

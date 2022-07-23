@@ -82,6 +82,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                             self.reqState = propertiesDict!["state"] as? String ?? ""
                             if(propertiesDict!.keys.contains("housenumber")) {
                                 self.reqAddr = propertiesDict!["address_line1"] as? String ?? ""
+                            }else {
+                                self.reqAddr = ""
                             }
                         }
                     }
@@ -176,30 +178,32 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             if data != nil {
                 if let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: []) {
                     if let responseDict = responseJSON as? [String: Any] {
-                        let stationsArr = responseDict["stations"] as? [[String:Any]]
-                        if(!(stationsArr!.isEmpty)) {
-                            let stationsDict = stationsArr?[0]
-                            self.locAttrs["airQualCo2"] = stationsDict!["CO"]! as? Double ?? 0.00
-                            self.locAttrs["airQualAqi"] = stationsDict!["AQI"]! as? Int ?? 0
-                            self.locAttrs["airQualNo2"] = stationsDict!["NO2"]! as? Double ?? 0.00
-                            self.locAttrs["airQualOzone"] = stationsDict!["OZONE"] as? Double ?? 0.00
-                            self.locAttrs["airQualPm10"] = stationsDict!["PM10"] as? Double ?? 0.00
-                            self.locAttrs["airQualPm25"] = stationsDict!["PM25"] as? Double ?? 0.00
-                            self.locAttrs["airQualSo2"] = stationsDict!["SO2"] as? Double ?? 0.00
-                            self.locAttrs["airQualAqiPollutant"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["pollutant"] as? String ?? "0.00"
-                            self.locAttrs["airQualAqiConcentration"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["concentration"] as? Double ?? 0.00
-                            self.locAttrs["airQualAqiCategory"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["category"] as? String ?? "0.00"
-                        } else {
-                            self.locAttrs["airQualCo2"] = "Unavailable"
-                            self.locAttrs["airQualAqi"] = "Unavailable"
-                            self.locAttrs["airQualNo2"] = "Unavailable"
-                            self.locAttrs["airQualOzone"] = "Unavailable"
-                            self.locAttrs["airQualPm10"] = "Unavailable"
-                            self.locAttrs["airQualPm25"] = "Unavailable"
-                            self.locAttrs["airQualSo2"] = "Unavailable"
-                            self.locAttrs["airQualAqiPollutant"] = "Unavailable"
-                            self.locAttrs["airQualAqiConcentration"] = "Unavailable"
-                            self.locAttrs["airQualAqiCategory"] = "Unavailable"
+                        if(!(responseDict.isEmpty)) {
+                            let stationsArr = responseDict["stations"] as? [[String:Any]]
+                            if(!(stationsArr == nil)) {
+                                let stationsDict = stationsArr?[0]
+                                self.locAttrs["airQualCo2"] = stationsDict!["CO"]! as? Double ?? 0.00
+                                self.locAttrs["airQualAqi"] = stationsDict!["AQI"]! as? Int ?? 0
+                                self.locAttrs["airQualNo2"] = stationsDict!["NO2"]! as? Double ?? 0.00
+                                self.locAttrs["airQualOzone"] = stationsDict!["OZONE"] as? Double ?? 0.00
+                                self.locAttrs["airQualPm10"] = stationsDict!["PM10"] as? Double ?? 0.00
+                                self.locAttrs["airQualPm25"] = stationsDict!["PM25"] as? Double ?? 0.00
+                                self.locAttrs["airQualSo2"] = stationsDict!["SO2"] as? Double ?? 0.00
+                                self.locAttrs["airQualAqiPollutant"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["pollutant"] as? String ?? "0.00"
+                                self.locAttrs["airQualAqiConcentration"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["concentration"] as? Double ?? 0.00
+                                self.locAttrs["airQualAqiCategory"] = (stationsDict!["aqiInfo"]! as? [String:Any])!["category"] as? String ?? "0.00"
+                            } else {
+                                self.locAttrs["airQualCo2"] = "Unavailable"
+                                self.locAttrs["airQualAqi"] = "Unavailable"
+                                self.locAttrs["airQualNo2"] = "Unavailable"
+                                self.locAttrs["airQualOzone"] = "Unavailable"
+                                self.locAttrs["airQualPm10"] = "Unavailable"
+                                self.locAttrs["airQualPm25"] = "Unavailable"
+                                self.locAttrs["airQualSo2"] = "Unavailable"
+                                self.locAttrs["airQualAqiPollutant"] = "Unavailable"
+                                self.locAttrs["airQualAqiConcentration"] = "Unavailable"
+                                self.locAttrs["airQualAqiCategory"] = "Unavailable"
+                            }
                         }
                         DispatchQueue.main.async {
                             if(self.selectedIndex == 0) {
@@ -723,6 +727,28 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         
         if(self.locAttrs.keys.contains("weatherSummary")) {
             weatherViewController.weatherSummaryLabel.text = (self.locAttrs["weatherSummary"] as! String)
+            // set icon based on the weather
+            let weatherSummaryString = self.locAttrs["weatherSummary"] as! String
+            let todayDate = Date()
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: todayDate)
+            if(weatherSummaryString.contains("Clear Sky") || weatherSummaryString.contains("Fair")) {
+                if(hour < 17) {
+                    weatherViewController.weatherIcon.image = UIImage(named:"clearSky")
+                } else {
+                    weatherViewController.weatherIcon.image = UIImage(named:"moon")
+                }
+            } else if(weatherSummaryString == "Overcast Sky" || weatherSummaryString == "Mostly Cloudy") {
+                weatherViewController.weatherIcon.image = UIImage(named:"clouds")
+            } else if(weatherSummaryString.contains("Light Rain") || weatherSummaryString.contains("Drizzle")) {
+                weatherViewController.weatherIcon.image = UIImage(named:"lightRain")
+            } else if(weatherSummaryString.contains("Partly Cloudy")) {
+                if(hour < 17) {
+                    weatherViewController.weatherIcon.image = UIImage(named:"partlyCloudySun")
+                } else {
+                    weatherViewController.weatherIcon.image = UIImage(named:"partlyCloudyMoon")
+                }
+            }
         } else {
             weatherViewController.weatherSummaryLabel.text = ""
         }
@@ -739,8 +765,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             weatherViewController.weatherFeelsLikeLabel.text = ""
         }
         
-        if(self.locAttrs.keys.contains("precipIntensity")) {
-            if !((self.locAttrs["precipIntensity"] as? Double ?? 0.00) == 0.00) {
+        if(self.locAttrs.keys.contains("weatherPrecipIntensity") && self.locAttrs["weatherPrecipType"] as! String != "None") {
+            if !((self.locAttrs["weatherPrecipIntensity"] as? Double ?? 0.00) == 0.00) {
                 weatherViewController.weatherPrecipitationLabel.text = "Precipitation: " + (self.locAttrs["weatherPrecipType"] as! String)
                 weatherViewController.weatherPrecipIntensityLabel.text = "Intensity: " + String(self.locAttrs["weatherPrecipIntensity"] as! Double)
             }

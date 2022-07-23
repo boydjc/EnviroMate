@@ -14,6 +14,7 @@ class WeatherContentViewController: UIViewController{
     @IBOutlet weak var weatherContentView: UIView!
     @IBOutlet weak var weatherScrollView: UIScrollView!
     
+    @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var weatherCityLabel: UILabel!
     @IBOutlet weak var weatherStateLabel: UILabel!
     @IBOutlet weak var weatherAddrLabel: UILabel!
@@ -77,7 +78,20 @@ class WeatherContentViewController: UIViewController{
         // Set an array of Core Graphics colors (.cgColor) to create the gradient.
         // This example uses a Color Literal and a UIColor from RGB values.
         gradientLayer.locations = [0, 0.8]
-        gradientLayer.colors = [#colorLiteral(red: 0.5303663611, green: 0.8072693944, blue: 0.9225050211, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+        
+        // make the app gradient color appear darker if it is night time
+        let todayDate = Date()
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: todayDate)
+        if(hour > 17) {
+            gradientLayer.colors = [#colorLiteral(red: 0.07450980392, green: 0.09411764706, blue: 0.3843137255, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            weatherScrollView.backgroundColor = #colorLiteral(red: 0.07450980392, green: 0.09411764706, blue: 0.3843137255, alpha: 1)
+            weatherIcon.image = UIImage(named:"moon")
+        } else {
+            gradientLayer.colors = [#colorLiteral(red: 0.5303663611, green: 0.8072693944, blue: 0.9225050211, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+            weatherScrollView.backgroundColor = #colorLiteral(red: 0.5303663611, green: 0.8072693944, blue: 0.9225050211, alpha: 1)
+            weatherIcon.image = UIImage(named:"clearSky")
+        }
         // Rasterize this static layer to improve app performance.
         gradientLayer.shouldRasterize = true
         // Apply the gradient to the backgroundGradientView and scroll view.
