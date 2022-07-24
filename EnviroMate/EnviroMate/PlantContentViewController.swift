@@ -124,7 +124,7 @@ class PlantContentViewController: UIViewController {
         let todayDate = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: todayDate)
-        if(hour > 17) {
+        if(hour >= 17) {
             gradientLayer.colors = [#colorLiteral(red: 0.3331985459, green: 0.5489758363, blue: 0.2253992286, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
             plantScrollView.backgroundColor = #colorLiteral(red: 0.3331985459, green: 0.5489758363, blue: 0.2253992286, alpha: 1)
         } else {

@@ -71,7 +71,7 @@ class FireWaterContentViewController: UIViewController {
         let todayDate = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: todayDate)
-        if(hour > 17) {
+        if(hour >= 17) {
             gradientLayer.colors = [#colorLiteral(red: 0.5372851365, green: 0.374276632, blue: 0.1427466914, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
             fireScrollView.backgroundColor = #colorLiteral(red: 0.5382220149, green: 0.3734494448, blue: 0.1455885768, alpha: 1)
         } else {

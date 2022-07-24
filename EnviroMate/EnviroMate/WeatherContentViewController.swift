@@ -83,7 +83,7 @@ class WeatherContentViewController: UIViewController{
         let todayDate = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: todayDate)
-        if(hour > 17) {
+        if(hour >= 17) {
             gradientLayer.colors = [#colorLiteral(red: 0.07450980392, green: 0.09411764706, blue: 0.3843137255, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
             weatherScrollView.backgroundColor = #colorLiteral(red: 0.07450980392, green: 0.09411764706, blue: 0.3843137255, alpha: 1)
             weatherIcon.image = UIImage(named:"moon")

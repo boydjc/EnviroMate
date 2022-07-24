@@ -63,7 +63,7 @@ class SoilContentViewController: UIViewController {
         let todayDate = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: todayDate)
-        if(hour > 17) {
+        if(hour >= 17) {
             gradientLayer.colors = [#colorLiteral(red: 0.4183843954, green: 0.3103790425, blue: 0.1158298796, alpha: 1).cgColor, #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
             soilScrollView.backgroundColor = #colorLiteral(red: 0.4183843954, green: 0.3103790425, blue: 0.1158298796, alpha:    1)
         } else {
