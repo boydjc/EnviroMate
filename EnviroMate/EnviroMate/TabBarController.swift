@@ -85,60 +85,70 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
                             }else {
                                 self.reqAddr = ""
                             }
+                            DispatchQueue.main.async {
+                                // we can only directly select the currently selected view's labels
+                                // because if the user hasn't switched to another view before then the label's don't exist
+                                // to the code.
+                                
+                                // for the other views we will push the values to their view controllers later
+                                if(self.selectedIndex == 0) {
+                                    (self.viewControllers?[0] as! AirQualityContentViewController).airQualCityLabel.text = self.reqCity
+                                    (self.viewControllers?[0] as! AirQualityContentViewController).airQualStateLabel.text = self.reqState
+                                    if(self.reqAddr != "None") {
+                                        (self.viewControllers?[0] as! AirQualityContentViewController).airQualAddrLabel.text = self.reqAddr
+                                    }
+                                    (self.viewControllers?[0] as! AirQualityContentViewController).airQualLatLabel.text = "Lat: " + String(self.reqLat)
+                                    (self.viewControllers?[0] as! AirQualityContentViewController).airQualLonLabel.text = "Lon: " + String(self.reqLon)
+                                } else if(self.selectedIndex == 1) {
+                                    (self.viewControllers?[1] as! PlantContentViewController).plantCityLabel.text = self.reqCity
+                                    (self.viewControllers?[1] as! PlantContentViewController).plantStateLabel.text = self.reqState
+                                    if(self.reqAddr != "None") {
+                                        (self.viewControllers?[1] as! PlantContentViewController).plantAddrLabel.text = self.reqAddr
+                                    }
+                                    (self.viewControllers?[1] as! PlantContentViewController).plantLatLabel.text = "Lat: " + String(self.reqLat)
+                                    (self.viewControllers?[1] as! PlantContentViewController).plantLonLabel.text = "Lon: " + String(self.reqLon)
+                                } else if(self.selectedIndex == 2) {
+                                    (self.viewControllers?[2] as! WeatherContentViewController).weatherCityLabel.text = self.reqCity
+                                    (self.viewControllers?[2] as! WeatherContentViewController).weatherStateLabel.text = self.reqState
+                                    if(self.reqAddr != "None") {
+                                        (self.viewControllers?[2] as! WeatherContentViewController).weatherAddrLabel.text = self.reqAddr
+                                    }
+                                    (self.viewControllers?[2] as! WeatherContentViewController).weatherLatLabel.text = "Lat: " + String(self.reqLat)
+                                    (self.viewControllers?[2] as! WeatherContentViewController).weatherLonLabel.text = "Lon: " + String(self.reqLon)
+                                } else if(self.selectedIndex == 3) {
+                                    (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterCityLabel.text = self.reqCity
+                                    (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterStateLabel.text = self.reqState
+                                    if(self.reqAddr != "None") {
+                                        (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterAddrLabel.text = self.reqAddr
+                                    }
+                                    (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterLatLabel.text = "Lat: " + String(self.reqLat)
+                                    (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterLonLabel.text = "Lon: " + String(self.reqLon)
+                                } else if(self.selectedIndex == 4) {
+                                    (self.viewControllers?[4] as! SoilContentViewController).soilCityLabel.text = self.reqCity
+                                    (self.viewControllers?[4] as! SoilContentViewController).soilStateLabel.text = self.reqState
+                                    if(self.reqAddr != "None") {
+                                        (self.viewControllers?[4] as! SoilContentViewController).soilAddrLabel.text = self.reqAddr
+                                    }
+                                    (self.viewControllers?[4] as! SoilContentViewController).soilLatLabel.text = "Lat: " + String(self.reqLat)
+                                    (self.viewControllers?[4] as! SoilContentViewController).soilLonLabel.text = "Lon: " + String(self.reqLon)
+                                }
+                                
+                                self.prevSearch = addr
+                                
+                                self.getLocAttrs()
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                let alertController = UIAlertController(title: "Error", message: "Location not found!", preferredStyle: .alert)
+                            
+                                let confirmAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                            
+                                alertController.addAction(confirmAction)
+                            
+                                self.present(alertController, animated: true, completion: nil)
+                            }
                         }
                     }
-                }
-                DispatchQueue.main.async {
-                    // we can only directly select the currently selected view's labels
-                    // because if the user hasn't switched to another view before then the label's don't exist
-                    // to the code.
-                    
-                    // for the other views we will push the values to their view controllers later
-                    if(self.selectedIndex == 0) {
-                        (self.viewControllers?[0] as! AirQualityContentViewController).airQualCityLabel.text = self.reqCity
-                        (self.viewControllers?[0] as! AirQualityContentViewController).airQualStateLabel.text = self.reqState
-                        if(self.reqAddr != "None") {
-                            (self.viewControllers?[0] as! AirQualityContentViewController).airQualAddrLabel.text = self.reqAddr
-                        }
-                        (self.viewControllers?[0] as! AirQualityContentViewController).airQualLatLabel.text = "Lat: " + String(self.reqLat)
-                        (self.viewControllers?[0] as! AirQualityContentViewController).airQualLonLabel.text = "Lon: " + String(self.reqLon)
-                    } else if(self.selectedIndex == 1) {
-                        (self.viewControllers?[1] as! PlantContentViewController).plantCityLabel.text = self.reqCity
-                        (self.viewControllers?[1] as! PlantContentViewController).plantStateLabel.text = self.reqState
-                        if(self.reqAddr != "None") {
-                            (self.viewControllers?[1] as! PlantContentViewController).plantAddrLabel.text = self.reqAddr
-                        }
-                        (self.viewControllers?[1] as! PlantContentViewController).plantLatLabel.text = "Lat: " + String(self.reqLat)
-                        (self.viewControllers?[1] as! PlantContentViewController).plantLonLabel.text = "Lon: " + String(self.reqLon)
-                    } else if(self.selectedIndex == 2) {
-                        (self.viewControllers?[2] as! WeatherContentViewController).weatherCityLabel.text = self.reqCity
-                        (self.viewControllers?[2] as! WeatherContentViewController).weatherStateLabel.text = self.reqState
-                        if(self.reqAddr != "None") {
-                            (self.viewControllers?[2] as! WeatherContentViewController).weatherAddrLabel.text = self.reqAddr
-                        }
-                        (self.viewControllers?[2] as! WeatherContentViewController).weatherLatLabel.text = "Lat: " + String(self.reqLat)
-                        (self.viewControllers?[2] as! WeatherContentViewController).weatherLonLabel.text = "Lon: " + String(self.reqLon)
-                    } else if(self.selectedIndex == 3) {
-                        (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterCityLabel.text = self.reqCity
-                        (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterStateLabel.text = self.reqState
-                        if(self.reqAddr != "None") {
-                            (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterAddrLabel.text = self.reqAddr
-                        }
-                        (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterLatLabel.text = "Lat: " + String(self.reqLat)
-                        (self.viewControllers?[3] as! FireWaterContentViewController).fireWaterLonLabel.text = "Lon: " + String(self.reqLon)
-                    } else if(self.selectedIndex == 4) {
-                        (self.viewControllers?[4] as! SoilContentViewController).soilCityLabel.text = self.reqCity
-                        (self.viewControllers?[4] as! SoilContentViewController).soilStateLabel.text = self.reqState
-                        if(self.reqAddr != "None") {
-                            (self.viewControllers?[4] as! SoilContentViewController).soilAddrLabel.text = self.reqAddr
-                        }
-                        (self.viewControllers?[4] as! SoilContentViewController).soilLatLabel.text = "Lat: " + String(self.reqLat)
-                        (self.viewControllers?[4] as! SoilContentViewController).soilLonLabel.text = "Lon: " + String(self.reqLon)
-                    }
-                    
-                    self.prevSearch = addr
-                    
-                    self.getLocAttrs()
                 }
             }
         })
