@@ -1030,14 +1030,16 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         if(isFire) {
             if((self.locAttrs.keys.contains("fireDetectionTime"))) {
                 if((self.locAttrs["fireDetectionTime"] as! String) != "None") {
+                    fireViewController.fireWaterFireDetectedTitleLabel.text = "Detected:"
                     fireViewController.fireWaterFireDetectedLabel.text = String((self.locAttrs["fireDetectionTime"] as! String).prefix(19))
                 }
             }else {
+                fireViewController.fireWaterFireDetectedTitleLabel.text = ""
                 fireViewController.fireWaterFireDetectedLabel.text = ""
             }
             
             if(self.locAttrs.keys.contains("fireRadPow")) {
-                fireViewController.fireWaterFireRadPowTitleLabel.text = "Radiation Power: "
+                fireViewController.fireWaterFireRadPowTitleLabel.text = "Radiation: "
                 fireViewController.fireWaterFireRadPowLabel.text = String(self.locAttrs["fireRadPow"] as! Double) + " MW"
             }else {
                 fireViewController.fireWaterFireRadPowTitleLabel.text = ""
